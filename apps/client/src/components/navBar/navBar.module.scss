@@ -1,4 +1,4 @@
-@import '../../assets/styles/base';
+@import "../../assets/styles/base";
 
 .wrapper {
   width: 100vw;
@@ -7,72 +7,72 @@
 }
 
 .container {
-    width: 1266px;
-    height: inherit;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 1266px;
+  height: inherit;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
-    width: 213px;
+  width: 213px;
 }
 
 .nav {
-    width: 70%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .menu {
-    display: flex;
-    align-items: center;
-    list-style: none;
+  display: flex;
+  align-items: center;
+  list-style: none;
 }
 
 .menu_item {
-    a {
-        font-size: 18px;
-        text-decoration: none;
-        color: #465667;
-    }
-    &:not(:last-child) {
-        margin-right: 33px;
-    }
+  a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #465667;
+  }
+  &:not(:last-child) {
+    margin-right: 33px;
+  }
 }
 
 .search {
-    input {
-        color: $primary-color;
-        background: #eff6fe;
-        width: 420px;
-        height: 46px;
-        margin: 0 auto;
-        border: none;
-        border-radius: 50px;
-        padding: 0 25px;
-    }
+  input {
+    color: $primary-color;
+    background: #eff6fe;
+    width: 420px;
+    height: 46px;
+    margin: 0 auto;
+    border: none;
+    border-radius: 50px;
+    padding: 0 25px;
+  }
 }
 
 .search_submit {
-    cursor: pointer;
-    position: relative;
-    top: 3px;
-    left: -40px;
-    border: none;
-    background: transparent;
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+  left: -40px;
+  border: none;
+  background: transparent;
 }
 
 .account {
-    &_btn {
-        cursor: pointer;
-        background: $primary-color;
-        width: 138px;
-        color: #fff;
-        height: 54px;
-        border: none;
-        border-radius: 30px;
-    }
+  &_btn {
+    cursor: pointer;
+    background: $primary-color;
+    width: 138px;
+    color: #fff;
+    height: 54px;
+    border: none;
+    border-radius: 30px;
+  }
 }
