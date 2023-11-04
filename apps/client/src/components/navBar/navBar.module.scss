@@ -1,0 +1,69 @@
+@import '../../assets/styles/base';
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo { 
+        width: 20%;
+    }
+    .nav {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .menu {
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            .menu_item{
+                a {
+                    font-size: 18px;
+                    text-decoration: none;
+                    color: #465667;
+                }
+                &:not(:last-child){
+                    margin-right: 33px;
+                }  
+            }
+        }
+            
+        .search {
+  
+            .search_submit {
+                position: relative;
+                top: 3px;
+                left: -40px;
+                border: none;
+                background: transparent;
+            }
+
+            input {
+                color: $primary-color;
+                background: #eff6fe;
+                width: 420px;
+                height: 46px;
+                margin: 0 auto;
+                border: none;
+                border-radius: 50px;
+                padding: 0 25px;
+            }
+        }
+
+        .account {
+
+            &_btn {
+                background: $primary-color;
+                width: 138px;
+                color: #fff;
+                height: 54px;
+                border: none;
+                border-radius: 30px;
+            }
+        }
+
+    }
+}
