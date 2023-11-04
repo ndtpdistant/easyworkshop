@@ -1,7 +1,12 @@
-import App from './components/app/App'
+import App from './components/App/App';
 import { createRoot } from 'react-dom/client';
+import './assets/styles/font-import.scss';
+import './assets/styles/global-reset.scss';
 
-const domNode = document.getElementById('root');
-const root = createRoot(domNode);
+const root = createRoot(document.getElementById('root'));
 
-root.render(<App/>)
+root.render(
+  <>
+    <App />
+  </>
+);
