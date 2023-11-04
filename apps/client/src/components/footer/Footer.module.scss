@@ -1,0 +1,25 @@
+@import '../../assets/styles/base';
+
+.wrapper {
+    width: 100vw;
+    height: 162px;
+    background-color: #ffffff;
+}
+
+.container {
+    width: 1266px;
+    height: inherit;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 213px;
+}
+
+.copyright {
+    color: #798DAA;
+    font-size: 18px;
+}
