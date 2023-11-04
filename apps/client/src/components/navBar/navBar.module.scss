@@ -16,7 +16,6 @@
 
         .menu {
             display: flex;
-            // justify-content: space-between;
             align-items: center;
             list-style: none;
             .menu_item{
@@ -34,6 +33,7 @@
         .search {
   
             .search_submit {
+                cursor: pointer;
                 position: relative;
                 top: 3px;
                 left: -40px;
@@ -56,6 +56,7 @@
         .account {
 
             &_btn {
+                cursor: pointer;
                 background: $primary-color;
                 width: 138px;
                 color: #fff;
