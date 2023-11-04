@@ -1,13 +1,11 @@
-import './app.scss'
-import NavBar from '../navBar/NavBar'
+import Navbar from '../Navbar';
 
 function App() {
-
   return (
-    <>
-      <NavBar></NavBar>
-    </>
-  )
+    <div style={{ backgroundColor: 'gray', height: "100vh" }}>
+      <Navbar />
+    </div>
+  );
 }
 
-export default App
+export default App;
