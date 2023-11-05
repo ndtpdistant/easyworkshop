@@ -1,8 +1,7 @@
-import { useState } from "react";
-import logo from "../../assets/icons/easy-workshop-logo-black.svg";
-import search_icon from "../../assets/icons/search-icon.svg";
-
-import * as style from "./Navbar.module.scss";
+import { useState } from 'react';
+import logo from '../../assets/icons/easy-workshop-logo-black.svg';
+import search_icon from '../../assets/icons/search-icon.svg';
+import * as style from './Navbar.module.scss';
 
 const Navbar = (props) => {
   const [auth, setAuth] = useState(false);
@@ -40,13 +39,13 @@ const Navbar = (props) => {
           <div className={style.account}>
             <button
               className={style.account_btn}
-              style={{ display: auth ? "none" : "block" }}
+              style={{ display: auth ? 'none' : 'block' }}
             >
               Get started
             </button>
             <button
               className={style.account_btn}
-              style={{ display: auth ? "block" : "none" }}
+              style={{ display: auth ? 'block' : 'none' }}
             >
               Profile
             </button>

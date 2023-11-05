@@ -1,6 +1,6 @@
-import logo from "../../assets/icons/easy-workshop-logo-black.svg";
+import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 
-import * as style from "./Footer.module.scss";
+import * as style from './Footer.module.scss';
 
 const Footer = () => {
   return (
@@ -12,7 +12,7 @@ const Footer = () => {
           </a>
         </div>
         <div className={style.copyright}>
-          Copyright © 2023 Matsvei Shulman & Roman Novikov | All Rights Reserved{" "}
+          Copyright © 2023 Matsvei Shulman & Roman Novikov | All Rights Reserved{' '}
         </div>
       </div>
     </div>
