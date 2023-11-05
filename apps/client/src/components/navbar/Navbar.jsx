@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Input from '../Input';
+
 import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 import search_icon from '../../assets/icons/search-icon.svg';
 import * as style from './Navbar.module.scss';
@@ -27,11 +29,7 @@ const Navbar = (props) => {
             </li>
           </ul>
           <form className={style.search} method="" action="">
-            <input
-              className={style.search_input}
-              type="text"
-              placeholder="Search for..."
-            />
+            <Input width={420} height={46} borderRadius={50} paddingLeft={25} placeholder={"Search for..."}/>
             <button className={style.search_submit} type="submit">
               <img className="" src={search_icon} alt="search-icon" />
             </button>

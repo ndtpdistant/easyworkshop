@@ -1,10 +1,11 @@
 import * as style from './Button.module.scss';
 
-const Button = ({ text, borderRadius, width, height }) => {
+const Button = ({ text, borderRadius, width, height, type }) => {
   return (
     <>
       <a href="#">
         <button
+          type={type}
           className={style.btn}
           style={{
             borderRadius: `${borderRadius}px`,

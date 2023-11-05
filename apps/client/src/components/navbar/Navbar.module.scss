@@ -64,16 +64,3 @@
   border: none;
   background: transparent;
 }
-
-.account {
-  &_btn {
-    cursor: pointer;
-    font-weight: bold;
-    background: $primary-color;
-    width: 138px;
-    color: #fff;
-    height: 54px;
-    border: none;
-    border-radius: 30px;
-  }
-}

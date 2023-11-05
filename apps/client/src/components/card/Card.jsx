@@ -19,7 +19,7 @@ const Card = ({ cardName, cardImg, createdBy, profileImg }) => {
             </a>
             <div className={style.card_descr}>
               <div className={style.card_name}>{cardName}</div>
-              <div className={style.card_createdby}>{createdBy}</div>
+              <a href='#' className={style.card_createdby}>{createdBy}</a>
             </div>
           </div>
           <Button
