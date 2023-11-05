@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Button from '../Button';
+
 import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 import search_icon from '../../assets/icons/search-icon.svg';
 import * as style from './Navbar.module.scss';
@@ -37,18 +39,12 @@ const Navbar = (props) => {
             </button>
           </form>
           <div className={style.account}>
-            <button
-              className={style.account_btn}
-              style={{ display: auth ? 'none' : 'block' }}
-            >
-              Get started
-            </button>
-            <button
-              className={style.account_btn}
-              style={{ display: auth ? 'block' : 'none' }}
-            >
-              Profile
-            </button>
+            <Button
+              width={138}
+              height={54}
+              borderRadius={30}
+              text={auth ? 'Profile' : 'Get started'}
+            ></Button>
           </div>
         </nav>
       </div>
