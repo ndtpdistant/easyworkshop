@@ -1,0 +1,61 @@
+@import '../../assets/styles/base';
+
+.wrapper {
+  width: 400px;
+  height: 420px;
+  background-color: #ffffff;
+}
+
+.container {
+  height: inherit;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 11px;
+}
+
+.card_link {
+  height: 350px;
+  width: 400px;
+}
+
+.card_img {
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px #ececec solid;
+}
+
+.card_info {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.profile_img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.card_descr {
+  margin-left: 10px;
+}
+
+.card_name {
+  color: #000;
+  font-size: 14px;
+}
+
+.card_createdby {
+  color: #777777;
+  font-size: 12px;
+}
