@@ -1,9 +1,6 @@
 import { useState } from 'react';
-<<<<<<< HEAD
 import Input from '../Input';
-=======
 import Button from '../Button';
->>>>>>> feature/client-cards
 
 import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 import search_icon from '../../assets/icons/search-icon.svg';
