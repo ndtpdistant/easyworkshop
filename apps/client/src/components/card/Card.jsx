@@ -10,7 +10,7 @@ const Card = ({ cardName, cardImg, createdBy, profileImg }) => {
         </a>
         <div className={style.nav_wrapper}>
           <div className={style.card_info}>
-            <a href="#"lassName={style.profile_img}>
+            <a href="#" className={style.profile_img}>
               <img
                 src={profileImg}
                 alt="profile"
