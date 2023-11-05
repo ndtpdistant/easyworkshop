@@ -30,7 +30,13 @@ const Navbar = (props) => {
             </li>
           </ul>
           <form className={style.search} method="" action="">
-            <Input width={420} height={46} borderRadius={50} paddingLeft={25} placeholder={"Search for..."}/>
+            <Input
+              width={420}
+              height={46}
+              borderRadius={50}
+              paddingLeft={25}
+              placeholder={'Search for...'}
+            />
             <button className={style.search_submit} type="submit">
               <img className="" src={search_icon} alt="search-icon" />
             </button>
