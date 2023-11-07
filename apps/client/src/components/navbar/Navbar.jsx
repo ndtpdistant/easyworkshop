@@ -8,6 +8,7 @@ import * as style from './Navbar.module.scss';
 
 const Navbar = (props) => {
   const [auth, setAuth] = useState(false);
+  const btnClassName = style.account_btn;
 
   return (
     <div className={style.wrapper}>
@@ -44,9 +45,7 @@ const Navbar = (props) => {
           </form>
           <div className={style.account}>
             <Button
-              width={138}
-              height={54}
-              borderRadius={30}
+              className={btnClassName}
               text={auth ? 'Profile' : 'Get started'}
             ></Button>
           </div>
