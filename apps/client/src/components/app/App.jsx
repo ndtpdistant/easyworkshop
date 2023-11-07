@@ -23,6 +23,7 @@ function App() {
         rndImg={
           'https://cdn.thingiverse.com/renders/bd/3c/8b/bd/34/79ce327ccf19c444d662164138038e4b_preview_card.jpg'
         }
+        signIn={false}
       ></Auth>
     </div>
   );
