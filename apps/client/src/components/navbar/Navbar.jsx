@@ -36,6 +36,7 @@ const Navbar = (props) => {
               borderRadius={50}
               paddingLeft={25}
               placeholder={'Search for...'}
+              type={'text'}
             />
             <button className={style.search_submit} type="submit">
               <img className="" src={search_icon} alt="search-icon" />

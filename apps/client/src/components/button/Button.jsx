@@ -1,15 +1,13 @@
 import * as style from './Button.module.scss';
 
-const Button = ({ text, borderRadius, width, height, type }) => {
+const Button = ({ text, type, className}) => {
+  const clasName = `${style.btn} ${className}`;
+
   return (
     <>
       <button
-        className={style.btn}
-        style={{
-          borderRadius: `${borderRadius}px`,
-          width: `${width}px`,
-          height: `${height}px`,
-        }}
+        className={clasName}
+        type={type}
       >
         {`${text}`}
       </button>

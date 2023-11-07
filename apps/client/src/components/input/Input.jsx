@@ -1,16 +1,12 @@
 import * as style from './Input.module.scss';
 
-const Input = ({ placeholder, height, width, borderRadius, paddingLeft }) => {
+const Input = ({ placeholder, className, type }) => {
+  const clasName = `${style.input} ${className}`;
+
   return (
     <input
-      className={style.input}
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        borderRadius: `${borderRadius}px`,
-        paddingLeft: `${paddingLeft}px`,
-      }}
-      type="text"
+      className={clasName}
+      type={type}
       placeholder={placeholder}
     />
   );
