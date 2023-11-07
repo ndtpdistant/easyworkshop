@@ -1,4 +1,4 @@
-import * as style from './Input.module.scss';
+import style from './Input.module.scss';
 
 const Input = ({ placeholder, className, type }) => {
   const clasName = `${style.input} ${className}`;

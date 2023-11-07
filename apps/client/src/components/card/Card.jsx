@@ -1,33 +1,48 @@
 import Button from '../Button';
-import * as style from './Card.module.scss';
+import style from './Card.module.scss';
+import pfp from './pfp.jpg';
 
-const Card = ({ cardName, cardImg, createdBy, profileImg }) => {
+const Card = ({
+  title = '3DBenchy',
+  img = pfp,
+  profileName = 'Markus',
+  profileImg = pfp,
+  link,
+}) => {
+  // const Card = ({ title, img, profileName, profileImg, link }) => {
+  // to-do
+  // добавить линки
+
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <a href="#" className={style.card_link}>
-          <img src={cardImg} alt={cardName} className={style.card_img} />
+        <a href={link}>
+          <div className={style.imgContainer}>
+            <img src={pfp} className={style.img} />
+          </div>
         </a>
-        <div className={style.nav_wrapper}>
-          <div className={style.card_info}>
-            <a href="#" className={style.profile_img}>
-              <img
-                src={profileImg}
-                alt="profile"
-                className={style.profile_img}
-              />
-            </a>
-            <div className={style.card_descr}>
-              <div className={style.card_name}>{cardName}</div>
-              <a href='#' className={style.card_createdby}>{createdBy}</a>
+        <div className={style.cardFooter}>
+          <div className={style.cardInfo}>
+            <div className={style.profileImg}>
+              <a href="https://google.com">
+                <img
+                  src={pfp}
+                  // src={profileImg}
+                  className={style.profileImg}
+                  alt="pfp"
+                />
+              </a>
+            </div>
+            <div className={style.cardDescr}>
+              <div className={style.cardName}>
+                {title ? title : '<name error>'}
+              </div>
+              <a href="#" className={style.cardCreatedby}>
+                {profileName ? profileName : '<profileName error>'}
+              </a>
             </div>
           </div>
-          <Button
-            text={'download'}
-            borderRadius={10}
-            width={117}
-            height={43}
-          ></Button>
+          <Button text={'Download'} />
         </div>
       </div>
     </div>

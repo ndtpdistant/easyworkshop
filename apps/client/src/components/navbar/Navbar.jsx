@@ -4,7 +4,7 @@ import Button from '../Button';
 
 import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 import search_icon from '../../assets/icons/search-icon.svg';
-import * as style from './Navbar.module.scss';
+import style from './Navbar.module.scss';
 
 const Navbar = (props) => {
   const [auth, setAuth] = useState(false);

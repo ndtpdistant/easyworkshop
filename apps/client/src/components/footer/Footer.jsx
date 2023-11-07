@@ -1,6 +1,6 @@
 import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 
-import * as style from './Footer.module.scss';
+import style from './Footer.module.scss';
 
 const Footer = () => {
   return (

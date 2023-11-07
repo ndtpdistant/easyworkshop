@@ -15,7 +15,7 @@
   padding: 170px 0;
 }
 
-.title_wrapper {
+.titleWrapper {
   text-align: center;
 
   h1 {
@@ -32,23 +32,23 @@
   }
 }
 
-.auth_wrapper {
+.authWrapper {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 50px;
 }
 
-.rnd_img {
+.img {
   width: 545px;
   height: 545px;
 }
 
-.auth_form {
+.authForm {
   margin-left: 84px;
 }
 
-.auth_submit {
+.authSubmit {
   margin-top: 51px;
   width: 596px;
   height: 87px;
@@ -56,7 +56,7 @@
   border-radius: 30px;
 }
 
-.auth_input {
+.authInput {
   font-size: 20px;
   width: 596px;
   height: 84px;
