@@ -1,0 +1,59 @@
+@import '../../assets/styles/base';
+
+.wrapper {
+  width: 100vw;
+  height: 80px;
+  background-color: #ffffff;
+}
+
+.container {
+  width: 1266px;
+  height: inherit;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 213px;
+}
+
+.nav {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.menu_item {
+  a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #465667;
+  }
+  &:not(:last-child) {
+    margin-right: 33px;
+  }
+}
+
+.search_submit {
+  cursor: pointer;
+  position: relative;
+  top: 3px;
+  left: -40px;
+  border: none;
+  background: transparent;
+}
+
+.account_btn {
+  width: 138px;
+  height: 54px;
+  border-radius: 30px;
+}

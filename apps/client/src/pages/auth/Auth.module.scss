@@ -1,0 +1,81 @@
+@import '../../assets/styles/base';
+
+.wrapper {
+  width: 100vw;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1225px;
+  color: $primary-color;
+  padding: 170px 0;
+}
+
+.title_wrapper {
+  text-align: center;
+
+  h1 {
+    font-size: 72px;
+    font-weight: bold;
+    line-height: 80px;
+  }
+
+  h2 {
+    margin-top: 16px;
+    font-size: 18px;
+    width: 500px;
+    line-height: 30px;
+  }
+}
+
+.auth_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+
+.rnd_img {
+  width: 545px;
+  height: 545px;
+}
+
+.auth_form {
+  margin-left: 84px;
+}
+
+.auth_submit {
+  margin-top: 51px;
+  width: 596px;
+  height: 87px;
+  font-size: 18px;
+  border-radius: 30px;
+}
+
+.auth_input {
+  font-size: 20px;
+  width: 596px;
+  height: 84px;
+  border-radius: 30px;
+  padding-left: 39px;
+
+  &:not(:first-child) {
+    margin-top: 25px;
+  }
+}
+
+.link {
+  margin-top: 20px;
+  text-align: center;
+  color: #000;
+  font-size: 18px;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: $primary-color;
+  }
+}

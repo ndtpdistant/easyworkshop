@@ -1,0 +1,13 @@
+@import '../../assets/styles/base';
+
+.btn {
+    cursor: pointer;
+    font-weight: bold;
+    background: $primary-color;
+    width: 138px;
+    color: #fff;
+    font-size: 15px;
+    height: 54px;
+    border: none;
+    border-radius: 10px;
+}

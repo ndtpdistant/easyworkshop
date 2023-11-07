@@ -1,0 +1,12 @@
+@import '../../assets/styles/base';
+
+.input {
+  color: $input_text-color;
+  background: #eff6fe;
+  width: 420px;
+  height: 46px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 50px;
+  padding: 0 25px;
+}
