@@ -24,8 +24,8 @@ const router = createBrowserRouter([
       {
         path: 'model/:modelId',
         element: <Model />,
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'auth',
