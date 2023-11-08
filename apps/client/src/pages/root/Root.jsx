@@ -2,7 +2,7 @@ import { Outlet } from 'react-router';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 
-import style from './Root.module.scss'
+import style from './Root.module.scss';
 
 const Root = () => {
   return (

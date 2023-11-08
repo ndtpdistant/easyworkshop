@@ -4,14 +4,7 @@ import Button from '../Button';
 
 import style from './Card.module.scss';
 
-const Card = ({
-  title,
-  img,
-  id,
-  profileId,
-  profileName,
-  profileImg,
-}) => {
+const Card = ({ title, img, id, profileId, profileName, profileImg }) => {
   // const Card = ({ title, img, profileName, profileImg, link }) => {
   // to-do
   // добавить линки
@@ -47,7 +40,6 @@ const Card = ({
           </div>
           <Button text={'Download'} />
         </div>
-        
       </div>
     </div>
   );

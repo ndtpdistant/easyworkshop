@@ -48,7 +48,7 @@ const Navbar = (props) => {
             </button>
           </form>
           <div className={style.account}>
-            <Link to='auth'>
+            <Link to="auth">
               <Button
                 inlineStyle={{
                   width: '138px',

@@ -5,7 +5,7 @@ import style from './Auth.module.scss';
 import image from '../../assets/images/cb.webp';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Form, redirect} from 'react-router-dom';
+import { Form, redirect } from 'react-router-dom';
 
 const useValidation = (value, validations) => {
   const [isEmpty, setEmpty] = useState(true);
@@ -132,7 +132,6 @@ const useInput = (initialValue, validations) => {
 };
 
 const Auth = () => {
-
   //only for login
   const login = useInput('', { isEmpty: true, login: true });
   //only for registration
@@ -169,7 +168,7 @@ const Auth = () => {
         })
         .then((res) => {
           console.log(res);
-          redirect('/')
+          redirect('/');
         })
         .catch((err) => {
           console.log(err.message);
