@@ -16,6 +16,12 @@
     border-radius: 10px;
 }
 
+.btn:disabled, .btn:disabled:hover {
+    background: rgba($primary-color, 0.6);
+    cursor: not-allowed;
+
+}
+
 .btn:hover {
     background: $primary-color-hover;
 }
