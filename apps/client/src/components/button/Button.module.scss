@@ -1,13 +1,31 @@
 @import '../../assets/styles/base';
 
 .btn {
-    cursor: pointer;
-    font-weight: bold;
+    padding: 0 18px;
+
+    // width: 138px;
+    min-width: 15px;
+    min-height: 43px;
     background: $primary-color;
-    width: 138px;
+    
+    cursor: pointer;
+    font-weight: 400;
     color: #fff;
     font-size: 15px;
-    height: 54px;
     border: none;
     border-radius: 10px;
+}
+
+.btn:disabled, .btn:disabled:hover {
+    background: rgba($primary-color, 0.6);
+    cursor: not-allowed;
+
+}
+
+.btn:hover {
+    background: $primary-color-hover;
+}
+
+.btn:active {
+    background: $primary-color-click;
 }

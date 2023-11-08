@@ -1,13 +1,15 @@
-import * as style from './Input.module.scss';
+import style from './Input.module.scss';
 
-const Input = ({ placeholder, className, type }) => {
-  const clasName = `${style.input} ${className}`;
-
+const Input = ({ value, label, name, placeholder, type, onChange, onBlur }) => {
   return (
     <input
-      className={clasName}
       type={type}
+      value={value}
+      name={name}
+      className={style.input}
       placeholder={placeholder}
+      onChange={onChange}
+      onBlur={onBlur}
     />
   );
 };
