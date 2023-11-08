@@ -1,4 +1,6 @@
 export class SignInDto {
-  readonly login: string;
-  readonly password: string;
+  readonly body: {
+    readonly login: string;
+    readonly password: string;
+  };
 }
