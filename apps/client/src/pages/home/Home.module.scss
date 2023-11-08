@@ -1,9 +1,20 @@
+.homePage{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #F2F2F2;
+}
+
 .wrapper {
   width: 100vw;
-  
 }
 
 .container {
   max-width: 1265px;
   margin: 0 auto;
+}
+
+
+footer {
+    margin-top: auto;
 }

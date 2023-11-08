@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import Input from '../Input';
 import Button from '../Button';
 
@@ -8,7 +10,6 @@ import style from './Navbar.module.scss';
 
 const Navbar = (props) => {
   const [auth, setAuth] = useState(false);
-  const btnClassName = style.account_btn;
 
   return (
     <div className={style.wrapper}>
@@ -32,10 +33,13 @@ const Navbar = (props) => {
           </ul>
           <form className={style.search} method="" action="">
             <Input
-              width={420}
-              height={46}
-              borderRadius={50}
-              paddingLeft={25}
+              inlineStyle={{
+                width: '420px',
+                height: '46px',
+                borderRadius: '50px',
+                paddingLeft: '25px',
+                fontSize: '16px',
+              }}
               placeholder={'Search for...'}
               type={'text'}
             />
@@ -44,10 +48,16 @@ const Navbar = (props) => {
             </button>
           </form>
           <div className={style.account}>
-            <Button
-              className={btnClassName}
-              text={auth ? 'Profile' : 'Get started'}
-            ></Button>
+            <Link to='auth'>
+              <Button
+                inlineStyle={{
+                  width: '138px',
+                  height: '54px',
+                  borderRadius: '30px',
+                }}
+                text={auth ? 'Profile' : 'Get started'}
+              />
+            </Link>
           </div>
         </nav>
       </div>

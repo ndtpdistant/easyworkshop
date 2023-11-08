@@ -5,6 +5,7 @@ import style from './Auth.module.scss';
 import image from '../../assets/images/cb.webp';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Form, useNavigate } from 'react-router-dom';
 
 const useValidation = (value, validations) => {
   const [isEmpty, setEmpty] = useState(true);
@@ -131,6 +132,8 @@ const useInput = (initialValue, validations) => {
 };
 
 const Auth = () => {
+  const navigate = useNavigate();
+
   //only for login
   const login = useInput('', { isEmpty: true, login: true });
   //only for registration
@@ -144,7 +147,7 @@ const Auth = () => {
   const [isReg, setReg] = useState(true);
 
   const handleForm = (e) => {
-    event.preventDefault();
+    e.preventDefault();
     if (isReg) {
       const data = JSON.stringify({
         email: email.value,
@@ -166,13 +169,15 @@ const Auth = () => {
           body: data,
         })
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
+          navigate(-1);
         })
         .catch((err) => {
           console.log(err.message);
         });
 
       console.log(data);
+      navigate(-1);
     }
     console.log('submit');
   };
@@ -182,14 +187,10 @@ const Auth = () => {
       <div className={style.container}>
         <div className={style.titleWrapper}>
           <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
-          <h2>
-            Lorem ipsum dolor sit amet consectetur adipiscing elit nulla
-            adipiscing tincidunt interdum tellus du.
-          </h2>
         </div>
         <div className={style.authWrapper}>
           <img src={image} alt="3d model" className={style.img} />
-          <form className={style.authForm} onSubmit={handleForm}>
+          <Form className={style.authForm} onSubmit={handleForm}>
             {isReg ? (
               <>
                 {email.isDirty && email.emailError && (
@@ -285,7 +286,7 @@ const Auth = () => {
                 <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
               </a>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>

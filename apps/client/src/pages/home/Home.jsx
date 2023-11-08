@@ -6,15 +6,15 @@ import style from './Home.module.scss';
 
 const Home = () => {
   return (
-    <>
+    <div className={style.homePage}>
       <Navbar />
-      <main className={style.wrapper}>
+      <div className={style.wrapper}>
         <div className={style.container}>
           <Card />
         </div>
-      </main>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
