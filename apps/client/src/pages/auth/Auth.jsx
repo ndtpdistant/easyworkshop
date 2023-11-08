@@ -5,7 +5,6 @@ import style from './Auth.module.scss';
 import image from '../../assets/images/cb.webp';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
 
 const useValidation = (value, validations) => {
   const [isEmpty, setEmpty] = useState(true);
@@ -132,8 +131,6 @@ const useInput = (initialValue, validations) => {
 };
 
 const Auth = () => {
-  const navigate = useNavigate();
-
   //only for login
   const login = useInput('', { isEmpty: true, login: true });
   //only for registration
@@ -147,7 +144,7 @@ const Auth = () => {
   const [isReg, setReg] = useState(true);
 
   const handleForm = (e) => {
-    e.preventDefault();
+    event.preventDefault();
     if (isReg) {
       const jsonData = JSON.stringify({
         title: 'Post',
@@ -168,12 +165,7 @@ const Auth = () => {
       axios
         .post('http://localhost:5050/api/auth/registration', jsonData, {headers})
         .then((res) => {
-<<<<<<< HEAD
-          console.log(res);
-          navigate(-1);
-=======
           localStorage.setItem("token", res.data.access_token)
->>>>>>> 935364a (auth jwt token)
         })
         .catch((err) => {
           console.log(err.message);
@@ -187,10 +179,6 @@ const Auth = () => {
         },
       });
 
-<<<<<<< HEAD
-      console.log(data);
-      navigate(-1);
-=======
       const headers = {
         'Content-Type': 'application/json',
       };
@@ -199,11 +187,11 @@ const Auth = () => {
         .post('http://localhost:5050/api/auth/login', jsonData, {headers})
         .then((res) => {
           localStorage.setItem("token", res.data.access_token)
+          console.log()
         })
         .catch((err) => {
           console.log(err.message);
         });
->>>>>>> 935364a (auth jwt token)
     }
   };
 
@@ -212,17 +200,14 @@ const Auth = () => {
       <div className={style.container}>
         <div className={style.titleWrapper}>
           <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
-<<<<<<< HEAD
-=======
           {/* <h2>
             Lorem ipsum dolor sit amet consectetur adipiscing elit nulla
             adipiscing tincidunt interdum tellus du.
           </h2> */}
->>>>>>> 935364a (auth jwt token)
         </div>
         <div className={style.authWrapper}>
           <img src={image} alt="3d model" className={style.img} />
-          <Form className={style.authForm} onSubmit={handleForm}>
+          <form className={style.authForm} onSubmit={handleForm}>
             {isReg ? (
               <>
                 {email.isDirty && email.emailError && (
@@ -318,7 +303,7 @@ const Auth = () => {
                 <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
               </a>
             </div>
-          </Form>
+          </form>
         </div>
       </div>
     </div>
