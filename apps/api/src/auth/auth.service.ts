@@ -16,12 +16,16 @@ export class AuthService {
   ) {}
 
   async signIn(dto: SignInDto) {
+    const newObj: any = dto;
+    console.log(newObj.body);
+    dto = newObj
     const user = await this.usersService.getUser(dto.login, dto.password);
     if (!user) {
       throw UnauthorizedException;
     }
     const payload = {
       sub: user.id,
+      email: user.email,
       username: user.username,
       firstName: user.first_name,
       lastName: user.last_name,
@@ -40,6 +44,7 @@ export class AuthService {
 
     const payload = {
       sub: user.id,
+      email: user.email,
       username: user.username,
       firstName: user.first_name,
       lastName: user.last_name,
