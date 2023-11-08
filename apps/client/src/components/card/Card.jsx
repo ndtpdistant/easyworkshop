@@ -1,13 +1,16 @@
+import { Link } from 'react-router-dom';
+
 import Button from '../Button';
+
 import style from './Card.module.scss';
-import pfp from './pfp.jpg';
 
 const Card = ({
-  title = '3DBenchy',
-  img = pfp,
-  profileName = 'Markus',
-  profileImg = pfp,
-  link,
+  title,
+  img,
+  id,
+  profileId,
+  profileName,
+  profileImg,
 }) => {
   // const Card = ({ title, img, profileName, profileImg, link }) => {
   // to-do
@@ -16,34 +19,35 @@ const Card = ({
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <a href={link}>
+        <Link to={`/model/${id}`}>
           <div className={style.imgContainer}>
-            <img src={pfp} className={style.img} />
+            <img src={img} className={style.img} />
           </div>
-        </a>
+        </Link>
         <div className={style.cardFooter}>
           <div className={style.cardInfo}>
             <div className={style.profileImg}>
-              <a href="https://google.com">
+              <Link to={`profile/${profileId}`}>
                 <img
-                  src={pfp}
+                  src={profileImg}
                   // src={profileImg}
                   className={style.profileImg}
                   alt="pfp"
                 />
-              </a>
+              </Link>
             </div>
-            <div className={style.cardDescr}>
-              <div className={style.cardName}>
-                {title ? title : '<name error>'}
-              </div>
-              <a href="#" className={style.cardCreatedby}>
-                {profileName ? profileName : '<profileName error>'}
-              </a>
+          </div>
+          <div className={style.cardDescr}>
+            <div className={style.cardName}>
+              {title ? title : '<name error>'}
             </div>
+            <Link to={`/profile/${profileId}`} className={style.cardCreatedby}>
+              {profileName ? profileName : '<profileName error>'}
+            </Link>
           </div>
           <Button text={'Download'} />
         </div>
+        
       </div>
     </div>
   );

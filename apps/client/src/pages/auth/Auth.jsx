@@ -5,7 +5,7 @@ import style from './Auth.module.scss';
 import image from '../../assets/images/cb.webp';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { Form, redirect} from 'react-router-dom';
 
 const useValidation = (value, validations) => {
   const [isEmpty, setEmpty] = useState(true);
@@ -132,7 +132,6 @@ const useInput = (initialValue, validations) => {
 };
 
 const Auth = () => {
-  const navigate = useNavigate();
 
   //only for login
   const login = useInput('', { isEmpty: true, login: true });
@@ -170,14 +169,14 @@ const Auth = () => {
         })
         .then((res) => {
           console.log(res);
-          navigate(-1);
+          redirect('/')
         })
         .catch((err) => {
           console.log(err.message);
         });
 
       console.log(data);
-      navigate(-1);
+      // navigate(-1);
     }
     console.log('submit');
   };

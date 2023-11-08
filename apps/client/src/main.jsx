@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Auth from './pages/Auth';
 import Home from './pages/Home';
+import Root from './pages/Root';
+import Model from './pages/Model';
 import ErrorPage from './error-page';
 
 import './assets/styles/font-import.scss';
@@ -15,8 +17,15 @@ const router = createBrowserRouter([
   // https://reactrouter.com/en/main/start/tutorial
   {
     path: '/',
-    element: <Home />,
+    element: <Root />,
     errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: 'model/:modelId',
+        element: <Model />,
+      }
+    ]
   },
   {
     path: 'auth',
