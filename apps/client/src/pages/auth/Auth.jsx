@@ -146,35 +146,52 @@ const Auth = () => {
   const handleForm = (e) => {
     event.preventDefault();
     if (isReg) {
-      const data = JSON.stringify({
-        email: email.value,
-        username: username.value,
-        first_name: firstName.value,
-        last_name: lastName.value,
-        password: password.value,
-      });
-      console.log(data);
-    } else {
-      const data = JSON.stringify({
-        login: login.value,
-        password: password.value,
+      const jsonData = JSON.stringify({
+        title: 'Post',
+        body: {
+          email: email.value,
+          username: username.value,
+          password: password.value,
+          first_name: firstName.value,
+          last_name: lastName.value,
+        },
       });
 
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      console.log(jsonData)
       axios
-        .post('http://localhost:5050/api/auth/login', {
-          title: '',
-          body: data,
-        })
+        .post('http://localhost:5050/api/auth/registration', jsonData, {headers})
         .then((res) => {
-          console.log(res.data);
+          localStorage.setItem("token", res.data.access_token)
         })
         .catch((err) => {
           console.log(err.message);
         });
+    } else {
+      const jsonData = JSON.stringify({
+        title: 'Post',
+        body: {
+          login: login.value,
+          password: password.value,
+        },
+      });
 
-      console.log(data);
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+
+      axios
+        .post('http://localhost:5050/api/auth/login', jsonData, {headers})
+        .then((res) => {
+          localStorage.setItem("token", res.data.access_token)
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
-    console.log('submit');
   };
 
   return (
@@ -182,10 +199,10 @@ const Auth = () => {
       <div className={style.container}>
         <div className={style.titleWrapper}>
           <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
-          <h2>
+          {/* <h2>
             Lorem ipsum dolor sit amet consectetur adipiscing elit nulla
             adipiscing tincidunt interdum tellus du.
-          </h2>
+          </h2> */}
         </div>
         <div className={style.authWrapper}>
           <img src={image} alt="3d model" className={style.img} />

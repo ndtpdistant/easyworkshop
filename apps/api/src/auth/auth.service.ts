@@ -6,7 +6,7 @@ import {
 import { UsersService } from 'src/users/users.service';
 import { SignInDto } from './dto/sign-in-dto';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dto/create-user-dto';
+import { SignUpDto } from './dto/sign-up-dto';
 
 @Injectable()
 export class AuthService {
@@ -16,10 +16,12 @@ export class AuthService {
   ) {}
 
   async signIn(dto: SignInDto) {
-    const newObj: any = dto;
-    console.log(newObj.body);
-    dto = newObj
-    const user = await this.usersService.getUser(dto.login, dto.password);
+    console.log(dto.body);
+
+    const user = await this.usersService.getUser(
+      dto.body.login,
+      dto.body.password,
+    );
     if (!user) {
       throw UnauthorizedException;
     }
@@ -36,8 +38,8 @@ export class AuthService {
     };
   }
 
-  async signUp(dto: CreateUserDto) {
-    const user = await this.usersService.createUser(dto);
+  async signUp(dto: SignUpDto) {
+    const user = await this.usersService.createUser(dto.body);
     if (!user) {
       throw BadRequestException;
     }
