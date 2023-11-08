@@ -142,6 +142,27 @@ const Auth = () => {
 
   const [isReg, setReg] = useState(true);
 
+  const handleForm = (e) => {
+    event.preventDefault();
+    if (isReg) {
+      const data = {
+        email: email,
+        username: username,
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+      };
+      console.log(data);
+    } else {
+      const data = {
+        login: login,
+        password: password,
+      };
+      console.log(data);
+    }
+    console.log('submit');
+  };
+
   // return (
   //   <>
   //     {email.isDirty && email.isEmpty && <div>Email can't be empty</div>}
@@ -175,7 +196,6 @@ const Auth = () => {
   //       onChange={(e) => login.onChange(e)}
   //     />
 
-  //     <Button disabled={!email.inputValid || !password.inputValid || !login.inputValid} text={'Sign Up'}/>
   //   </>
   // );
 
@@ -191,27 +211,70 @@ const Auth = () => {
         </div>
         <div className={style.authWrapper}>
           <img src={image} alt="3d model" className={style.img} />
-          <form className={style.authForm}>
-            <Input
-              placeholder={'Enter your email'}
-              onChange={(e) => email.onChange(e)}
-              onBlur={(e) => email.onBlur(e)}
-              value={email.value}
-              />
-            <Input
-              placeholder={'Enter your password'}
-              onChange={(e) => password.onChange(e)}
-              onBlur={(e) => password.onBlur(e)}
-              value={password.value}
-            />
+          <form className={style.authForm} onSubmit={handleForm}>
+            {isReg ? (
+              <>
+                <Input
+                  placeholder={'Enter your email'}
+                  onChange={(e) => email.onChange(e)}
+                  onBlur={(e) => email.onBlur(e)}
+                  value={email.value}
+                />
+                <Input
+                  placeholder={'Enter your username'}
+                  onChange={(e) => username.onChange(e)}
+                  onBlur={(e) => username.onBlur(e)}
+                  value={username.value}
+                />
+                <Input
+                  placeholder={'Enter your first name'}
+                  onChange={(e) => firstName.onChange(e)}
+                  onBlur={(e) => firstName.onBlur(e)}
+                  value={firstName.value}
+                />
+                <Input
+                  placeholder={'Enter your last name'}
+                  onChange={(e) => lastName.onChange(e)}
+                  onBlur={(e) => lastName.onBlur(e)}
+                  value={lastName.value}
+                />
+                <Input
+                  placeholder={'Enter your password'}
+                  onChange={(e) => password.onChange(e)}
+                  onBlur={(e) => password.onBlur(e)}
+                  value={password.value}
+                />
+              </>
+            ) : (
+              <>
+                <Input
+                  placeholder={'Enter your login'}
+                  onChange={(e) => login.onChange(e)}
+                  onBlur={(e) => login.onBlur(e)}
+                  value={login.value}
+                />
+                <Input
+                  placeholder={'Enter your password'}
+                  onChange={(e) => password.onChange(e)}
+                  onBlur={(e) => password.onBlur(e)}
+                  value={password.value}
+                />
+              </>
+            )}
 
-            <Button text={isReg ? 'Create an account' : 'Sign In'} />
-          <div className={style.link}>
-            {isReg ? 'Already have an account' : 'Do not have an account?'}
-            <a href="">
-              <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
-            </a>
-          </div>
+            <Button
+              disabled={
+                !email.inputValid || !password.inputValid || !login.inputValid
+              }
+              text={isReg ? 'Create an account' : 'Sign In'}
+              type={'submit'}
+            />
+            <div className={style.link}>
+              {isReg ? 'Already have an account' : 'Do not have an account?'}
+              <a href="#" onClick={() => setReg(!isReg)}>
+                <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
+              </a>
+            </div>
           </form>
         </div>
       </div>
