@@ -144,7 +144,7 @@ const Auth = () => {
   const [isReg, setReg] = useState(true);
 
   const handleForm = (e) => {
-    event.preventDefault();
+    .preventDefault();
     if (isReg) {
       const jsonData = JSON.stringify({
         title: 'Post',
@@ -171,6 +171,7 @@ const Auth = () => {
           console.log(err.message);
         });
     } else {
+      
       const jsonData = JSON.stringify({
         title: 'Post',
         body: {
@@ -187,6 +188,10 @@ const Auth = () => {
         .post('http://localhost:5050/api/auth/login', jsonData, {headers})
         .then((res) => {
           localStorage.setItem("token", res.data.access_token)
+<<<<<<< HEAD
+          console.log()
+=======
+>>>>>>> feature/client-auth
         })
         .catch((err) => {
           console.log(err.message);
