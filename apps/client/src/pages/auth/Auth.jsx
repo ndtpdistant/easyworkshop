@@ -3,6 +3,7 @@ import Input from '../../components/Input';
 import style from './Auth.module.scss';
 
 import image from '../../assets/images/cb.webp';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const useValidation = (value, validations) => {
@@ -145,59 +146,36 @@ const Auth = () => {
   const handleForm = (e) => {
     event.preventDefault();
     if (isReg) {
-      const data = {
-        email: email,
-        username: username,
-        first_name: firstName,
-        last_name: lastName,
-        password: password,
-      };
+      const data = JSON.stringify({
+        email: email.value,
+        username: username.value,
+        first_name: firstName.value,
+        last_name: lastName.value,
+        password: password.value,
+      });
       console.log(data);
     } else {
-      const data = {
-        login: login,
-        password: password,
-      };
+      const data = JSON.stringify({
+        login: login.value,
+        password: password.value,
+      });
+
+      axios
+        .post('http://localhost:5050/api/auth/login', {
+          title: '',
+          body: data,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
       console.log(data);
     }
     console.log('submit');
   };
-
-  // return (
-  //   <>
-  //     {email.isDirty && email.isEmpty && <div>Email can't be empty</div>}
-  //     {email.isDirty && email.emailError && <div>Incorrect email</div>}
-  //     <Input
-  //       type={email}
-  //       placeholder={'Enter your email'}
-  //       onBlur={(e) => email.onBlur(e)}
-  //       value={email.value}
-  //       onChange={(e) => email.onChange(e)}
-  //     />
-
-  //     {password.isDirty && password.isEmpty && <div>Password can't be empty</div>}
-  //     {password.isDirty && password.passwordError && <div>Incorrect password</div>}
-
-  //     <Input
-  //       type={password}
-  //       placeholder={'Enter your password'}
-  //       onBlur={(e) => password.onBlur(e)}
-  //       value={password.value}
-  //       onChange={(e) => password.onChange(e)}
-  //     />
-
-  //     {login.isDirty && login.isEmpty && <div>Login can't be empty</div>}
-  //     {login.isDirty && login.loginError && <div>Incorrect login</div>}
-  //     <Input
-  //       type={login}
-  //       placeholder={'Enter your login'}
-  //       onBlur={(e) => login.onBlur(e)}
-  //       value={login.value}
-  //       onChange={(e) => login.onChange(e)}
-  //     />
-
-  //   </>
-  // );
 
   return (
     <div className={style.wrapper}>
@@ -214,17 +192,40 @@ const Auth = () => {
           <form className={style.authForm} onSubmit={handleForm}>
             {isReg ? (
               <>
+                {email.isDirty && email.emailError && (
+                  <div style={{ color: 'red' }}>Incorrect email</div>
+                )}
+                {username.isDirty && username.usernameError && (
+                  <div style={{ color: 'red' }}>Incorrect username</div>
+                )}
+                {firstName.isDirty && firstName.isEmpty && (
+                  <div style={{ color: 'red' }}>Incorrect first name</div>
+                )}
+                {lastName.isDirty && lastName.isEmpty && (
+                  <div style={{ color: 'red' }}>Incorrect last name</div>
+                )}
+                {password.isDirty && password.passwordError && (
+                  <div style={{ color: 'red' }}>Incorrect password</div>
+                )}
                 <Input
                   placeholder={'Enter your email'}
                   onChange={(e) => email.onChange(e)}
                   onBlur={(e) => email.onBlur(e)}
                   value={email.value}
+                  type={'email'}
                 />
                 <Input
                   placeholder={'Enter your username'}
                   onChange={(e) => username.onChange(e)}
                   onBlur={(e) => username.onBlur(e)}
                   value={username.value}
+                />
+                <Input
+                  placeholder={'Enter your password'}
+                  onChange={(e) => password.onChange(e)}
+                  onBlur={(e) => password.onBlur(e)}
+                  value={password.value}
+                  type={'password'}
                 />
                 <Input
                   placeholder={'Enter your first name'}
@@ -238,17 +239,28 @@ const Auth = () => {
                   onBlur={(e) => lastName.onBlur(e)}
                   value={lastName.value}
                 />
-                <Input
-                  placeholder={'Enter your password'}
-                  onChange={(e) => password.onChange(e)}
-                  onBlur={(e) => password.onBlur(e)}
-                  value={password.value}
+                <Button
+                  disabled={
+                    !email.inputValid ||
+                    !password.inputValid ||
+                    !firstName.inputValid ||
+                    !lastName.inputValid ||
+                    !username.inputValid
+                  }
+                  text={isReg ? 'Create an account' : 'Sign In'}
+                  type={'submit'}
                 />
               </>
             ) : (
               <>
+                {login.isDirty && login.loginError && (
+                  <div style={{ color: 'red' }}>Incorrect login</div>
+                )}
+                {password.isDirty && password.passwordError && (
+                  <div style={{ color: 'red' }}>Incorrect password</div>
+                )}
                 <Input
-                  placeholder={'Enter your login'}
+                  placeholder={'Enter your email or username'}
                   onChange={(e) => login.onChange(e)}
                   onBlur={(e) => login.onBlur(e)}
                   value={login.value}
@@ -258,17 +270,15 @@ const Auth = () => {
                   onChange={(e) => password.onChange(e)}
                   onBlur={(e) => password.onBlur(e)}
                   value={password.value}
+                  type={'password'}
+                />
+                <Button
+                  disabled={!login.inputValid || !password.inputValid}
+                  text={isReg ? 'Create an account' : 'Sign In'}
+                  type={'submit'}
                 />
               </>
             )}
-
-            <Button
-              disabled={
-                !email.inputValid || !password.inputValid || !login.inputValid
-              }
-              text={isReg ? 'Create an account' : 'Sign In'}
-              type={'submit'}
-            />
             <div className={style.link}>
               {isReg ? 'Already have an account' : 'Do not have an account?'}
               <a href="#" onClick={() => setReg(!isReg)}>

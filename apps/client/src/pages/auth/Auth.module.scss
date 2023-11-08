@@ -61,16 +61,17 @@
 
 
   input {
+    height: 69px;
     &:not(:first-child) {
       margin: 26px 0 0 0;
     }
   }
 
   button {
-    margin: 26px 0 00 ;
+    margin: 26px 0 0 0;
     width: 420px;
-    height: 82px;
-    border-radius: 30px;
+    height: 69px;
+    border-radius: 20px;
   }
 }
 

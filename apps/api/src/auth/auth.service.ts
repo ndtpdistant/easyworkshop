@@ -16,6 +16,9 @@ export class AuthService {
   ) {}
 
   async signIn(dto: SignInDto) {
+    const newObj: any = dto;
+    console.log(newObj.body);
+    dto = newObj
     const user = await this.usersService.getUser(dto.login, dto.password);
     if (!user) {
       throw UnauthorizedException;
