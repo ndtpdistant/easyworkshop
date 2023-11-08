@@ -144,7 +144,7 @@ const Auth = () => {
   const [isReg, setReg] = useState(true);
 
   const handleForm = (e) => {
-    e.preventDefault();
+    event.preventDefault();
     if (isReg) {
       const jsonData = JSON.stringify({
         title: 'Post',
@@ -171,6 +171,7 @@ const Auth = () => {
           console.log(err.message);
         });
     } else {
+      
       const jsonData = JSON.stringify({
         title: 'Post',
         body: {
