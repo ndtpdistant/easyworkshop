@@ -3,7 +3,9 @@
 .wrapper {
   width: 400px;
   height: 420px;
+  margin-top: 30px;
   background-color: #ffffff;
+  border-radius: 10px;
   display: inline-block;
 }
 
@@ -14,8 +16,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border-radius: 10px;
-  background-color: white;
+  // background-color: white;
 }
 
 .imgContainer {

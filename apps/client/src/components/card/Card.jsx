@@ -29,14 +29,17 @@ const Card = ({ title, img, id, profileId, profileName, profileImg }) => {
                 />
               </Link>
             </div>
-          </div>
-          <div className={style.cardDescr}>
-            <div className={style.cardName}>
-              {title ? title : '<name error>'}
+            <div className={style.cardDescr}>
+              <div className={style.cardName}>
+                {title ? title : '<name error>'}
+              </div>
+              <Link
+                to={`/profile/${profileId}`}
+                className={style.cardCreatedby}
+              >
+                {profileName ? profileName : '<profileName error>'}
+              </Link>
             </div>
-            <Link to={`/profile/${profileId}`} className={style.cardCreatedby}>
-              {profileName ? profileName : '<profileName error>'}
-            </Link>
           </div>
           <Link to={`/item/${id}`}>
             <Button>Download</Button>

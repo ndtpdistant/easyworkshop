@@ -246,9 +246,10 @@ const Auth = () => {
                     !lastName.inputValid ||
                     !username.inputValid
                   }
-                  text={isReg ? 'Create an account' : 'Sign In'}
                   type={'submit'}
-                />
+                >
+                  {isReg ? 'Create an account' : 'Sign In'}
+                </Button>
               </>
             ) : (
               <>
@@ -273,9 +274,10 @@ const Auth = () => {
                 />
                 <Button
                   disabled={!login.inputValid || !password.inputValid}
-                  text={isReg ? 'Create an account' : 'Sign In'}
                   type={'submit'}
-                />
+                >
+                  {isReg ? 'Create an account' : 'Sign In'}
+                </Button>
               </>
             )}
             <div className={style.link}>
