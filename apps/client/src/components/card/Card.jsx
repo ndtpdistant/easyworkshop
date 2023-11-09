@@ -12,7 +12,7 @@ const Card = ({ title, img, id, profileId, profileName, profileImg }) => {
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <Link to={`/model/${id}`}>
+        <Link to={`/item/${id}`}>
           <div className={style.imgContainer}>
             <img src={img} className={style.img} />
           </div>
@@ -38,7 +38,9 @@ const Card = ({ title, img, id, profileId, profileName, profileImg }) => {
               {profileName ? profileName : '<profileName error>'}
             </Link>
           </div>
-          <Button text={'Download'} />
+          <Link to={`/item/${id}`}>
+            <Button>Download</Button>
+          </Link>
         </div>
       </div>
     </div>

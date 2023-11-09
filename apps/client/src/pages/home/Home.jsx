@@ -1,24 +1,24 @@
+import { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import EasyworkshopService from '../../services/EasyworkshopService';
+
 import Card from '../../components/Card';
 
 import style from './Home.module.scss';
-import pfp from './pfp.jpg';
 
-import { useEffect, useState } from 'react';
+export async function loader() {
+  const easyworkshopService = new EasyworkshopService();
+  const cards = await easyworkshopService.getAllCards();
+  return cards;
+}
 
 const Home = () => {
   const [cardList, setCardList] = useState([]);
+  const cards = useLoaderData();
+
 
   useEffect(() => {
-    setCardList([
-      {
-        title: '3DBenchy',
-        img: pfp,
-        id: 1,
-        profileId: 1,
-        profileName: 'Markus',
-        profileImg: pfp,
-      },
-    ]);
+    setCardList(cards);
   }, []);
 
   return (

@@ -1,11 +1,10 @@
-import App from './components/app/App';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Auth from './pages/Auth';
-import Home from './pages/Home';
-import Root from './pages/Root';
-import Model from './pages/Model';
+import Auth from './pages/auth/Auth';
+import Home, { loader as homeLoader } from './pages/home/Home';
+import Root from './pages/root/Root';
+import Item, { loader as itemLoader } from './pages/item/Item';
 import ErrorPage from './error-page';
 
 import './assets/styles/font-import.scss';
@@ -20,10 +19,11 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <Home />, loader: homeLoader },
       {
-        path: 'model/:modelId',
-        element: <Model />,
+        path: 'item/:itemId',
+        element: <Item />,
+        loader: itemLoader,
       },
     ],
   },
@@ -44,7 +44,7 @@ root.render(
     {/* <h1>content</h1> */}
     {/* <Footer style={{}}/> */}
     {/* </div> */}
-    {/* <Button text={'click'} inlineStyle={{height: '123px'}} onClick={() => console.log(1)}/> */}
+    {/* <Button inlineStyle={{height: '123px'}} onClick={() => console.log(1)}/> */}
     {/* <Auth /> */}
   </>,
 );

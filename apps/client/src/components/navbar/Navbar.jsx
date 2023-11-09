@@ -15,20 +15,20 @@ const Navbar = (props) => {
     <div className={style.wrapper}>
       <div className={style.container}>
         <div className="">
-          <a href="/">
+          <Link to={'/'}>
             <img className={style.logo} src={logo} alt="easy workshop" />
-          </a>
+          </Link>
         </div>
         <nav className={style.nav}>
           <ul className={style.menu}>
             <li className={style.menu_item}>
-              <a href="/">Home</a>
+              <Link to={'/'}>Home</Link>
             </li>
             <li className={style.menu_item}>
-              <a href="#">About</a>
+              <Link to={'/about'}>About</Link>
             </li>
             <li className={style.menu_item}>
-              <a href="#">Contact</a>
+              <Link to={'/contact'}>Contact</Link>
             </li>
           </ul>
           <form className={style.search} method="" action="">
@@ -55,8 +55,9 @@ const Navbar = (props) => {
                   height: '54px',
                   borderRadius: '30px',
                 }}
-                text={auth ? 'Profile' : 'Get started'}
-              />
+              >
+                {auth ? 'Profile' : 'Get started'}
+              </Button>
             </Link>
           </div>
         </nav>
