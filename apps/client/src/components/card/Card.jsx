@@ -5,10 +5,6 @@ import Button from '../Button';
 import style from './Card.module.scss';
 
 const Card = ({ title, img, id, profileId, profileName, profileImg }) => {
-  // const Card = ({ title, img, profileName, profileImg, link }) => {
-  // to-do
-  // добавить линки
-
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
@@ -21,12 +17,7 @@ const Card = ({ title, img, id, profileId, profileName, profileImg }) => {
           <div className={style.cardInfo}>
             <div className={style.profileImg}>
               <Link to={`profile/${profileId}`}>
-                <img
-                  src={profileImg}
-                  // src={profileImg}
-                  className={style.profileImg}
-                  alt="pfp"
-                />
+                <img src={profileImg} className={style.profileImg} alt="pfp" />
               </Link>
             </div>
             <div className={style.cardDescr}>

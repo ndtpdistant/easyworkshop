@@ -48,13 +48,13 @@ const Item = () => {
               <div className={style.itemInfo}>
                 <div className={style.profileImg}>
                   <Link to={`profile/${item.profileId}`}>
-                    <img className={style.profileImg} src={pfp} alt="pfp" />
+                    <img className={style.profileImg} src={item.profileImg} alt="pfp" />
                   </Link>
                 </div>
                 <div className={style.namesWrapper}>
-                  <div className={style.itemName}>Item’s name</div>
+                  <div className={style.itemName}>{item.title}</div>
                   <Link to={`/profile/${item.profileId}`}>
-                    <div className={style.profileName}>Author’s name</div>
+                    <div className={style.profileName}>{item.profileName}</div>
                   </Link>
                 </div>
                 <div className={style.created}>October, 10 2023</div>
@@ -72,6 +72,7 @@ const Item = () => {
                 height: '60px',
                 padding: '13px 17px',
                 borderRadius: '30px',
+                fontWeight: 'bold',
               }}
             >
               Download all files
@@ -168,7 +169,7 @@ const Item = () => {
           <div className={style.text}>
             This publication is about a much improved spring for my popular cord
             lock design. If you don't have the original design, it can be found
-            for free at printables.comhttps://www.printables.com/model/570028
+            for free at printables.com https://www.printables.com/model/570028
             The original model features a cleverly shaped folded spring. But in
             the end I figured that a regular spring gives even better tension.
             The trick to get it printed without supports is to print at least 6
