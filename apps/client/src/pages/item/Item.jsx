@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {StlViewer} from "react-stl-viewer";
+import { StlViewer } from 'react-stl-viewer';
 import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Button from '../../components/Button';
@@ -57,7 +57,11 @@ const Item = () => {
               <div className={style.itemInfo}>
                 <div className={style.profileImg}>
                   <Link to={`profile/${item.profileId}`}>
-                    <img className={style.profileImg} src={item.profileImg} alt="pfp" />
+                    <img
+                      className={style.profileImg}
+                      src={item.profileImg}
+                      alt="pfp"
+                    />
                   </Link>
                 </div>
                 <div className={style.namesWrapper}>
@@ -129,14 +133,14 @@ const Item = () => {
                 <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
               </SwiperSlide>
               <SwiperSlide>
-              <StlViewer
-            style={stlViewerStyle}
-            orbitControls={true}
-            rotationX={true}
-            rotationY={true}
-            shadows
-            url={url}
-        />
+                <StlViewer
+                  style={stlViewerStyle}
+                  orbitControls={true}
+                  rotationX={true}
+                  rotationY={true}
+                  shadows
+                  url={url}
+                />
               </SwiperSlide>
             </Swiper>
             <Swiper
@@ -176,10 +180,7 @@ const Item = () => {
                 <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
               </SwiperSlide>
               <SwiperSlide>
-              <StlViewer
-            style={stlViewerStyle}
-            url={url}
-        />
+                <StlViewer style={stlViewerStyle} url={url} />
               </SwiperSlide>
             </Swiper>
           </div>

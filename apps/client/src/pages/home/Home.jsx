@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Card from '../../components/Card';
+import Spinner from '../../components/Spinner';
 
 import style from './Home.module.scss';
 
@@ -15,7 +16,7 @@ export async function loader() {
 const Home = () => {
   const [cardList, setCardList] = useState([]);
   const cards = useLoaderData();
-
+  const navigation = useNavigation();
 
   useEffect(() => {
     setCardList(cards);
@@ -24,19 +25,21 @@ const Home = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        {cardList
-          ? cardList.map((card) => (
-              <Card
-                key={card.id}
-                title={card.title}
-                img={card.img}
-                id={card.id}
-                profileId={card.profileId}
-                profileName={card.profileName}
-                profileImg={card.profileImg}
-              />
-            ))
-          : null}
+        {navigation.state === 'loading' ? (
+          <Spinner />
+        ) : cardList ? (
+          cardList.map((card) => (
+            <Card
+              key={card.id}
+              title={card.title}
+              img={card.img}
+              id={card.id}
+              profileId={card.profileId}
+              profileName={card.profileName}
+              profileImg={card.profileImg}
+            />
+          ))
+        ) : null}
       </div>
     </div>
   );
