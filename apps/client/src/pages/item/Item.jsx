@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {StlViewer} from "react-stl-viewer";
 import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Button from '../../components/Button';
@@ -22,6 +23,14 @@ export async function loader({ params }) {
   const item = await easyworkshopService.getCard(params.itemId);
   return item;
 }
+
+const url = '../src/pages/item/Pumpkin_Spinner_v0.stl';
+const stlViewerStyle = {
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+};
 
 const Item = () => {
   const navigation = useNavigate();
@@ -87,6 +96,7 @@ const Item = () => {
               loop={true}
               spaceBetween={10}
               navigation={true}
+              allowTouchMove={false}
               thumbs={{ swiper: thumbsSwiper }}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper2"
@@ -119,7 +129,14 @@ const Item = () => {
                 <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
               </SwiperSlide>
               <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+              <StlViewer
+            style={stlViewerStyle}
+            orbitControls={true}
+            rotationX={true}
+            rotationY={true}
+            shadows
+            url={url}
+        />
               </SwiperSlide>
             </Swiper>
             <Swiper
@@ -159,7 +176,10 @@ const Item = () => {
                 <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
               </SwiperSlide>
               <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+              <StlViewer
+            style={stlViewerStyle}
+            url={url}
+        />
               </SwiperSlide>
             </Swiper>
           </div>
