@@ -48,7 +48,6 @@ export class Item extends Model<Item, ItemCreationAttrs> {
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
-    unique: true,
     allowNull: false,
   })
   user_id: User;

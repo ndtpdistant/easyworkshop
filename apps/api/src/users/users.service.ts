@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user-dto';
-import { User } from './users.model';
+import { CreateUserDto } from 'src/users/dto/create-user-dto';
+import { User } from 'src/users/users.model';
 import * as bcrypt from 'bcrypt';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';

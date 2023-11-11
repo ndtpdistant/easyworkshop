@@ -188,10 +188,6 @@ const Auth = () => {
         .post('http://localhost:5050/api/auth/login', jsonData, {headers})
         .then((res) => {
           localStorage.setItem("token", res.data.access_token)
-<<<<<<< HEAD
-          console.log()
-=======
->>>>>>> feature/client-auth
         })
         .catch((err) => {
           console.log(err.message);

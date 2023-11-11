@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { User } from './users/users.model';
-import { FilesModule } from './files/files.module';
-import { ItemsController } from './items/items.controller';
-import { ItemsService } from './items/items.service';
-import { ItemsModule } from './items/items.module';
-import { Item } from './items/items.model';
+import { UsersModule } from 'src/users/users.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { User } from 'src/users/users.model';
+import { FilesModule } from 'src/files/files.module';
+import { ItemsController } from 'src/items/items.controller';
+import { ItemsService } from 'src/items/items.service';
+import { ItemsModule } from 'src/items/items.module';
+import { Item } from 'src/items/items.model';
 
 @Module({
   imports: [

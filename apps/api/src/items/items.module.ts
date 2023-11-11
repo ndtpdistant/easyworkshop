@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ItemsController } from './items.controller';
-import { ItemsService } from './items.service';
+import { ItemsController } from 'src/items/items.controller';
+import { ItemsService } from 'src/items/items.service';
 import { FilesModule } from 'src/files/files.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Item } from './items.model';
+import { Item } from 'src/items/items.model';
 
 @Module({
   imports: [FilesModule, SequelizeModule.forFeature([Item])],

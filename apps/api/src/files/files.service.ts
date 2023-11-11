@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -22,5 +23,9 @@ export class FilesService {
       console.error('Error saving file: ', error.message);
       throw new Error('File upload failed');
     }
+  }
+
+  serveFile(path: string, res: Response) {
+    res.sendFile(path, { root: './' });
   }
 }
