@@ -1,135 +1,24 @@
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import style from './Auth.module.scss';
-
-import image from '../../assets/images/cb.webp';
-import axios from 'axios';
+import useInput from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
 import { Form, redirect } from 'react-router-dom';
+import axios from 'axios';
 
-const useValidation = (value, validations) => {
-  const [isEmpty, setEmpty] = useState(true);
-  const [minLengthError, setMinLengthError] = useState(false);
-  const [maxLengthError, setMaxLengthError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [usernameError, setUsernameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import Step1 from './steps/Step1';
+import Step2 from './steps/Step2';
+import Step3 from './steps/Step3';
+import Forgot1 from './steps/forgetPass/Forgot1';
+import Forgot2 from './steps/forgetPass/Forgot2';
+import Forgot3 from './steps/forgetPass/Forgot3';
 
-  const [inputValid, setInputValid] = useState(false);
+import image from '../../assets/images/cb.webp';
+import style from './Auth.module.scss';
+import Step4 from './steps/Step4';
+import Step5 from './steps/Step5';
+import Step6 from './steps/Step6';
 
-  useEffect(() => {
-    for (const validation in validations) {
-      switch (validation) {
-        case 'minLength':
-          value.length < validations[validation]
-            ? setMinLengthError(true)
-            : setMinLengthError(false);
-          break;
-
-        case 'maxLength':
-          value.length > validations[validation]
-            ? setMaxLengthError(true)
-            : setMaxLengthError(false);
-          break;
-
-        case 'email':
-          const emailRegex =
-            /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-          emailRegex.test(String(value).toLowerCase())
-            ? setEmailError(false)
-            : setEmailError(true);
-          break;
-
-        case 'password':
-          const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$/;
-          passwordRegex.test(String(value))
-            ? setPasswordError(false)
-            : setPasswordError(true);
-          break;
-
-        case 'username':
-          const usernameRegex =
-            /^(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-          usernameRegex.test(String(value))
-            ? setUsernameError(false)
-            : setUsernameError(true);
-          break;
-
-        case 'login':
-          const loginRegex = new RegExp(
-            /(^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|(?=[a-zA-Z0-9._]{5,20}$)(?!.*[_.]{2})[^_.].*[^_.])$)/,
-          );
-          loginRegex.test(String(value))
-            ? setLoginError(false)
-            : setLoginError(true);
-
-        case 'isEmpty':
-          value ? setEmpty(false) : setEmpty(true);
-          break;
-      }
-    }
-  }, [value]);
-
-  useEffect(() => {
-    if (
-      isEmpty ||
-      minLengthError ||
-      maxLengthError ||
-      passwordError ||
-      usernameError ||
-      emailError ||
-      loginError
-    ) {
-      setInputValid(false);
-    } else {
-      setInputValid(true);
-    }
-  }, [
-    isEmpty,
-    minLengthError,
-    maxLengthError,
-    passwordError,
-    usernameError,
-    emailError,
-    loginError,
-  ]);
-
-  return {
-    isEmpty,
-    minLengthError,
-    maxLengthError,
-    passwordError,
-    usernameError,
-    emailError,
-    loginError,
-    inputValid,
-  };
-};
-
-const useInput = (initialValue, validations) => {
-  const [value, setValue] = useState(initialValue);
-  const [isDirty, setDirty] = useState(false);
-
-  const valid = useValidation(value, validations);
-
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
-
-  // when user leaves the input
-  const onBlur = (e) => {
-    setDirty(true);
-  };
-
-  return {
-    value,
-    isDirty,
-    onChange,
-    onBlur,
-    ...valid,
-  };
-};
+//Проверить formData
 
 const Auth = () => {
   //only for login
@@ -143,6 +32,171 @@ const Auth = () => {
   const password = useInput('', { isEmpty: true, password: true });
 
   const [isReg, setReg] = useState(true);
+  const [mobileStep, setMobileStep] = useState(0);
+  const [forgotStep, setForgotStep] = useState(0);
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (e) => {
+    e.persist();
+    setFormData((formData) => {
+      return {
+        ...formData,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  const clearData = () => {
+    setFormData({});
+    login.clearValue();
+    firstName.clearValue();
+    lastName.clearValue();
+    email.clearValue();
+    password.clearValue();
+    username.clearValue();
+  };
+
+  useEffect(() => {
+    if (window.innerWidth < 450) {
+      setMobileStep(1);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
+  const nextRegStep = () => {
+    setMobileStep((prevStep) => prevStep + 1);
+  };
+
+  const prevRegStep = () => {
+    setMobileStep((prevStep) => Math.max(prevStep - 1, 1));
+  };
+
+  const nextForgotStep = () => {
+    setForgotStep((prevStep) => {
+      if (forgotStep === 0) {
+        clearData();
+      }
+      return prevStep + 1;
+    });
+  };
+
+  const prevForgotStep = () => {
+    setForgotStep((prevStep) => {
+      if (forgotStep === 1) {
+        clearData();
+      }
+      return prevStep - 1;
+    });
+  };
+
+  const renrerMobileSteps = () => {
+    switch (mobileStep) {
+      case 1:
+        switch (forgotStep) {
+          case 1:
+            return (
+              <Forgot1
+                onNext={nextForgotStep}
+                onPrev={prevForgotStep}
+                handleChange={handleChange}
+                login={login}
+              />
+            );
+            break;
+          case 2:
+            return (
+              <Forgot2
+                onNext={nextForgotStep}
+                onPrev={prevForgotStep}
+                handleChange={handleChange}
+              />
+            );
+            break;
+          case 3:
+            return (
+              <Forgot3
+                onNext={nextForgotStep}
+                onPrev={prevForgotStep}
+                password={password}
+                handleChange={handleChange}
+              />
+            );
+            break;
+          default:
+            return (
+              <Step1
+                onNext={nextRegStep}
+                onNextForgot={nextForgotStep}
+                setReg={setReg}
+                isReg={isReg}
+                clearData={clearData}
+              />
+            );
+            break;
+        }
+        break;
+      case 2:
+        return (
+          <Step2
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            isReg={isReg}
+            firstName={firstName}
+            lastName={lastName}
+            email={email}
+            handleChange={handleChange}
+          />
+        );
+        break;
+      case 3:
+        return (
+          <Step3
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            isReg={isReg}
+            username={username}
+            password={password}
+            handleChange={handleChange}
+          />
+        );
+        break;
+      case 4:
+        return (
+          <Step4
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            email={email}
+            handleChange={handleChange}
+          />
+        );
+        break;
+      case 5:
+        return (
+          <Step5
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            password={password}
+            handleChange={handleChange}
+            handleForm={handleForm}
+          />
+        );
+        break;
+      case 6:
+        return (
+          <Step6
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            email={formData.email}
+            handleChange={handleChange}
+            handleForm={handleForm}
+          />
+        );
+        break;
+    }
+  };
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -181,115 +235,125 @@ const Auth = () => {
   };
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.container}>
-        <div className={style.titleWrapper}>
-          <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
-        </div>
-        <div className={style.authWrapper}>
-          <img src={image} alt="3d model" className={style.img} />
-          <Form className={style.authForm} onSubmit={handleForm}>
-            {isReg ? (
-              <>
-                {email.isDirty && email.emailError && (
-                  <div style={{ color: 'red' }}>Incorrect email</div>
-                )}
-                {username.isDirty && username.usernameError && (
-                  <div style={{ color: 'red' }}>Incorrect username</div>
-                )}
-                {firstName.isDirty && firstName.isEmpty && (
-                  <div style={{ color: 'red' }}>Incorrect first name</div>
-                )}
-                {lastName.isDirty && lastName.isEmpty && (
-                  <div style={{ color: 'red' }}>Incorrect last name</div>
-                )}
-                {password.isDirty && password.passwordError && (
-                  <div style={{ color: 'red' }}>Incorrect password</div>
-                )}
-                <Input
-                  placeholder={'Enter your email'}
-                  onChange={(e) => email.onChange(e)}
-                  onBlur={(e) => email.onBlur(e)}
-                  value={email.value}
-                  type={'email'}
-                />
-                <Input
-                  placeholder={'Enter your username'}
-                  onChange={(e) => username.onChange(e)}
-                  onBlur={(e) => username.onBlur(e)}
-                  value={username.value}
-                />
-                <Input
-                  placeholder={'Enter your password'}
-                  onChange={(e) => password.onChange(e)}
-                  onBlur={(e) => password.onBlur(e)}
-                  value={password.value}
-                  type={'password'}
-                />
-                <Input
-                  placeholder={'Enter your first name'}
-                  onChange={(e) => firstName.onChange(e)}
-                  onBlur={(e) => firstName.onBlur(e)}
-                  value={firstName.value}
-                />
-                <Input
-                  placeholder={'Enter your last name'}
-                  onChange={(e) => lastName.onChange(e)}
-                  onBlur={(e) => lastName.onBlur(e)}
-                  value={lastName.value}
-                />
-                <Button
-                  disabled={
-                    !email.inputValid ||
-                    !password.inputValid ||
-                    !firstName.inputValid ||
-                    !lastName.inputValid ||
-                    !username.inputValid
-                  }
-                  type={'submit'}
-                >
-                  {isReg ? 'Create an account' : 'Sign In'}
-                </Button>
-              </>
-            ) : (
-              <>
-                {login.isDirty && login.loginError && (
-                  <div style={{ color: 'red' }}>Incorrect login</div>
-                )}
-                {password.isDirty && password.passwordError && (
-                  <div style={{ color: 'red' }}>Incorrect password</div>
-                )}
-                <Input
-                  placeholder={'Enter your email or username'}
-                  onChange={(e) => login.onChange(e)}
-                  onBlur={(e) => login.onBlur(e)}
-                  value={login.value}
-                />
-                <Input
-                  placeholder={'Enter your password'}
-                  onChange={(e) => password.onChange(e)}
-                  onBlur={(e) => password.onBlur(e)}
-                  value={password.value}
-                  type={'password'}
-                />
-                <Button
-                  disabled={!login.inputValid || !password.inputValid}
-                  type={'submit'}
-                >
-                  {isReg ? 'Create an account' : 'Sign In'}
-                </Button>
-              </>
-            )}
-            <div className={style.link}>
-              {isReg ? 'Already have an account' : 'Do not have an account?'}
-              <a href="#" onClick={() => setReg(!isReg)}>
-                <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
-              </a>
+    <>
+      {mobileStep ? (
+        <Form onSubmit={handleForm} style={{ height: '100vh' }}>
+          {renrerMobileSteps()}
+        </Form>
+      ) : (
+        <div className={style.wrapper}>
+          <div className={style.container}>
+            <div className={style.titleWrapper}>
+              <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
             </div>
-          </Form>
+            <div className={style.authWrapper}>
+              <img src={image} alt="3d model" className={style.img} />
+              <Form className={style.authForm} onSubmit={handleForm}>
+                {isReg ? (
+                  <>
+                    {email.isDirty && email.emailError && (
+                      <div style={{ color: 'red' }}>Incorrect email</div>
+                    )}
+                    {username.isDirty && username.usernameError && (
+                      <div style={{ color: 'red' }}>Incorrect username</div>
+                    )}
+                    {firstName.isDirty && firstName.isEmpty && (
+                      <div style={{ color: 'red' }}>Incorrect first name</div>
+                    )}
+                    {lastName.isDirty && lastName.isEmpty && (
+                      <div style={{ color: 'red' }}>Incorrect last name</div>
+                    )}
+                    {password.isDirty && password.passwordError && (
+                      <div style={{ color: 'red' }}>Incorrect password</div>
+                    )}
+                    <Input
+                      placeholder={'Enter your email'}
+                      onChange={(e) => email.onChange(e)}
+                      onBlur={(e) => email.onBlur(e)}
+                      value={email.value}
+                      type={'email'}
+                    />
+                    <Input
+                      placeholder={'Enter your username'}
+                      onChange={(e) => username.onChange(e)}
+                      onBlur={(e) => username.onBlur(e)}
+                      value={username.value}
+                    />
+                    <Input
+                      placeholder={'Enter your password'}
+                      onChange={(e) => password.onChange(e)}
+                      onBlur={(e) => password.onBlur(e)}
+                      value={password.value}
+                      type={'password'}
+                    />
+                    <Input
+                      placeholder={'Enter your first name'}
+                      onChange={(e) => firstName.onChange(e)}
+                      onBlur={(e) => firstName.onBlur(e)}
+                      value={firstName.value}
+                    />
+                    <Input
+                      placeholder={'Enter your last name'}
+                      onChange={(e) => lastName.onChange(e)}
+                      onBlur={(e) => lastName.onBlur(e)}
+                      value={lastName.value}
+                    />
+                    <Button
+                      disabled={
+                        !email.inputValid ||
+                        !password.inputValid ||
+                        !firstName.inputValid ||
+                        !lastName.inputValid ||
+                        !username.inputValid
+                      }
+                      type={'submit'}
+                    >
+                      {isReg ? 'Create an account' : 'Sign In'}
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {login.isDirty && login.loginError && (
+                      <div style={{ color: 'red' }}>Incorrect login</div>
+                    )}
+                    {password.isDirty && password.passwordError && (
+                      <div style={{ color: 'red' }}>Incorrect password</div>
+                    )}
+                    <Input
+                      placeholder={'Enter your email or username'}
+                      onChange={(e) => login.onChange(e)}
+                      onBlur={(e) => login.onBlur(e)}
+                      value={login.value}
+                    />
+                    <Input
+                      placeholder={'Enter your password'}
+                      onChange={(e) => password.onChange(e)}
+                      onBlur={(e) => password.onBlur(e)}
+                      value={password.value}
+                      type={'password'}
+                    />
+                    <Button
+                      disabled={!login.inputValid || !password.inputValid}
+                      type={'submit'}
+                    >
+                      {isReg ? 'Create an account' : 'Sign In'}
+                    </Button>
+                  </>
+                )}
+                <div className={style.link}>
+                  {isReg
+                    ? 'Already have an account'
+                    : 'Do not have an account?'}
+                  <div onClick={() => setReg(!isReg)}>
+                    <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
+                  </div>
+                </div>
+              </Form>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

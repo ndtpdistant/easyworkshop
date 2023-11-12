@@ -1,0 +1,164 @@
+@import '../../../assets/styles/base';
+
+.wrapper {
+  width: 331px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 25px;
+  height: calc(100vh - 38px);
+  box-sizing: border-box;
+  input {
+    width: 310px;
+    margin: 0;
+    padding: 5px 5px;
+    border: none;
+    height: 35px;
+    border-radius: 0;
+    background: transparent;
+    border-bottom: 1px solid #999999;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+    &:focus + label {
+      color: $mobile-btn-color;
+    }
+    &:focus {
+      border-bottom: 1px solid $mobile-btn-color;
+      outline: none;
+    }
+  }
+  .defaultText {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.transparent {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: $mobile-btn-color;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: auto;
+}
+
+.suptitle {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #999;
+  text-align: center;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.nav {
+  height: 50px;
+  // padding-top: 24px;
+
+  width: 100vw;
+  // border-bottom: 1px solid #5f5f5f;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  display: flex;
+  align-items: center;
+  .transparent {
+    margin: 0;
+  }
+  svg {
+    max-height: 22px;
+    max-width: 22px;
+    margin-right: 26px;
+    margin: 0 0 0 12px;
+    path {
+      width: 8px;
+      height: 13.714px;
+      stroke: #000000;
+    }
+  }
+  p {
+    margin: 0 0 0 12px;
+  }
+}
+
+.step1 {
+  img {
+    margin-top: 40px;
+  }
+
+  .title {
+    margin-top: 80px;
+  }
+  .subtitle {
+    margin-top: 20px;
+  }
+
+  .forgot {
+    margin-top: 20px;
+  }
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  height: 20px;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.step2 {
+  .title {
+    margin-top: 40px;
+  }
+  .subtitle {
+    margin-top: 10px;
+  }
+  input {
+    width: 140px;
+  }
+}
+
+.step3,
+.step4,
+.step5,
+.forgot1,
+.forgot3 {
+  .title {
+    margin-top: 40px;
+  }
+}
+
+.step5,
+.forgot3 {
+  .subtitle {
+    margin-top: 10px;
+  }
+}

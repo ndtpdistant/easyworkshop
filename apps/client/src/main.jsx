@@ -6,6 +6,7 @@ import Home, { loader as homeLoader } from './pages/home/Home';
 import Root from './pages/root/Root';
 import Item, { loader as itemLoader } from './pages/item/Item';
 import Profile, { loader as profileLoader } from './pages/profile/Profile';
+import Edit from './pages/edit/Edit';
 import ErrorPage from './error-page';
 
 import './assets/styles/font-import.scss';
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
         element: <Profile />,
         loader: profileLoader,
       },
+      {
+        path: 'edit',
+        element: <Edit />
+    
+      }
     ],
   },
   {
