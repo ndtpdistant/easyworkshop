@@ -78,6 +78,12 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @Column({
     type: DataType.STRING,
+    unique: true,
+  })
+  background_picture: string;
+
+  @Column({
+    type: DataType.STRING,
     unique: false,
   })
   verification_code: string;

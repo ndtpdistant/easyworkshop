@@ -1,9 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user-dto';
 import { User } from 'src/users/users.model';
 import * as bcrypt from 'bcrypt';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
+import { FilesService } from 'src/files/files.service';
+import { Response } from 'express';
 
 async function genUniqueSalt(userRepository: typeof User) {
   const saltRounds = 10;
@@ -22,7 +31,10 @@ async function genUniqueSalt(userRepository: typeof User) {
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private userRepository: typeof User) {}
+  constructor(
+    @InjectModel(User) private userRepository: typeof User,
+    private filesService: FilesService,
+  ) {}
 
   async createUser(dto: CreateUserDto) {
     const salt = await genUniqueSalt(this.userRepository);
@@ -34,8 +46,31 @@ export class UsersService {
       salt: salt,
     };
 
-    const user = await this.userRepository.create(updatedDto);
-    return user;
+    try {
+      const user = await this.userRepository.create(updatedDto);
+      return user;
+    } catch (error) {
+      if (error.errors) {
+        for (const validationError of error.errors) {
+          if (validationError.type === 'unique violation') {
+            if (validationError.path === 'email') {
+              throw new HttpException(
+                'Email is already in use',
+                HttpStatus.BAD_REQUEST,
+              );
+            } else if (validationError.path === 'username') {
+              throw new HttpException(
+                'Username is already in use',
+                HttpStatus.BAD_REQUEST,
+              );
+            }
+          }
+        }
+      }
+
+      // Handle other types of errors here, or rethrow the original error
+      throw error;
+    }
   }
 
   async getUser(login: string, password: string) {
@@ -44,10 +79,33 @@ export class UsersService {
         [Op.or]: [{ username: login }, { email: login }],
       },
     });
+    if (!user) {
+      throw new NotFoundException({ message: 'User not found' });
+    }
     if (user) {
       if ((await bcrypt.hash(password, user?.salt)) === user.password) {
         return user;
       }
+    }
+    return;
+  }
+
+  async getUserByEmail(email: string) {
+    const user = await this.userRepository.findOne({
+      where: { email: email },
+    });
+    if (user) {
+      return user;
+    }
+    return;
+  }
+
+  async getUserById(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id: id },
+    });
+    if (user) {
+      return user;
     }
     return;
   }
@@ -74,5 +132,60 @@ export class UsersService {
   // ONLY FOR DEV
   async getAll() {
     return this.userRepository.findAll();
+  }
+
+  async changeProfilePicture(pfp: Express.Multer.File, id: number) {
+    try {
+      const fileUploadResponse = await this.filesService.uploadFile(pfp);
+
+      const user = await this.userRepository.findOne({ where: { id: id } });
+      user.profile_picture = fileUploadResponse;
+
+      return { message: 'Profile picture changed successfully!' };
+    } catch (error) {
+      return { message: `Error creating file ${error}` };
+    }
+  }
+
+  async changeBackgroundPicture(
+    backgroundPicture: Express.Multer.File,
+    id: number,
+  ) {
+    try {
+      const fileUploadResponse = await this.filesService.uploadFile(
+        backgroundPicture,
+      );
+
+      const user = await this.userRepository.findOne({ where: { id: id } });
+      user.profile_picture = fileUploadResponse;
+
+      return { message: 'Background picture changed successfully!' };
+    } catch (error) {
+      return { message: `Error creating file ${error}` };
+    }
+  }
+
+  async serveProfilePicture(id: number, res: Response) {
+    const user = await this.getUserById(id);
+    if (!user) {
+      throw BadRequestException;
+    }
+    try {
+      this.filesService.serveFile(user.profile_picture, res);
+    } catch (e) {
+      throw new NotFoundException({ message: 'Profile picture not found' });
+    }
+  }
+
+  async serveBackgroundPicture(id: number, res: Response) {
+    const user = await this.getUserById(id);
+    if (!user) {
+      throw BadRequestException;
+    }
+    try {
+      this.filesService.serveFile(user.background_picture, res);
+    } catch (e) {
+      throw new NotFoundException({ message: 'Background picture not found' });
+    }
   }
 }

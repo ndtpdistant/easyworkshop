@@ -47,14 +47,20 @@ export class AuthService {
   }
 
   async signUp(dto: SignUpDto) {
-    console.log(1, dto.body.email);
-    const user = await this.usersService.createUser(dto.body);
-    if (!user) {
-      throw BadRequestException;
+    const checkUser = await this.usersService.getUserByEmail(dto.body.email);
+    if (checkUser && !checkUser.is_verified) {
+      const verification_code = this.generateVerificationCode();
+      this.mailService.sendVerificationEmail(dto.body.email, verification_code);
+      this.usersService.addVerivicationCode(checkUser.id, verification_code);
+      return {
+        message:
+          'Seems like you already tried to create an account. Verification email sent.',
+      };
     }
 
+    const user = await this.usersService.createUser(dto.body);
+
     const verification_code = this.generateVerificationCode();
-    console.log(verification_code);
     this.mailService.sendVerificationEmail(dto.body.email, verification_code);
     this.usersService.addVerivicationCode(user.id, verification_code);
     return { message: 'Signup successful. Verification email sent.' };
