@@ -1,15 +1,12 @@
-import { Link, useNavigate, useLoaderData } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { StlViewer } from 'react-stl-viewer';
-import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Button from '../../components/Button';
-import Comment from '../../components/comment/Comment';
+import Comment from '../../components/Comment';
 
-import ArrowLeft from '../../assets/icons/ArrowLeft';
 import Like from '../../assets/icons/Like';
-import pfp from '../../pfp.jpg';
 import style from './ItemMobile.module.scss';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -20,12 +17,6 @@ import './swiperStyle.scss';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import Share from '../../assets/icons/Share';
 
-export async function loader({ params }) {
-  const easyworkshopService = new EasyworkshopService();
-  const item = await easyworkshopService.getCard(params.itemId);
-  return item;
-}
-
 const url = '../src/pages/item/Pumpkin_Spinner_v0.stl';
 const stlViewerStyle = {
   top: 0,
@@ -34,15 +25,8 @@ const stlViewerStyle = {
   height: '100%',
 };
 
-const ItemMobile = () => {
-  const navigation = useNavigate();
-  const [item, setItem] = useState({});
-  const card = useLoaderData();
+const ItemMobile = ({ item }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  useEffect(() => {
-    setItem(card);
-  }, []);
 
   return (
     <div className={style.wrapper}>
@@ -63,7 +47,10 @@ const ItemMobile = () => {
               className="mySwiper2"
             >
               <SwiperSlide>
-                <img style={{borderRadius: '10px 10px 0 0'}} src="https://swiperjs.com/demos/images/nature-1.jpg" />
+                <img
+                  style={{ borderRadius: '10px 10px 0 0' }}
+                  src="https://swiperjs.com/demos/images/nature-1.jpg"
+                />
               </SwiperSlide>
               <SwiperSlide>
                 <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
@@ -164,20 +151,30 @@ const ItemMobile = () => {
                 </Button>
               </div>
             </div>
-            <Link
-              to={`/profile/${item.profileId}`}
-              className={style.createdby}
-            >
+            <Link to={`/profile/${item.profileId}`} className={style.createdby}>
               {item.profileName ? item.profileName : '<profileName error>'}
             </Link>
             <div className={style.description}>{item.description}</div>
           </div>
-          <div className={style.comments}>
+          <div className={style.commentsSection}>
             <div className={style.commentsHeader}>
-                <div className={style.counter}>
-                  <Comment />
-                </div>
-                <Share />
+              <div className={style.counter}>
+                {item.comments.length} comments
+              </div>
+              <Share />
+            </div>
+            <div className={style.comments}>
+              {item.comments.map((comment) =>
+                // console.log(comment);
+                comment.parent_comment_id === null ? (
+                  <Comment
+                    key={comment.id} // Важно добавить ключ для каждого элемента списка
+                    profileId={comment.user_id}
+                    content={comment.content}
+                    createdAt={comment.CreatedAt}
+                  />
+                ) : null,
+              )}
             </div>
           </div>
         </div>

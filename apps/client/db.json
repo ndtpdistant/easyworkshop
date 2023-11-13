@@ -5,8 +5,37 @@
       "img": "/src/pfp.jpg",
       "id": 1,
       "profileId": 1,
-      "profileName": "Markus",
+      "profileName": "Стас",
       "profileImg": "/src/pfp.jpg",
+      "comments": [
+        {
+          "id": 1,
+          "item_id": 1,
+          "parent_comment_id": null,
+          "user_id": 2,
+          "content": "Молодец, Стас. Твоя любящая мама",
+          "CreatedAt": "2023-11-10 10:53:34.012+03",
+          "updatedAt": "2023-11-10 10:53:34.012+3"
+        },
+        {
+          "id": 4,
+          "item_id": 1,
+          "parent_comment_id": 1,
+          "user_id": 2,
+          "content": "Молодец, Стас. Твоя любящая мама",
+          "CreatedAt": "2023-11-10 10:53:34.012+03",
+          "updatedAt": "2023-11-10 10:53:34.012+03"
+        },
+        {
+          "id": 3,
+          "item_id": 1,
+          "parent_comment_id": null,
+          "content": "Молодец, Стас. Твоя любящая мама",
+          "CreatedAt": "2023-11-10 10:53:34.012+3",
+          "updatedAt": "2023-11-10 10:53:34.012+3",
+          "user_id": 2
+        }
+      ],
       "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
     },
     {

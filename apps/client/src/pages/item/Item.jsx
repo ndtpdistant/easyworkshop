@@ -9,7 +9,6 @@ import ItemMobile from './ItemMobile';
 
 import ArrowLeft from '../../assets/icons/ArrowLeft';
 import Like from '../../assets/icons/Like';
-import pfp from '../../pfp.jpg';
 import style from './Item.module.scss';
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -19,7 +18,7 @@ import './swiperStyle.scss';
 
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
-export async function loader({ params }) {
+export async function loader({ params }){
   const easyworkshopService = new EasyworkshopService();
   const item = await easyworkshopService.getCard(params.itemId);
   return item;
@@ -50,7 +49,7 @@ const Item = () => {
   return (
     <>
       {mobile ? (
-        <ItemMobile />
+        <ItemMobile item={item} />
       ) : (
         <div className={style.wrapper}>
           <div className={style.container}>
