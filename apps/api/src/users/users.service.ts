@@ -13,6 +13,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { FilesService } from 'src/files/files.service';
 import { Response } from 'express';
+import { ChangeImageDto } from './dto/change-image.dto';
 
 async function genUniqueSalt(userRepository: typeof User) {
   const saltRounds = 10;
@@ -109,6 +110,22 @@ export class UsersService {
     }
     return;
   }
+
+  async getUserData(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id: id },
+    });
+    if (user) {
+      const data = {
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        about: user.about,
+      };
+      return data;
+    }
+    return;
+  }
   // async deleteUser() {}
   async addVerivicationCode(id: number, verification_code: string) {
     const user = await this.userRepository.findOne({ where: { id: id } });
@@ -134,11 +151,15 @@ export class UsersService {
     return this.userRepository.findAll();
   }
 
-  async changeProfilePicture(pfp: Express.Multer.File, id: number) {
+  async changeProfilePicture(file: Express.Multer.File, dto: ChangeImageDto) {
     try {
-      const fileUploadResponse = await this.filesService.uploadFile(pfp);
-
-      const user = await this.userRepository.findOne({ where: { id: id } });
+      const user = await this.userRepository.findOne({
+        where: { id: dto.body.id },
+      });
+      if (!user) {
+        throw new NotFoundException({ message: 'User not found' });
+      }
+      const fileUploadResponse = await this.filesService.uploadFile(file);
       user.profile_picture = fileUploadResponse;
 
       return { message: 'Profile picture changed successfully!' };
@@ -148,15 +169,19 @@ export class UsersService {
   }
 
   async changeBackgroundPicture(
-    backgroundPicture: Express.Multer.File,
-    id: number,
+    file: Express.Multer.File,
+    dto: ChangeImageDto,
   ) {
     try {
-      const fileUploadResponse = await this.filesService.uploadFile(
-        backgroundPicture,
-      );
+      const user = await this.userRepository.findOne({
+        where: { id: dto.body.id },
+      });
 
-      const user = await this.userRepository.findOne({ where: { id: id } });
+      if (!user) {
+        throw new NotFoundException({ message: 'User not found' });
+      }
+
+      const fileUploadResponse = await this.filesService.uploadFile(file);
       user.profile_picture = fileUploadResponse;
 
       return { message: 'Background picture changed successfully!' };

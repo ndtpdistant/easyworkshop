@@ -40,4 +40,9 @@ export class ItemsController {
   async getItems(@Query('limit') limit = 30, @Query('offset') offset = 0) {
     return await this.itemsService.getItems(limit, offset);
   }
+
+  @Get()
+  async getItem(@Query('id') id) {
+    return await this.itemsService.getItem(id);
+  }
 }

@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { FilesService } from 'src/files/files.service';
 import { CreateItemDto } from 'src/items/dto/create-item-dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Item } from 'src/items/items.model';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class ItemsService {
@@ -63,5 +64,13 @@ export class ItemsService {
       offset: offset,
     });
     return items;
+  }
+
+  async getItem(id) {
+    const item = await this.itemRepository.findOne({ where: { id: id } });
+    if (!item) {
+      throw new NotFoundException({ message: 'Item not found' });
+    }
+    return item;
   }
 }

@@ -56,6 +56,9 @@ export class Comment extends Model<Comment, CommentCreationAttrs> {
   })
   content: string;
 
+  @HasMany(() => Comment, 'parent_comment_id')
+  children: Comment[];
+
   @HasMany(() => CommentLike)
   commentLikes: CommentLike[];
 }

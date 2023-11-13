@@ -16,6 +16,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import multer from 'multer';
 import { Response } from 'express';
+import { ChangeImageDto } from './dto/change-image.dto';
 
 @Controller('users')
 export class UsersController {
@@ -33,32 +34,34 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Post('changeprofilepicture')
-  // @UseInterceptors(
-  //   FileInterceptor('profilePicture', {
-  //     fileFilter: (req, file, callback) => {
-  //       const allowedMimeTypes = [
-  //         'image/jpeg',
-  //         'image/png',
-  //         'image/gif',
-  //         'image/jpg',
-  //       ];
+  @UseInterceptors(
+    FileInterceptor('file', {
+      fileFilter: (req, file, callback) => {
+        const allowedMimeTypes = [
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'image/jpg',
+        ];
 
-  //       if (allowedMimeTypes.includes(file.mimetype)) {
-  //         callback(null, true);
-  //       } else {
-  //         const error = new Error('Invalid file type. Only images are allowed');
-  //         error.name = 'FileUploadError';
-  //         callback(error, false);
-  //       }
-  //     },
-  //   }),
-  // )
+        if (allowedMimeTypes.includes(file.mimetype)) {
+          callback(null, true);
+        } else {
+          const error = new Error('Invalid file type. Only images are allowed');
+          error.name = 'FileUploadError';
+          callback(error, false);
+        }
+      },
+    }),
+  )
   changeProfilePicture(
-    @UploadedFile() pfp: Express.Multer.File,
-    @Body() id: number,
+    @Body() dto: any,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    /// тут нужно будет сделать дтошку для доставания id
-    return this.usersService.changeProfilePicture(pfp, id);
+    // console.log(dto.);
+    const id = { body: { id: dto.id } };
+    return this.usersService.changeProfilePicture(file, id);
+    // return this.usersService.changeProfilePicture(file, dto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -85,9 +88,9 @@ export class UsersController {
   )
   changeBackgroundPicture(
     @UploadedFile() backgroundPicture: Express.Multer.File,
-    @Body() id: number,
+    @Body() dto: ChangeImageDto,
   ) {
-    return this.usersService.changeBackgroundPicture(backgroundPicture, id);
+    return this.usersService.changeBackgroundPicture(backgroundPicture, dto);
   }
 
   @UseGuards(JwtAuthGuard)
