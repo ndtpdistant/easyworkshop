@@ -1,0 +1,63 @@
+@import '../../assets/styles/base';
+
+.container {
+  width: calc(100vw - 40px);
+  background: #fff;
+  margin: 0 auto;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.itemFooter {
+  padding: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.rowWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  svg {
+    path {
+      stroke: #000000;
+    }
+  }
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.createdby {
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #000000;
+}
+
+.rowNav {
+  display: flex;
+  align-items: center;
+}
+
+.like {
+  margin-right: 12px;
+  svg {
+    &:active {
+      path {
+        stroke: $primary-color-hover;
+      }
+    }
+  }
+}
+
+.description {
+  color: #4e4e4e;
+  font-size: 13px;
+  line-height: 16px;
+  margin-top: 5px;
+}

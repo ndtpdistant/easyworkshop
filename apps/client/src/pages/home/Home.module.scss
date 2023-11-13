@@ -11,3 +11,9 @@
   flex-wrap: wrap;
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: calc(100vw - 40px);
+  }
+}

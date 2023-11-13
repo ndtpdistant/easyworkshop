@@ -37,6 +37,7 @@ const Home = () => {
               profileId={card.profileId}
               profileName={card.profileName}
               profileImg={card.profileImg}
+              description={card.description}
             />
           ))
         ) : null}

@@ -25,3 +25,23 @@
   color: #798daa;
   font-size: 18px;
 }
+
+@media screen and (max-width: 480px) {
+  .logo {
+    display: none;
+  }
+
+  .wrapper {
+    height: 95px;
+  }
+
+  .container {
+    width: calc(100vw - 40px);
+    justify-content: center;
+  }
+
+  .copyright {
+    width: 320px;
+    text-align: center;
+  }
+}

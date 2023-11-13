@@ -57,7 +57,7 @@ const Auth = () => {
   };
 
   useEffect(() => {
-    if (window.innerWidth < 450) {
+    if (window.screen.width < 480) {
       setMobileStep(1);
     }
   }, []);
