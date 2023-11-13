@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { SignInDto } from 'src/auth/dto/sign-in-dto';
 import { SignUpDto } from 'src/auth/dto/sign-up-dto';
+import { VerificationDto } from './dto/verification-dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,7 +15,11 @@ export class AuthController {
 
   @Post('registration')
   signUp(@Body() dto: SignUpDto) {
-    console.log(dto.body)
     return this.authService.signUp(dto);
+  }
+
+  @Post('verification')
+  verification(@Body() dto: VerificationDto) {
+    return this.authService.verification(dto);
   }
 }

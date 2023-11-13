@@ -5,7 +5,10 @@ import {
   Model,
   BelongsTo,
   ForeignKey,
+  HasMany,
 } from 'sequelize-typescript';
+import { Comment } from 'src/comments/comments.model';
+import { ItemLike } from 'src/item-likes/item-likes.model';
 import { User } from 'src/users/users.model';
 
 interface ItemCreationAttrs {
@@ -54,4 +57,10 @@ export class Item extends Model<Item, ItemCreationAttrs> {
 
   @BelongsTo(() => User)
   user: User;
+
+  @HasMany(() => Comment)
+  comments: Comment[];
+
+  @HasMany(() => ItemLike)
+  itemLikes: ItemLike[];
 }

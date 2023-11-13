@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user-dto';
 import { User } from 'src/users/users.model';
 import * as bcrypt from 'bcrypt';
@@ -51,9 +51,26 @@ export class UsersService {
     }
     return;
   }
-
   // async deleteUser() {}
+  async addVerivicationCode(id: number, verification_code: string) {
+    const user = await this.userRepository.findOne({ where: { id: id } });
+    if (user) {
+      user.verification_code = verification_code;
+      await user.save();
+    } else {
+      throw new NotFoundException('User not found');
+    }
+  }
 
+  async addVerifiedStatus(id: number) {
+    const user = await this.userRepository.findOne({ where: { id: id } });
+    if (user) {
+      user.is_verified = true;
+      await user.save();
+    } else {
+      throw new NotFoundException('User not found');
+    }
+  }
   // ONLY FOR DEV
   async getAll() {
     return this.userRepository.findAll();

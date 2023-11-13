@@ -1,5 +1,7 @@
 'use strict';
 
+const { DataType } = require('sequelize-typescript');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,6 +11,16 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
+    await queryInterface.addColumn('users', 'verification_code', {
+      type: DataType.STRING,
+      unique: false,
+    });
+
+    await queryInterface.addColumn('users', 'is_verified', {
+      type: DataType.BOOLEAN,
+      unique: false,
+      defaultValue: false,
+    });
   },
 
   async down(queryInterface, Sequelize) {
@@ -18,7 +30,5 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    console.log('Removing column...');
-    return queryInterface.removeColumn('users', 'profile_picture_path');
   },
 };

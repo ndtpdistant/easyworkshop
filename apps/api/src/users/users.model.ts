@@ -1,4 +1,7 @@
 import { Column, DataType, Table, Model, HasMany } from 'sequelize-typescript';
+import { CommentLike } from 'src/comment-likes/comment-likes.model.ts';
+import { Comment } from 'src/comments/comments.model';
+import { ItemLike } from 'src/item-likes/item-likes.model';
 import { Item } from 'src/items/items.model';
 
 interface UserCreationAttrs {
@@ -73,6 +76,27 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   profile_picture: string;
 
+  @Column({
+    type: DataType.STRING,
+    unique: false,
+  })
+  verification_code: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
+  is_verified: boolean;
+
   @HasMany(() => Item)
   items: Item[];
+
+  @HasMany(() => Comment)
+  comments: Comment[];
+
+  @HasMany(() => ItemLike)
+  itemLikes: ItemLike[];
+
+  @HasMany(() => CommentLike)
+  commentLikes: CommentLike[];
 }

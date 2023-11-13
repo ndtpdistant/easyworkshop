@@ -5,10 +5,15 @@ import { UsersModule } from 'src/users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { User } from 'src/users/users.model';
 import { FilesModule } from 'src/files/files.module';
-import { ItemsController } from 'src/items/items.controller';
-import { ItemsService } from 'src/items/items.service';
 import { ItemsModule } from 'src/items/items.module';
 import { Item } from 'src/items/items.model';
+import { MailModule } from './mail/mail.module';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/comments.model';
+import { CommentLikesModule } from './comment-likes/comment-likes.module';
+import { ItemLikesModule } from './item-likes/item-likes.module';
+import { CommentLike } from './comment-likes/comment-likes.model.ts';
+import { ItemLike } from './item-likes/item-likes.model';
 
 @Module({
   imports: [
@@ -23,12 +28,16 @@ import { Item } from 'src/items/items.model';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadModels: true,
-      models: [User, Item],
+      models: [User, Item, Comment, CommentLike, ItemLike],
     }),
     UsersModule,
     AuthModule,
     FilesModule,
     ItemsModule,
+    MailModule,
+    CommentsModule,
+    CommentLikesModule,
+    ItemLikesModule,
   ],
   controllers: [],
   providers: [],
