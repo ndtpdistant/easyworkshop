@@ -7,6 +7,7 @@ import Root from './pages/root/Root';
 import Item, { loader as itemLoader } from './pages/item/Item';
 import Profile, { loader as profileLoader } from './pages/profile/Profile';
 import Edit from './pages/edit/Edit';
+import EditProfile from './pages/profile/editProfile';
 import ErrorPage from './error-page';
 
 import './assets/styles/font-import.scss';
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
     
       }
     ],
+  },
+  {
+    path: '/profile/edit',
+    element: <EditProfile />,
+    errorElement: <ErrorPage />,
   },
   {
     path: 'auth',
