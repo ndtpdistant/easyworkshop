@@ -28,7 +28,7 @@ const NavbarMobile = () => {
     >
       <div
         className={style.container}
-        style={isMenuOpen ? null : { height: 'inherit' } }
+        style={isMenuOpen ? null : { height: 'inherit' }}
       >
         <nav className={style.nav}>
           <div
@@ -43,7 +43,7 @@ const NavbarMobile = () => {
             <span></span>
           </div>
           <div className={style.logo}>
-            <Link to={'/'}>
+            <Link to={'/'} onClick={() => prevState === true ? setMenuOpen((prevState) => !prevState) : null}>
               <img className={style.logo} src={logo} alt="easy workshop" />
             </Link>
           </div>
@@ -65,16 +65,36 @@ const NavbarMobile = () => {
       {isMenuOpen ? (
         <ul className={style.burgeList}>
           <div className={style.burgerItem}>
-            <Link to={'/'}>Home</Link>
+            <Link
+              to={'/'}
+              onClick={() => setMenuOpen((prevState) => !prevState)}
+            >
+              Home
+            </Link>
           </div>
           <div className={style.burgerItem}>
-            <Link to={'/'}>About</Link>
+            <Link
+              to={'/'}
+              onClick={() => setMenuOpen((prevState) => !prevState)}
+            >
+              About
+            </Link>
           </div>
           <div className={style.burgerItem}>
-            <Link to={'/'}>Add model</Link>
+            <Link
+              to={'/'}
+              onClick={() => setMenuOpen((prevState) => !prevState)}
+            >
+              Add model
+            </Link>
           </div>
           <div className={style.burgerItem}>
-            <Link to={'/'}>Liked by you</Link>
+            <Link
+              to={'/favorite'}
+              onClick={() => setMenuOpen((prevState) => !prevState)}
+            >
+              Liked by you
+            </Link>
           </div>
         </ul>
       ) : null}

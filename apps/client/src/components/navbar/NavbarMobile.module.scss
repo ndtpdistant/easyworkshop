@@ -70,11 +70,16 @@
   border-top: 0.5px solid #b6b6b6;
   border-bottom: 0.5px solid #b6b6b6;
   background: #fff;
-  
+
   a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     color: #000;
     text-decoration: none;
     font-size: 12px;
+    width: 100%;
+    height: 100%;
   }
 }
 
