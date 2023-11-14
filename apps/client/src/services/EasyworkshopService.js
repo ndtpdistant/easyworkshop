@@ -1,5 +1,6 @@
 class EasyworkshopService {
-  _apiBase = 'http://localhost:3000/';
+  // _apiBase = 'http://localhost:3000/';
+  _apiBase = 'http://192.168.51.55:3000/';
 
   getResource = async (url) => {
     let res = await fetch(url);

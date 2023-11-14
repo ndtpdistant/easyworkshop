@@ -23,6 +23,7 @@ const stlViewerStyle = {
   left: 0,
   width: '100%',
   height: '100%',
+  color: '#007aff'
 };
 
 const ItemMobile = ({ item }) => {
@@ -165,13 +166,13 @@ const ItemMobile = ({ item }) => {
             </div>
             <div className={style.comments}>
               {item.comments.map((comment) =>
-                // console.log(comment);
                 comment.parent_comment_id === null ? (
                   <Comment
-                    key={comment.id} // Важно добавить ключ для каждого элемента списка
+                    key={comment.id}
                     profileId={comment.user_id}
                     content={comment.content}
                     createdAt={comment.CreatedAt}
+                    likes={1000}
                   />
                 ) : null,
               )}

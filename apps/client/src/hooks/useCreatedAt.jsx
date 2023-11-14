@@ -6,10 +6,13 @@ const useCreatedAt = (initialTimestamp) => {
   useEffect(() => {
     const convertTimestampToDate = (timestamp) => {
       const converetedTimestamp = `${timestamp.split(' ').join('T')}:00`;
-      console.log(converetedTimestamp);
       const parsedTimestamp = new Date(converetedTimestamp);
-      console.log(parsedTimestamp);
-      setDate(parsedTimestamp);
+      setDate(
+        `${parsedTimestamp.getMonth() + 1} ${parsedTimestamp.toLocaleDateString(
+          'en-US',
+          { month: 'long' },
+        )}, ${parsedTimestamp.getFullYear()}`,
+      );
     };
 
     convertTimestampToDate(initialTimestamp);

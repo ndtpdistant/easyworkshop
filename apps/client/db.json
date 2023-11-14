@@ -31,7 +31,7 @@
           "item_id": 1,
           "parent_comment_id": null,
           "content": "Молодец, Стас. Твоя любящая мама",
-          "CreatedAt": "2023-11-10 10:53:34.012+3",
+          "CreatedAt": "2023-11-10 10:53:34.012+03",
           "updatedAt": "2023-11-10 10:53:34.012+3",
           "user_id": 2
         }
@@ -125,6 +125,51 @@
       "firstName": "John",
       "lastName": "Shulman",
       "id": 1,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 2,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 3,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 4,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 5,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 6,
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
       "nickname": "qwerty",
