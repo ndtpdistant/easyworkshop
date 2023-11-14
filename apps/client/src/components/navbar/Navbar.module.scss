@@ -57,3 +57,9 @@
   height: 54px;
   border-radius: 30px;
 }
+
+@media screen and (max-width: 480px) {
+  .wrapper{
+    max-width: 480px;
+  }
+}

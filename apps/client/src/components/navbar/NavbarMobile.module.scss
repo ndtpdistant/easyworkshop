@@ -3,6 +3,7 @@
 .wrapper {
   width: 100vw;
   height: 110px;
+  background: #ffffff;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.08),
     0px 2px 24px 0px rgba(0, 0, 0, 0.08);
 }
@@ -10,7 +11,6 @@
 .container {
   width: calc(100vw - 40px);
   margin: 0 auto;
-  height: inherit;
   padding: 20px 0 12px 0;
 }
 
@@ -57,6 +57,27 @@
   }
 }
 
+.burgeList {
+  margin-top: 15px;
+}
+
+.burgerItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  height: 50px;
+  border-top: 0.5px solid #b6b6b6;
+  border-bottom: 0.5px solid #b6b6b6;
+  background: #fff;
+  
+  a {
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
+  }
+}
+
 .nav {
   width: 100%;
   display: flex;
@@ -83,7 +104,7 @@
     width: 100%;
     height: 40px;
     border-radius: 20px;
-    background: #dedede;
+    background: #eee;
     color: #555;
     font-size: 14px;
   }
