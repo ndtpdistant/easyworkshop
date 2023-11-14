@@ -11,7 +11,6 @@ interface UserCreationAttrs {
   email: string;
   password: string;
   salt: string;
-  profile_picture: string;
 }
 
 @Table({ tableName: 'users' })
@@ -85,6 +84,7 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({
     type: DataType.STRING,
     unique: false,
+    allowNull: true,
   })
   verification_code: string;
 

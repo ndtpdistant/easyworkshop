@@ -10,14 +10,11 @@ export class FilesService {
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
-
     const filename = `${Date.now()}_${file.originalname}`;
 
     const filepath = path.join(uploadDir, filename);
-
     try {
       fs.writeFileSync(filepath, file.buffer);
-
       return filepath;
     } catch (error) {
       console.error('Error saving file: ', error.message);
@@ -27,5 +24,9 @@ export class FilesService {
 
   serveFile(path: string, res: Response) {
     res.sendFile(path, { root: './' });
+  }
+
+  deleteFile(path: string) {
+    fs.unlinkSync(path);
   }
 }

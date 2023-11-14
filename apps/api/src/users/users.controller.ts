@@ -17,6 +17,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import multer from 'multer';
 import { Response } from 'express';
 import { ChangeImageDto } from './dto/change-image.dto';
+import { ChangeAboutDto } from './dto/change-about.dto';
 
 @Controller('users')
 export class UsersController {
@@ -55,19 +56,17 @@ export class UsersController {
     }),
   )
   changeProfilePicture(
-    @Body() dto: any,
+    @Body() dto: ChangeImageDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    // console.log(dto.);
-    const id = { body: { id: dto.id } };
+    const id = +dto.title;
     return this.usersService.changeProfilePicture(file, id);
-    // return this.usersService.changeProfilePicture(file, dto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('changebackgroundpicture')
   @UseInterceptors(
-    FileInterceptor('profilePicture', {
+    FileInterceptor('file', {
       fileFilter: (req, file, callback) => {
         const allowedMimeTypes = [
           'image/jpeg',
@@ -87,21 +86,34 @@ export class UsersController {
     }),
   )
   changeBackgroundPicture(
-    @UploadedFile() backgroundPicture: Express.Multer.File,
+    @UploadedFile() file: Express.Multer.File,
     @Body() dto: ChangeImageDto,
   ) {
-    return this.usersService.changeBackgroundPicture(backgroundPicture, dto);
+    const id = +dto.title;
+    return this.usersService.changeBackgroundPicture(file, id);
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('changeabout')
+  changeAbout(@Body() dto: ChangeAboutDto) {
+    const id = +dto.title;
+    return this.usersService.changeAbout(id, dto.body.about);
+  }
+
+  // @UseGuards(JwtAuthGuard)
   @Get('profilepicture')
   getProfilePicture(@Query('id') id: number, @Res() res: Response) {
     return this.usersService.serveProfilePicture(id, res);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('backgroundpicture')
   getBackgroundPicture(@Query('id') id: number, @Res() res: Response) {
     return this.usersService.serveBackgroundPicture(id, res);
+  }
+
+  @Get('userdata')
+  getUserData(@Query('id') id: number) {
+    return this.usersService.getUserData(id);
   }
 }

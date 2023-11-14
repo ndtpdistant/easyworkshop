@@ -1,5 +1,6 @@
 export class ChangeImageDto {
+  readonly title: string;
   readonly body: {
-    id: number;
+    readonly id: string;
   };
 }

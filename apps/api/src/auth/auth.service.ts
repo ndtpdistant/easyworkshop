@@ -47,15 +47,29 @@ export class AuthService {
   }
 
   async signUp(dto: SignUpDto) {
-    const checkUser = await this.usersService.getUserByEmail(dto.body.email);
-    if (checkUser && !checkUser.is_verified) {
-      const verification_code = this.generateVerificationCode();
-      this.mailService.sendVerificationEmail(dto.body.email, verification_code);
-      this.usersService.addVerivicationCode(checkUser.id, verification_code);
-      return {
-        message:
-          'Seems like you already tried to create an account. Verification email sent.',
-      };
+    try {
+      const exsistingUser = await this.usersService.getUserByEmail(
+        dto.body.email,
+      );
+      if (exsistingUser && !exsistingUser.is_verified) {
+        console.log(1);
+        const verification_code = this.generateVerificationCode();
+        this.mailService.sendVerificationEmail(
+          dto.body.email,
+          verification_code,
+        );
+        this.usersService.addVerivicationCode(
+          exsistingUser.id,
+          verification_code,
+        );
+        return {
+          message:
+            'Seems like you already tried to create an account. Verification email sent.',
+        };
+      }
+      console.log(1)
+    } catch (error) {
+      console.log(error);
     }
 
     const user = await this.usersService.createUser(dto.body);

@@ -46,8 +46,8 @@ export class UsersService {
       password: password,
       salt: salt,
     };
-
     try {
+      console.log(updatedDto);
       const user = await this.userRepository.create(updatedDto);
       return user;
     } catch (error) {
@@ -112,17 +112,21 @@ export class UsersService {
   }
 
   async getUserData(id: number) {
-    const user = await this.userRepository.findOne({
-      where: { id: id },
-    });
-    if (user) {
-      const data = {
-        username: user.username,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        about: user.about,
-      };
-      return data;
+    try {
+      const user = await this.userRepository.findOne({
+        where: { id: id },
+      });
+      if (user) {
+        const data = {
+          username: user.username,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          about: user.about,
+        };
+        return data;
+      }
+    } catch (e) {
+      throw new NotFoundException({ message: 'User not found' });
     }
     return;
   }
@@ -151,16 +155,20 @@ export class UsersService {
     return this.userRepository.findAll();
   }
 
-  async changeProfilePicture(file: Express.Multer.File, dto: ChangeImageDto) {
+  async changeProfilePicture(file: Express.Multer.File, id: number) {
     try {
       const user = await this.userRepository.findOne({
-        where: { id: dto.body.id },
+        where: { id: id },
       });
       if (!user) {
         throw new NotFoundException({ message: 'User not found' });
       }
+      if (user.profile_picture) {
+        this.filesService.deleteFile(user.profile_picture);
+      }
       const fileUploadResponse = await this.filesService.uploadFile(file);
       user.profile_picture = fileUploadResponse;
+      await user.save();
 
       return { message: 'Profile picture changed successfully!' };
     } catch (error) {
@@ -168,21 +176,23 @@ export class UsersService {
     }
   }
 
-  async changeBackgroundPicture(
-    file: Express.Multer.File,
-    dto: ChangeImageDto,
-  ) {
+  async changeBackgroundPicture(file: Express.Multer.File, id: number) {
     try {
       const user = await this.userRepository.findOne({
-        where: { id: dto.body.id },
+        where: { id: id },
       });
 
       if (!user) {
         throw new NotFoundException({ message: 'User not found' });
       }
 
+      if (user.background_picture) {
+        this.filesService.deleteFile(user.background_picture);
+      }
+
       const fileUploadResponse = await this.filesService.uploadFile(file);
-      user.profile_picture = fileUploadResponse;
+      user.background_picture = fileUploadResponse;
+      await user.save();
 
       return { message: 'Background picture changed successfully!' };
     } catch (error) {
@@ -211,6 +221,16 @@ export class UsersService {
       this.filesService.serveFile(user.background_picture, res);
     } catch (e) {
       throw new NotFoundException({ message: 'Background picture not found' });
+    }
+  }
+
+  async changeAbout(id: number, about: string) {
+    try {
+      const user = await this.userRepository.findOne({ where: { id: id } });
+      user.about = about;
+      user.save;
+    } catch (e) {
+      throw new NotFoundException({ message: 'User not found' });
     }
   }
 }
