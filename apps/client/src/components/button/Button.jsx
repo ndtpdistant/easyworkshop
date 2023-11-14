@@ -1,6 +1,6 @@
 import style from './Button.module.scss';
 
-const Button = ({ text, inlineStyle, onClick, disabled, type }) => {
+const Button = ({ text, inlineStyle, onClick, disabled, type, children }) => {
   // download button in card - 43px
   // navbar button - 54px
   // auth button - 87px
@@ -13,7 +13,7 @@ const Button = ({ text, inlineStyle, onClick, disabled, type }) => {
         disabled={disabled}
         type={type}
       >
-        {text}
+        {children}
       </button>
     </>
   );

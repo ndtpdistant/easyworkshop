@@ -1,0 +1,179 @@
+{
+  "cards": [
+    {
+      "title": "3DBenchy",
+      "img": "/src/pfp.jpg",
+      "id": 1,
+      "profileId": 1,
+      "profileName": "Стас",
+      "profileImg": "/src/pfp.jpg",
+      "comments": [
+        {
+          "id": 1,
+          "item_id": 1,
+          "parent_comment_id": null,
+          "user_id": 2,
+          "content": "Молодец, Стас. Твоя любящая мама",
+          "CreatedAt": "2023-11-10 10:53:34.012+03",
+          "updatedAt": "2023-11-10 10:53:34.012+3"
+        },
+        {
+          "id": 4,
+          "item_id": 1,
+          "parent_comment_id": 1,
+          "user_id": 2,
+          "content": "Молодец, Стас. Твоя любящая мама",
+          "CreatedAt": "2023-11-10 10:53:34.012+03",
+          "updatedAt": "2023-11-10 10:53:34.012+03"
+        },
+        {
+          "id": 3,
+          "item_id": 1,
+          "parent_comment_id": null,
+          "content": "Молодец, Стас. Твоя любящая мама",
+          "CreatedAt": "2023-11-10 10:53:34.012+03",
+          "updatedAt": "2023-11-10 10:53:34.012+3",
+          "user_id": 2
+        }
+      ],
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "XYZ Cube",
+      "img": "/src/pfp.jpg",
+      "id": 2,
+      "profileId": 2,
+      "profileName": "John",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 3,
+      "profileId": 3,
+      "profileName": "Roman",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 4,
+      "profileId": 4,
+      "profileName": "4",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 5,
+      "profileId": 5,
+      "profileName": "5",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 6,
+      "profileId": 6,
+      "profileName": "6",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 7,
+      "profileId": 7,
+      "profileName": "7",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 8,
+      "profileId": 8,
+      "profileName": "8",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 10,
+      "profileId": 10,
+      "profileName": "10",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    },
+    {
+      "title": "Octopus",
+      "img": "/src/pfp.jpg",
+      "id": 9,
+      "profileId": 9,
+      "profileName": "9",
+      "profileImg": "/src/pfp.jpg",
+      "description": "This is the most classic model to test your own 3d printer... lorem ipsum asjkdajda;jdaad ddsad as dadsa d ad sd "
+    }
+  ],
+  "profiles": [
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 1,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 2,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 3,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 4,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 5,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "firstName": "John",
+      "lastName": "Shulman",
+      "id": 6,
+      "background": "/src/pfp.jpg",
+      "img": "/src/pfp.jpg",
+      "nickname": "qwerty",
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+    }
+  ]
+}

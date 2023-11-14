@@ -1,9 +1,12 @@
-import App from './components/app/App';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Auth from './pages/Auth';
-import Home from './pages/Home';
+import Auth from './pages/auth/Auth';
+import Home, { loader as homeLoader } from './pages/home/Home';
+import Root from './pages/root/Root';
+import Item, { loader as itemLoader } from './pages/item/Item';
+import Profile, { loader as profileLoader } from './pages/profile/Profile';
+import Edit from './pages/edit/Edit';
 import ErrorPage from './error-page';
 
 import './assets/styles/font-import.scss';
@@ -15,27 +18,36 @@ const router = createBrowserRouter([
   // https://reactrouter.com/en/main/start/tutorial
   {
     path: '/',
-    element: <Home />,
+    element: <Root />,
     errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Home />, loader: homeLoader },
+      {
+        path: 'item/:itemId',
+        element: <Item />,
+        loader: itemLoader,
+      },
+      {
+        path: 'profile/:profileId',
+        element: <Profile />,
+        loader: profileLoader,
+      },
+      {
+        path: 'edit',
+        element: <Edit />
+    
+      }
+    ],
   },
   {
     path: 'auth',
     element: <Auth />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
 root.render(
   <>
     <RouterProvider router={router} />
-    {/* <Auth /> */}
-    {/* <div style={{display: "flex", backgroundColor: '#F2F2F2', flexDirection: "column", height: '200vh',
-    }}> */}
-    {/* for test only */}
-    {/* <Navbar /> */}
-    {/* <h1>content</h1> */}
-    {/* <Footer style={{}}/> */}
-    {/* </div> */}
-    {/* <Button text={'click'} inlineStyle={{height: '123px'}} onClick={() => console.log(1)}/> */}
-    {/* <Auth /> */}
   </>,
 );

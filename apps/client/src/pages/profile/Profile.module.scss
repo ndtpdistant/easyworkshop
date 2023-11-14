@@ -1,0 +1,63 @@
+.wrapper {
+  width: 100vw;
+}
+
+.container {
+  max-width: 1265px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.userContainer {
+  margin-top: 30px;
+  width: 350px;
+  height: 300px;
+  border-radius: 10px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileBackground {
+  width: 350px;
+  height: 180px;
+  position: relative;
+  top: -6px;
+  border-radius: 10px 10px 0 0;
+}
+
+.profileImg {
+  position: relative;
+  bottom: 32px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  outline: 5px #ffffff solid;
+}
+
+.profileName {
+  position: relative;
+  bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.profileNickname {
+  position: relative;
+  bottom: 19px;
+  color: #595959;
+  text-align: center;
+  font-size: 16px;
+}
+
+.itemsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  margin-left: 50px;
+}

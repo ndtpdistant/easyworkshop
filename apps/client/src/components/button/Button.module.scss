@@ -1,31 +1,31 @@
 @import '../../assets/styles/base';
 
 .btn {
-    padding: 0 18px;
+  padding: 0 18px;
 
-    // width: 138px;
-    min-width: 15px;
-    min-height: 43px;
-    background: $primary-color;
-    
-    cursor: pointer;
-    font-weight: 400;
-    color: #fff;
-    font-size: 15px;
-    border: none;
-    border-radius: 10px;
+  // width: 138px;
+  min-width: 15px;
+  min-height: 30px;
+  background: $primary-color;
+
+  cursor: pointer;
+  font-weight: 400;
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
 }
 
-.btn:disabled, .btn:disabled:hover {
-    background: rgba($primary-color, 0.6);
-    cursor: not-allowed;
-
+.btn:disabled,
+.btn:disabled:hover {
+  background: rgba($primary-color, 0.6);
+  cursor: not-allowed;
 }
 
 .btn:hover {
-    background: $primary-color-hover;
+  background: $primary-color-hover;
 }
 
 .btn:active {
-    background: $primary-color-click;
+  background: $primary-color-click;
 }

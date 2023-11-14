@@ -59,7 +59,6 @@
   justify-content: center;
   align-items: center;
 
-
   input {
     height: 69px;
     &:not(:first-child) {
@@ -100,7 +99,8 @@
   text-align: center;
   color: #000;
   font-size: 18px;
-  a {
+  div {
+    cursor: pointer;
     text-decoration: none;
     font-weight: bold;
     color: $primary-color;

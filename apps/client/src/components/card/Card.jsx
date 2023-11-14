@@ -1,48 +1,84 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import Button from '../Button';
+
 import style from './Card.module.scss';
-import pfp from './pfp.jpg';
+import Like from '../../assets/icons/Like';
 
 const Card = ({
-  title = '3DBenchy',
-  img = pfp,
-  profileName = 'Markus',
-  profileImg = pfp,
-  link,
+  title,
+  img,
+  id,
+  profileId,
+  profileName,
+  profileImg,
+  description,
 }) => {
-  // const Card = ({ title, img, profileName, profileImg, link }) => {
-  // to-do
-  // добавить линки
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.screen.width < 480) {
+      setMobile(true);
+    }
+  }, []);
 
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <a href={link}>
-          <div className={style.imgContainer}>
-            <img src={pfp} className={style.img} />
-          </div>
-        </a>
+        <div className={style.imgContainer}>
+          <Link to={`/item/${id}`}>
+            <img src={img} className={style.img} />
+          </Link>
+        </div>
         <div className={style.cardFooter}>
-          <div className={style.cardInfo}>
-            <div className={style.profileImg}>
-              <a href="https://google.com">
-                <img
-                  src={pfp}
-                  // src={profileImg}
-                  className={style.profileImg}
-                  alt="pfp"
-                />
-              </a>
-            </div>
-            <div className={style.cardDescr}>
-              <div className={style.cardName}>
-                {title ? title : '<name error>'}
+          {mobile ? (
+            <>
+              <div className={style.rowWrapper}>
+                <div className={style.cardName}>
+                  {title ? title : '<name error>'}
+                </div>
+                <div className={style.like}>
+                  <Like />
+                </div>
               </div>
-              <a href="#" className={style.cardCreatedby}>
+              <Link
+                to={`/profile/${profileId}`}
+                className={style.cardCreatedby}
+              >
                 {profileName ? profileName : '<profileName error>'}
-              </a>
-            </div>
-          </div>
-          <Button text={'Download'} />
+              </Link>
+              <div className={style.description}>{description}</div>
+            </>
+          ) : (
+            <>
+              <div className={style.cardInfo}>
+                <div className={style.profileImg}>
+                  <Link to={`profile/${profileId}`}>
+                    <img
+                      src={profileImg}
+                      className={style.profileImg}
+                      alt="pfp"
+                    />
+                  </Link>
+                </div>
+                <div className={style.cardDescr}>
+                  <div className={style.cardName}>
+                    {title ? title : '<name error>'}
+                  </div>
+                  <Link
+                    to={`/profile/${profileId}`}
+                    className={style.cardCreatedby}
+                  >
+                    {profileName ? profileName : '<profileName error>'}
+                  </Link>
+                </div>
+              </div>
+              <Link to={`/item/${id}`}>
+                <Button>Download</Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>
