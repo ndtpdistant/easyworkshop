@@ -129,7 +129,8 @@
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
       "nickname": "qwerty",
-      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8]
+      "itemsId": [1, 2, 3, 4, 5, 6, 7, 8],
+      "favorites": [1, 2, 5, 3, 8, 9]
     },
     {
       "firstName": "John",

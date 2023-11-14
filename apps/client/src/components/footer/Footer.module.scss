@@ -49,5 +49,6 @@
 @media screen and (max-width: 480px) {
   .wrapper{
     max-width: 480px;
+    filter: drop-shadow(0px -2px 4px rgba(0, 0, 0, 0.08));
   }
 }

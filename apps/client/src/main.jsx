@@ -1,11 +1,12 @@
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Auth from './pages/auth/Auth';
 import Home, { loader as homeLoader } from './pages/home/Home';
-import Root from './pages/root/Root';
 import Item, { loader as itemLoader } from './pages/item/Item';
+import Favorite, { loader as favoriteLoader } from './pages/favorite/Favorite';
 import Profile, { loader as profileLoader } from './pages/profile/Profile';
+import Auth from './pages/auth/Auth';
+import Root from './pages/root/Root';
 import Edit from './pages/edit/Edit';
 import EditProfile from './pages/profile/editProfile';
 import ErrorPage from './error-page';
@@ -16,7 +17,6 @@ import './assets/styles/global-reset.scss';
 const root = createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
-  // https://reactrouter.com/en/main/start/tutorial
   {
     path: '/',
     element: <Root />,
@@ -34,10 +34,14 @@ const router = createBrowserRouter([
         loader: profileLoader,
       },
       {
+        path: 'favorite',
+        element: <Favorite />,
+        loader: favoriteLoader,
+      },
+      {
         path: 'edit',
-        element: <Edit />
-    
-      }
+        element: <Edit />,
+      },
     ],
   },
   {

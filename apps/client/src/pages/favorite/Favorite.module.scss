@@ -1,0 +1,30 @@
+@import '../../assets/styles/base';
+
+.wrapper {
+  width: 100vw;
+}
+
+.container {
+  width: calc(100vw - 40px);
+  margin: 0 auto 30px auto;
+}
+
+.title {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.error {
+  color: #7b7b7b;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+
+  a {
+    color: $primary-color;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}

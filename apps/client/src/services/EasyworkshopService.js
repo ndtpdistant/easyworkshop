@@ -37,8 +37,12 @@ class EasyworkshopService {
     img,
     about,
     nickname,
+    favorites,
   }) => {
     const cardList = await Promise.all(itemsId.map(async (id) => {
+      return await this.getCard(id);
+    }));
+    const favoritesList = await Promise.all(favorites.map(async (id) => {
       return await this.getCard(id);
     }));
     return {
@@ -49,6 +53,7 @@ class EasyworkshopService {
       img: img,
       about: about,
       nickname: nickname,
+      favorites: favoritesList,
       cardList: cardList,
     };
   };
