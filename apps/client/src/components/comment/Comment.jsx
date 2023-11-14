@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import useCreatedAt from '../../hooks/useCreatedAt';
 
+import Spinner from '../Spinner';
+
 import Like from '../../assets/icons/Like';
 import style from './Comment.module.scss';
 import EasyworkshopService from '../../services/EasyworkshopService';
@@ -8,10 +10,12 @@ import { useEffect, useState } from 'react';
 
 const Comment = ({ profileId, content, likes, createdAt }) => {
   const [profile, setProfile] = useState({});
+  const [loading, setLoading] = useState(true);
   const easyworkshopService = new EasyworkshopService();
 
   const onProfileLoaded = (resProfile) => {
-    setProfile({...resProfile });
+    setProfile({ ...resProfile });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -23,16 +27,18 @@ const Comment = ({ profileId, content, likes, createdAt }) => {
       <div className={style.info}>
         <div className={style.profileImg}>
           <Link to={`/profile/${profileId}`}>
-            <img
-              src={profile.img}
-              alt="pfp"
-              className={style.profileImg}
-            />
+            {loading ? (
+              <Spinner />
+            ) : (
+              <img src={profile.img} alt="pfp" className={style.profileImg} />
+            )}
           </Link>
         </div>
         <div className={style.column}>
           <div className={style.profileName}>
-            <Link to={`/profile/${profileId}`}>{profile.firstName} {profile.lastName}</Link>
+            <Link to={`/profile/${profileId}`}>
+              {profile.firstName} {profile.lastName}
+            </Link>
           </div>
           <div className={style.content}>{content}</div>
           <div className={style.nav}>
