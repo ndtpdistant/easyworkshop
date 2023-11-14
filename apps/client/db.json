@@ -125,6 +125,7 @@
       "firstName": "John",
       "lastName": "Shulman",
       "id": 1,
+      "about": "Professional 3D designer from NYC. I work with Blender, Fusion 360 and Cinema 4D.",
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
       "nickname": "qwerty",
@@ -133,6 +134,7 @@
     {
       "firstName": "John",
       "lastName": "Shulman",
+      "about": "Professional 3D designer from NYC. I work with Blender, Fusion 360 and Cinema 4D.",
       "id": 2,
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
@@ -142,6 +144,7 @@
     {
       "firstName": "John",
       "lastName": "Shulman",
+      "about": "Professional 3D designer from NYC. I work with Blender, Fusion 360 and Cinema 4D.",
       "id": 3,
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
@@ -151,6 +154,7 @@
     {
       "firstName": "John",
       "lastName": "Shulman",
+      "about": "Professional 3D designer from NYC. I work with Blender, Fusion 360 and Cinema 4D.",
       "id": 4,
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
@@ -160,6 +164,7 @@
     {
       "firstName": "John",
       "lastName": "Shulman",
+      "about": "Professional 3D designer from NYC. I work with Blender, Fusion 360 and Cinema 4D.",
       "id": 5,
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",
@@ -169,6 +174,7 @@
     {
       "firstName": "John",
       "lastName": "Shulman",
+      "about": "Professional 3D designer from NYC. I work with Blender, Fusion 360 and Cinema 4D.",
       "id": 6,
       "background": "/src/pfp.jpg",
       "img": "/src/pfp.jpg",

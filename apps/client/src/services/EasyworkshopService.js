@@ -35,6 +35,7 @@ class EasyworkshopService {
     id,
     background,
     img,
+    about,
     nickname,
   }) => {
     const cardList = await Promise.all(itemsId.map(async (id) => {
@@ -46,6 +47,7 @@ class EasyworkshopService {
       id: id,
       background: background,
       img: img,
+      about: about,
       nickname: nickname,
       cardList: cardList,
     };

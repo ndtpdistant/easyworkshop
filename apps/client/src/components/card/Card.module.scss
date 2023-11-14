@@ -114,6 +114,7 @@
   .wrapper {
     min-height: 350px;
     padding-bottom: 12px;
+    max-width: calc(100vw - 40px);
   }
 
   .container {
