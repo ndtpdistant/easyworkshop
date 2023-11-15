@@ -21,8 +21,11 @@ const Add = () => {
       </div>
       <div className={style.container}>
         <FileDropzone
-          types={['.stl']}
-          errorMessage={'Please upload only STL files.'}
+          types={['.stl', '.obj', '.fbx', '.blend', '.dae', '.amf', '.3ds', '.x3d', '.3mf']} 
+          // amf, dae, 3ds, x3d, blend, ply, dxf, ai, svg,
+          // cdr, ps, eps, epsi, sch, brd, png, gif, doc, docx
+      
+          errorMessage={'Please upload only supported files.'}
         />
         <Button
           inlineStyle={{

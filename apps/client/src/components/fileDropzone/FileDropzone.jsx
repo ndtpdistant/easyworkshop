@@ -4,33 +4,22 @@ import { useDropzone } from 'react-dropzone';
 
 import style from './FileDropzone.module.scss';
 
-import stlImg from '../../assets/images/stl.png';
+import fileImg from '../../assets/images/uneversal.png';
 import Button from '../Button';
 
 const FileDropzone = ({ types, errorMessage }) => {
   const [files, setFiles] = useState([]);
-  const [uploadedFile, setUploadedFile] = useState();
+  // const [uploadedFile, setUploadedFile] = useState();
   const [error, setError] = useState();
 
-  useEffect(() => {
-    const slicedFiles = files.slice(0, -1);
+  // useEffect(() => {
+  //   const slicedFiles = files.slice(0, -1);
 
-    if (files.length > 5) {
-      setFiles(slicedFiles);
-      setError('You can upload up to 5 files for your project.');
-    }
-    // else {
-    //   if (slicedFiles.length > 1) {
-    //     setFiles(
-    //       slicedFiles.filter((file) => {
-    //         console.log(slicedFiles);
-    //         console.log(file.file.name);
-    //         return !files.some((file) => file.file.name === uploadedFile.name);
-    //       })
-    //     );
-    //   }
-    // }
-  }, [uploadedFile, files]);
+  //   if (files.length > 5) {
+  //     setFiles(slicedFiles);
+  //     setError('You can upload up to 5 files for your project.');
+  //   }
+  // }, [uploadedFile, files]);
 
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -38,10 +27,11 @@ const FileDropzone = ({ types, errorMessage }) => {
         return types.some((type) => file.name.endsWith(type));
       });
 
-      setUploadedFile(filteredFiles[0]);
+      // setUploadedFile(filteredFiles[0]);
 
       if (filteredFiles.length !== acceptedFiles.length) {
         setError(errorMessage);
+        return;
       } else {
         setError(null);
       }
@@ -52,7 +42,18 @@ const FileDropzone = ({ types, errorMessage }) => {
           ? URL.createObjectURL(file)
           : null,
       }));
-      setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      setFiles((prevFiles) => {
+        const isNewFile = prevFiles.filter((file) => {
+          return file.file.name === newFiles[0].file.name;
+        });
+
+        if (isNewFile.length > 0) {
+          setError('You cannot upload the same file more than once');
+          return [...prevFiles];
+        }
+
+        return [...prevFiles, ...newFiles];
+      });
     },
     [types, errorMessage],
   );
@@ -65,10 +66,13 @@ const FileDropzone = ({ types, errorMessage }) => {
     multiple: true,
   });
 
-  const removeFile = () => {
+  const removeFile = (fileToRemove) => {
     setError(null);
-    const newFiles = [];
-    setFiles(newFiles);
+    setFiles((prevFiles) =>
+      prevFiles.filter((file) => {
+        return file.file.name !== fileToRemove;
+      }),
+    );
   };
 
   // const uploadFiles = async () => {
@@ -96,12 +100,35 @@ const FileDropzone = ({ types, errorMessage }) => {
   // };
 
   return (
-    <div>
+    <div className={style.wrapper}>
       <div {...getRootProps()} className={style.dropzone}>
         <input {...getInputProps()} />
-        {files.length > 0 ? (
-          files.map((file, index) => (
-            <div key={index} className={style.file}>
+        <img src={fileImg} alt="img" />
+        {/* {isDragActive ? (
+              <p>Перетащите файлы сюда...</p>
+            ) : (
+              <p>Перетащите файлы сюда или кликните для выбора файлов</p>
+            )} */}
+        <p>
+          <span>Drag and drop</span> your files or <span>click</span> on this
+          area to select files from your device
+        </p>
+        {/* <div className={`${style.hidden} ${}`}></div> */}
+        <div className={style.error}>{error}</div>
+      </div>
+      <p>
+        Supported file types for 3D models: <br />
+        <span>{types.slice(0, 3).join(', ')}</span> and{' '}
+        <span style={{ color: '#007AFF' }}>many more</span>.
+      </p>
+      {
+        <div className={style.filesSection}>
+          <div className={style.filesHeader}>
+            Uploaded files:
+          </div>
+          {files.map((file, index) => (
+          <div key={index} className={style.fileWrapper}>
+            <div className={style.file}>
               {file.preview && (
                 <img
                   src={file.preview}
@@ -111,36 +138,23 @@ const FileDropzone = ({ types, errorMessage }) => {
               )}
               <p className={style.fileName}>{file.file.name}</p>
             </div>
-          ))
-        ) : (
-          <>
-            <img src={stlImg} alt="img" />
-            {/* {isDragActive ? (
-              <p>Перетащите файлы сюда...</p>
-            ) : (
-              <p>Перетащите файлы сюда или кликните для выбора файлов</p>
-            )} */}
-            <p>
-              Click in this area to select <span>stl</span> files.
-            </p>
-            <p>You can upload up to 5 files for your project.</p>
-          </>
-        )}
-        <div className={style.error}>{error}</div>
-      </div>
-      <Button
-        onClick={() => removeFile()}
-        inlineStyle={{
-          width: '125px',
-          height: '30px',
-          borderRadius: '5px',
-          color: '#FFF',
-          fontSize: '10px',
-          fontWeight: '700',
-        }}
-      >
-        Delete all files
-      </Button>
+            <Button
+              onClick={() => removeFile(file.file.name)}
+              inlineStyle={{
+                width: '80px',
+                height: '30px',
+                borderRadius: '5px',
+                color: '#FFF',
+                fontSize: '10px',
+                fontWeight: '700',
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+          ))}
+        </div>
+      }
     </div>
   );
 };
