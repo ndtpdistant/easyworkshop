@@ -17,7 +17,7 @@ const FileDropzone = ({ types, errorMessage }) => {
 
     if (files.length > 5) {
       setFiles(slicedFiles);
-      setError('error 1');
+      setError('You can upload up to 5 files for your project.');
     }
     // else {
     //   if (slicedFiles.length > 1) {
@@ -66,6 +66,7 @@ const FileDropzone = ({ types, errorMessage }) => {
   });
 
   const removeFile = () => {
+    setError(null);
     const newFiles = [];
     setFiles(newFiles);
   };
