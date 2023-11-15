@@ -82,7 +82,7 @@ const NavbarMobile = () => {
           </div>
           <div className={style.burgerItem}>
             <Link
-              to={'/'}
+              to={'/item/add'}
               onClick={() => setMenuOpen((prevState) => !prevState)}
             >
               Add model

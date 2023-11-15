@@ -1,0 +1,53 @@
+.fileName {
+  display: flex;
+  width: 237px;
+  height: 45px;
+  border-radius: 5px;
+  border: 1px solid #007aff;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzone {
+  width: 345px;
+  border-radius: 5px;
+  border: 1px dashed #959595;
+  background: #fff;
+  height: 439px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 5px;
+
+  p {
+    color: #4e4e4e;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+
+    span {
+      font-weight: 700;
+    }
+  }
+}
+
+.file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #007aff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+  align-items: center;
+  margin: 0 10px 10px 0;
+  position: relative;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+  font-weight: 700;
+}

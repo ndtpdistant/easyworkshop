@@ -10,6 +10,7 @@ import Root from './pages/root/Root';
 import Edit from './pages/edit/Edit';
 import EditProfile from './pages/profile/editProfile';
 import ErrorPage from './error-page';
+import Add from './pages/add/Add';
 
 import './assets/styles/font-import.scss';
 import './assets/styles/global-reset.scss';
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
   {
     path: '/profile/edit',
     element: <EditProfile />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/item/add',
+    element: <Add />,
     errorElement: <ErrorPage />,
   },
   {
