@@ -32,13 +32,16 @@ const Navbar = ({ mobile }) => {
                   <Link to={'/about'}>About</Link>
                 </li>
                 <li className={style.menu_item}>
-                  <Link to={'/contact'}>Contact</Link>
+                  <Link to={'/favorite'}>Liked by you</Link>
+                </li>
+                <li className={style.menu_item}>
+                  <Link to={'/item/add'}>Add model</Link>
                 </li>
               </ul>
               <form className={style.search} method="" action="">
                 <Input
                   inlineStyle={{
-                    width: '420px',
+                    width: '340px',
                     height: '46px',
                     borderRadius: '50px',
                     paddingLeft: '25px',

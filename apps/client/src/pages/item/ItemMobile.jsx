@@ -23,7 +23,7 @@ const stlViewerStyle = {
   left: 0,
   width: '100%',
   height: '100%',
-  color: '#007aff'
+  color: '#007aff',
 };
 
 const ItemMobile = ({ item }) => {
@@ -160,23 +160,25 @@ const ItemMobile = ({ item }) => {
           <div className={style.commentsSection}>
             <div className={style.commentsHeader}>
               <div className={style.counter}>
-                {item.comments.length} comments
+                {item.comments ? item.comments.length : 0} comments
               </div>
               <Share />
             </div>
-            <div className={style.comments}>
-              {item.comments.map((comment) =>
-                comment.parent_comment_id === null ? (
-                  <Comment
-                    key={comment.id}
-                    profileId={comment.user_id}
-                    content={comment.content}
-                    createdAt={comment.CreatedAt}
-                    likes={1000}
-                  />
-                ) : null,
-              )}
-            </div>
+            {item.comments ? (
+              <div className={style.comments}>
+                {item.comments.map((comment) =>
+                  comment.parent_comment_id === null ? (
+                    <Comment
+                      key={comment.id}
+                      profileId={comment.user_id}
+                      content={comment.content}
+                      createdAt={comment.CreatedAt}
+                      likes={1000}
+                    />
+                  ) : null,
+                )}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

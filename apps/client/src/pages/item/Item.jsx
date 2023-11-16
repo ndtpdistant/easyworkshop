@@ -64,7 +64,7 @@ const Item = () => {
                   </button>
                   <div className={style.itemInfo}>
                     <div className={style.profileImg}>
-                      <Link to={`profile/${item.profileId}`}>
+                      <Link to={`/profile/${item.profileId}`}>
                         <img
                           className={style.profileImg}
                           src={item.profileImg}

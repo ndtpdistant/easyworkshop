@@ -60,16 +60,16 @@
   align-items: center;
 
   input {
-    height: 69px;
+    height: 60px;
     &:not(:first-child) {
-      margin: 26px 0 0 0;
+      margin: 20px 0 0 0;
     }
   }
 
   button {
     margin: 26px 0 0 0;
     width: 420px;
-    height: 69px;
+    height: 55px;
     border-radius: 20px;
   }
 }
@@ -95,7 +95,7 @@
 }
 
 .link {
-  margin-top: 40px;
+  margin-top: 20px;
   text-align: center;
   color: #000;
   font-size: 18px;

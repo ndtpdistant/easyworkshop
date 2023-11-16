@@ -177,7 +177,7 @@ const FileDropzone = ({
             slidesPerView={3}
             centeredSlides={true}
             modules={[]}
-            className="mySwiper2"
+            className="dropzoneSwiper"
           >
             {files.map((file, index) => {
               if (isImage && !file.preview) {
