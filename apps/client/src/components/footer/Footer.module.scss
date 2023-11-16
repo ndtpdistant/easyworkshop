@@ -26,6 +26,16 @@
   font-size: 18px;
 }
 
+@media screen and (max-width: 1264px) {
+  .container {
+    width: calc(100vw - 40px);
+  }
+
+  .copyright {
+    margin-left: 20px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .logo {
     display: none;
@@ -33,6 +43,7 @@
 
   .wrapper {
     height: 95px;
+    filter: drop-shadow(0px -2px 4px rgba(0, 0, 0, 0.08));
   }
 
   .container {
@@ -46,9 +57,8 @@
   }
 }
 
-@media screen and (max-width: 480px) {
-  .wrapper{
-    max-width: 480px;
-    filter: drop-shadow(0px -2px 4px rgba(0, 0, 0, 0.08));
+@media screen and (max-width: 800px) {
+  .logo {
+    width: 165px;
   }
 }

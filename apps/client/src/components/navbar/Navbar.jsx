@@ -57,11 +57,11 @@ const Navbar = ({ mobile }) => {
               <div className={style.account}>
                 <Link to="auth">
                   <Button
-                    inlineStyle={{
-                      width: '138px',
-                      height: '54px',
-                      borderRadius: '30px',
-                    }}
+                    // inlineStyle={{
+                    //   width: '138px',
+                    //   height: '54px',
+                    //   borderRadius: '30px',
+                    // }}
                   >
                     {auth ? 'Profile' : 'Get started'}
                   </Button>

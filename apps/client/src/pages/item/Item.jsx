@@ -18,7 +18,7 @@ import './swiperStyle.scss';
 
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
-export async function loader({ params }){
+export async function loader({ params }) {
   const easyworkshopService = new EasyworkshopService();
   const item = await easyworkshopService.getCard(params.itemId);
   return item;
@@ -89,17 +89,17 @@ const Item = () => {
                     </div>
                   </div>
                 </div>
-                <Button
-                  inlineStyle={{
-                    width: '200px',
-                    height: '60px',
-                    padding: '13px 17px',
-                    borderRadius: '30px',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Download all files
-                </Button>
+                <div className={style.download}>
+                  <Button
+                    inlineStyle={{
+                      width: '200px',
+                      height: '60px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Download all files
+                  </Button>
+                </div>
               </div>
               <div className={style.imagesContainer}>
                 <Swiper

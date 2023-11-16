@@ -62,6 +62,12 @@
   margin-left: 50px;
 }
 
+@media screen and (max-width: 850px) {
+  .container {
+    padding: 0px 10px;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .root {
     background: #fefefe;
@@ -77,7 +83,11 @@
   .userContainer {
     margin-top: 6px;
     width: 100vw;
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(242,242,242,1) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(242, 242, 242, 1) 100%
+    );
     border-radius: 0;
   }
 

@@ -1,6 +1,6 @@
 class EasyworkshopService {
-  _apiBase = 'http://localhost:3000/';
-  // _apiBase = 'http://192.168.51.55:3000/';
+  // _apiBase = 'http://localhost:3000/';
+  _apiBase = 'http://192.168.51.55:3000/';
   // _apiBase = 'http://10.10.16.181:3000/';
 
   getResource = async (url) => {
@@ -39,12 +39,18 @@ class EasyworkshopService {
     nickname,
     favorites,
   }) => {
-    const cardList = await Promise.all(itemsId.map(async (id) => {
-      return await this.getCard(id);
-    }));
-    const favoritesList = await Promise.all(favorites.map(async (id) => {
-      return await this.getCard(id);
-    }));
+    const cardList = await Promise.all(
+      itemsId.map(async (id) => {
+        return await this.getCard(id);
+      }),
+    );
+    const favoritesList = favorites
+      ? await Promise.all(
+          favorites.map(async (id) => {
+            return await this.getCard(id);
+          }),
+        )
+      : null;
     return {
       firstName: firstName,
       lastName: lastName,

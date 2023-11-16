@@ -43,6 +43,12 @@
   }
 }
 
+form {
+  input {
+    padding-right: 34px;
+  }
+}
+
 .search_submit {
   cursor: pointer;
   position: relative;
@@ -52,14 +58,81 @@
   background: transparent;
 }
 
-.account_btn {
-  width: 138px;
-  height: 54px;
-  border-radius: 30px;
+.account {
+  button {
+    width: 138px;
+    height: 54px;
+    border-radius: 30px;
+  }
+}
+
+@media screen and (max-width: 1264px) {
+  .wrapper {
+    width: 100vw;
+  }
+
+  .container {
+    width: calc(100vw - 40px);
+  }
+
+  .logo {
+    width: 190px;
+  }
+
+  .menu_item {
+    a {
+      font-size: 12px;
+      text-decoration: none;
+      color: #465667;
+    }
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+
+  input {
+    max-width: 150px;
+    max-height: 40px;
+    padding-right: 34px;
+  }
+
+  .search_submit {
+    left: -30px;
+  }
+
+  .account {
+    a {
+      width: 100px;
+      height: 40px;
+    }
+
+    button {
+      width: 100px;
+      height: 40px;
+      border-radius: 15px;
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .logo {
+    width: 165px;
+  }
 }
 
 @media screen and (max-width: 480px) {
-  .wrapper{
+  .wrapper {
     max-width: 480px;
+  }
+
+  .container {
+    max-width: 480px;
+  }
+
+  input {
+    max-width: calc(100vw - 40px);
+    max-height: 40px;
+    padding-right: 34px;
   }
 }

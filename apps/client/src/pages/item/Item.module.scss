@@ -87,14 +87,12 @@
 .profileName {
   color: #8c8c8c;
   font-size: 18px;
-  line-height: 18px;
 }
 
 .created {
   margin-left: 25px;
   color: #8c8c8c;
   font-size: 18px;
-  line-height: 18px;
 }
 
 .likeWrapper {
@@ -117,7 +115,13 @@
   margin-right: 6px;
   color: #777;
   font-size: 18px;
-  line-height: 18px;
+}
+
+.download {
+  button {
+    padding: 13px 17px;
+    border-radius: 30px;
+  }
 }
 
 .description {
@@ -145,4 +149,77 @@
   color: #000;
   font-size: 18px;
   line-height: 22px;
+}
+
+@media screen and (max-width: 1264px) {
+  .container {
+    width: calc(100vw - 40px);
+  }
+
+  .transparent {
+    svg {
+      max-width: 25px;
+      max-height: 25px;
+    }
+  }
+
+  .itemInfo {
+    margin-left: 5px;
+  }
+
+  .namesWrapper {
+    margin-left: 10px;
+  }
+
+  .itemName {
+    font-size: 16px;
+  }
+
+  .profileName {
+    font-size: 14px;
+  }
+
+  .created {
+    font-size: 14px;
+    margin-left: 2px;
+  }
+
+  .likeWrapper {
+    margin-left: 14px;
+
+    .transparent {
+      svg {
+        max-width: 18px;
+        max-height: 18px;
+      }
+    }
+  }
+
+  .likeCounter {
+    font-size: 14px;
+  }
+
+  .download {
+    button {
+      max-width: 105px;
+      max-height: 40px;
+      border-radius: 15px;
+      font-size: 11px;
+      padding: 0 5px;
+      border-radius: 10px;
+    }
+  }
+
+  .description {
+    width: calc(100vw - 40px);
+  }
+
+  .text {
+    font-size: 15px;
+  }
+
+  .text,
+  .title {
+    width: calc(100% - 40px);
+  }
 }

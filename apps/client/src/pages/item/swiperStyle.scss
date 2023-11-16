@@ -104,8 +104,24 @@
   object-fit: cover;
 }
 
+@media screen and (max-width: 1264px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 35px;
+    height: 35px;
+  }
+
+  .swiper-button-next {
+    right: 18px;
+  }
+
+  .swiper-button-prev {
+    left: 18px;
+  }
+}
+
 @media screen and (max-width: 480px) {
-  .mySwiper{
+  .mySwiper {
     padding: 9px 9px 0 9px;
   }
   .swiper {
