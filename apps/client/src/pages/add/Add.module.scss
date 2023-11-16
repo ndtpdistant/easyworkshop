@@ -62,3 +62,41 @@
     }
   }
 }
+
+.inputWrapper {
+  max-width: 900px;
+  label {
+    display: block;
+    margin-top: 25px;
+  }
+
+  textarea,
+  input {
+    margin-top: 20px;
+    width: 900px;
+    outline: none;
+    font-size: 15px;
+  }
+
+  textarea {
+    width: 900px;
+    min-height: 50px;
+    padding: 14px 18px;
+  }
+
+  input {
+    max-width: 900px;
+    height: 45px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .inputWrapper {
+    max-width: calc(100vw - 40px);
+    textarea,
+    input {
+      min-width: calc(100vw - 40px);
+      max-width: 100%;
+    }
+  }
+}
