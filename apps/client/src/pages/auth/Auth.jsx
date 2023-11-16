@@ -1,6 +1,6 @@
 import useInput from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
-import { Form, redirect } from 'react-router-dom';
+import { Form, redirect, redirectDocument, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Button from '../../components/Button';
@@ -17,10 +17,19 @@ import style from './Auth.module.scss';
 import Step4 from './steps/Step4';
 import Step5 from './steps/Step5';
 import Step6 from './steps/Step6';
+import { sendLoginData, sendRegistrationData } from '../../services/apiAuth';
 
 //Проверить formData
 
 const Auth = () => {
+  const client = axios.create({
+    baseURL: 'http://172.20.10.2:5050/api/auth',
+  });
+
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
   //only for login
   const login = useInput('', { isEmpty: true, login: true });
   //only for registration
@@ -30,11 +39,13 @@ const Auth = () => {
   const lastName = useInput('', { isEmpty: true, maxLengthError: 254 });
   //for both
   const password = useInput('', { isEmpty: true, password: true });
+  const navigate = useNavigate();
 
   const [isReg, setReg] = useState(true);
   const [mobileStep, setMobileStep] = useState(0);
   const [forgotStep, setForgotStep] = useState(0);
   const [formData, setFormData] = useState({});
+  const [wrongCode, setWrongCode] = useState(false);
 
   const handleChange = (e) => {
     e.persist();
@@ -63,11 +74,17 @@ const Auth = () => {
   }, []);
 
   useEffect(() => {
-    console.log(formData);
   }, [formData]);
 
   const nextRegStep = () => {
-    setMobileStep((prevStep) => prevStep + 1);
+    if(mobileStep == 3 && !isReg) {
+      sendLoginData(formData);
+    } else {
+      if (mobileStep == 5) {
+        sendRegistrationData(formData);
+      }
+      setMobileStep((prevStep) => prevStep + 1);
+    }
   };
 
   const prevRegStep = () => {
@@ -102,7 +119,7 @@ const Auth = () => {
                 onNext={nextForgotStep}
                 onPrev={prevForgotStep}
                 handleChange={handleChange}
-                login={login}
+                email={email}
               />
             );
             break;
@@ -146,7 +163,7 @@ const Auth = () => {
             isReg={isReg}
             firstName={firstName}
             lastName={lastName}
-            email={email}
+            login={login}
             handleChange={handleChange}
           />
         );
@@ -192,6 +209,7 @@ const Auth = () => {
             email={formData.email}
             handleChange={handleChange}
             handleForm={handleForm}
+            wrongCode={wrongCode}
           />
         );
         break;
@@ -199,169 +217,147 @@ const Auth = () => {
   };
 
   const handleForm = (e) => {
-    event.preventDefault();
+    e.preventDefault();
     if (isReg) {
-      const jsonData = JSON.stringify({
-        title: 'Post',
+      const data = JSON.stringify({
         body: {
-          email: email.value,
-          username: username.value,
-          password: password.value,
-          first_name: firstName.value,
-          last_name: lastName.value,
+          email: formData.email,
+          password: formData.password,
+          verification_code: formData.code,
         },
       });
-
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-
-      console.log(jsonData)
-      axios
-        .post('http://localhost:5050/api/auth/registration', jsonData, {headers})
-        .then((res) => {
-          localStorage.setItem("token", res.data.access_token)
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    } else {
-      
-      const jsonData = JSON.stringify({
-        title: 'Post',
-        body: {
-          login: login.value,
-          password: password.value,
-        },
+      client.post('verification', data, { headers: headers }).then((res) => {
+        if(!res.data) {
+          setWrongCode(true);
+        } else {
+          setWrongCode(false);
+          localStorage.setItem('jwtToken', res.data.access_token);
+          navigate('/home');
+        }
       });
-
-      const headers = {
-        'Content-Type': 'application/json',
-      };
-
-      axios
-        .post('http://localhost:5050/api/auth/login', jsonData, {headers})
-        .then((res) => {
-          console.log(res);
-          navigate(-1);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-
-      console.log(data);
-      navigate(-1);
     }
   };
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.container}>
-        <div className={style.titleWrapper}>
-          <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
-        </div>
-        <div className={style.authWrapper}>
-          <img src={image} alt="3d model" className={style.img} />
-          <Form className={style.authForm} onSubmit={handleForm}>
-            {isReg ? (
-              <>
-                {email.isDirty && email.emailError && (
-                  <div style={{ color: 'red' }}>Incorrect email</div>
-                )}
-                {username.isDirty && username.usernameError && (
-                  <div style={{ color: 'red' }}>Incorrect username</div>
-                )}
-                {firstName.isDirty && firstName.isEmpty && (
-                  <div style={{ color: 'red' }}>Incorrect first name</div>
-                )}
-                {lastName.isDirty && lastName.isEmpty && (
-                  <div style={{ color: 'red' }}>Incorrect last name</div>
-                )}
-                {password.isDirty && password.passwordError && (
-                  <div style={{ color: 'red' }}>Incorrect password</div>
-                )}
-                <Input
-                  placeholder={'Enter your email'}
-                  onChange={(e) => email.onChange(e)}
-                  onBlur={(e) => email.onBlur(e)}
-                  value={email.value}
-                  type={'email'}
-                />
-                <Input
-                  placeholder={'Enter your username'}
-                  onChange={(e) => username.onChange(e)}
-                  onBlur={(e) => username.onBlur(e)}
-                  value={username.value}
-                />
-                <Input
-                  placeholder={'Enter your password'}
-                  onChange={(e) => password.onChange(e)}
-                  onBlur={(e) => password.onBlur(e)}
-                  value={password.value}
-                  type={'password'}
-                />
-                <Input
-                  placeholder={'Enter your first name'}
-                  onChange={(e) => firstName.onChange(e)}
-                  onBlur={(e) => firstName.onBlur(e)}
-                  value={firstName.value}
-                />
-                <Input
-                  placeholder={'Enter your last name'}
-                  onChange={(e) => lastName.onChange(e)}
-                  onBlur={(e) => lastName.onBlur(e)}
-                  value={lastName.value}
-                />
-                <Button
-                  disabled={
-                    !email.inputValid ||
-                    !password.inputValid ||
-                    !firstName.inputValid ||
-                    !lastName.inputValid ||
-                    !username.inputValid
-                  }
-                  text={isReg ? 'Create an account' : 'Sign In'}
-                  type={'submit'}
-                />
-              </>
-            ) : (
-              <>
-                {login.isDirty && login.loginError && (
-                  <div style={{ color: 'red' }}>Incorrect login</div>
-                )}
-                {password.isDirty && password.passwordError && (
-                  <div style={{ color: 'red' }}>Incorrect password</div>
-                )}
-                <Input
-                  placeholder={'Enter your email or username'}
-                  onChange={(e) => login.onChange(e)}
-                  onBlur={(e) => login.onBlur(e)}
-                  value={login.value}
-                />
-                <Input
-                  placeholder={'Enter your password'}
-                  onChange={(e) => password.onChange(e)}
-                  onBlur={(e) => password.onBlur(e)}
-                  value={password.value}
-                  type={'password'}
-                />
-                <Button
-                  disabled={!login.inputValid || !password.inputValid}
-                  text={isReg ? 'Create an account' : 'Sign In'}
-                  type={'submit'}
-                />
-              </>
-            )}
-            <div className={style.link}>
-              {isReg ? 'Already have an account' : 'Do not have an account?'}
-              <a href="#" onClick={() => setReg(!isReg)}>
-                <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
-              </a>
+    <>
+      {mobileStep ? (
+        <Form onSubmit={handleForm} style={{ height: '100vh' }}>
+          {renrerMobileSteps()}
+        </Form>
+      ) : (
+        <div className={style.wrapper}>
+          <div className={style.container}>
+            <div className={style.titleWrapper}>
+              <h1>{isReg ? 'Join us today' : 'Glad to see you'}</h1>
             </div>
-          </Form>
+            <div className={style.authWrapper}>
+              <img src={image} alt="3d model" className={style.img} />
+              <Form className={style.authForm} onSubmit={handleForm}>
+                {isReg ? (
+                  <>
+                    {email.isDirty && email.emailError && (
+                      <div style={{ color: 'red' }}>Incorrect email</div>
+                    )}
+                    {username.isDirty && username.usernameError && (
+                      <div style={{ color: 'red' }}>Incorrect username</div>
+                    )}
+                    {firstName.isDirty && firstName.isEmpty && (
+                      <div style={{ color: 'red' }}>Incorrect first name</div>
+                    )}
+                    {lastName.isDirty && lastName.isEmpty && (
+                      <div style={{ color: 'red' }}>Incorrect last name</div>
+                    )}
+                    {password.isDirty && password.passwordError && (
+                      <div style={{ color: 'red' }}>Incorrect password</div>
+                    )}
+                    <Input
+                      placeholder={'Enter your email'}
+                      onChange={(e) => email.onChange(e)}
+                      onBlur={(e) => email.onBlur(e)}
+                      value={email.value}
+                      type={'email'}
+                    />
+                    <Input
+                      placeholder={'Enter your username'}
+                      onChange={(e) => username.onChange(e)}
+                      onBlur={(e) => username.onBlur(e)}
+                      value={username.value}
+                    />
+                    <Input
+                      placeholder={'Enter your password'}
+                      onChange={(e) => password.onChange(e)}
+                      onBlur={(e) => password.onBlur(e)}
+                      value={password.value}
+                      type={'password'}
+                    />
+                    <Input
+                      placeholder={'Enter your first name'}
+                      onChange={(e) => firstName.onChange(e)}
+                      onBlur={(e) => firstName.onBlur(e)}
+                      value={firstName.value}
+                    />
+                    <Input
+                      placeholder={'Enter your last name'}
+                      onChange={(e) => lastName.onChange(e)}
+                      onBlur={(e) => lastName.onBlur(e)}
+                      value={lastName.value}
+                    />
+                    <Button
+                      disabled={
+                        !email.inputValid ||
+                        !password.inputValid ||
+                        !firstName.inputValid ||
+                        !lastName.inputValid ||
+                        !username.inputValid
+                      }
+                      type={'submit'}
+                    >
+                      {isReg ? 'Create an account' : 'Sign In'}
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {login.isDirty && login.loginError && (
+                      <div style={{ color: 'red' }}>Incorrect login</div>
+                    )}
+                    {password.isDirty && password.passwordError && (
+                      <div style={{ color: 'red' }}>Incorrect password</div>
+                    )}
+                    <Input
+                      placeholder={'Enter your email or username'}
+                      onChange={(e) => login.onChange(e)}
+                      onBlur={(e) => login.onBlur(e)}
+                      value={login.value}
+                    />
+                    <Input
+                      placeholder={'Enter your password'}
+                      onChange={(e) => password.onChange(e)}
+                      onBlur={(e) => password.onBlur(e)}
+                      value={password.value}
+                      type={'password'}
+                    />
+                    <Button
+                      disabled={!login.inputValid || !password.inputValid}
+                      type={'submit'}
+                    >
+                      {isReg ? 'Create an account' : 'Sign In'}
+                    </Button>
+                  </>
+                )}
+                <div className={style.link}>
+                  {isReg
+                    ? 'Already have an account'
+                    : 'Do not have an account?'}
+                  <div onClick={() => setReg(!isReg)}>
+                    <div>{isReg ? 'Sign in.' : 'Sign up.'}</div>
+                  </div>
+                </div>
+              </Form>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

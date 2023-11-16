@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   Post,
   Query,
   Res,
@@ -18,20 +19,28 @@ import multer from 'multer';
 import { Response } from 'express';
 import { ChangeImageDto } from './dto/change-image.dto';
 import { ChangeAboutDto } from './dto/change-about.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
 
-  @Get()
-  getUser(@Query('login') login: string, @Query('password') password: string) {
-    return this.usersService.getUser(login, password);
+  private decodeJwt(jwt) {
+    return this.jwtService.decode(jwt.replace('Bearer ', ''));
   }
 
-  @Post()
-  createUser(@Body() dto: CreateUserDto) {
-    return this.usersService.createUser(dto);
-  }
+  // @Get()
+  // getUser(@Query('login') login: string, @Query('password') password: string) {
+  //   return this.usersService.getUser(login, password);
+  // }
+
+  // @Post()
+  // createUser(@Body() dto: CreateUserDto) {
+  //   return this.usersService.createUser(dto);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('changeprofilepicture')
@@ -56,10 +65,10 @@ export class UsersController {
     }),
   )
   changeProfilePicture(
-    @Body() dto: ChangeImageDto,
     @UploadedFile() file: Express.Multer.File,
+    @Headers('Authorization') auth: string,
   ) {
-    const id = +dto.title;
+    const id = this.decodeJwt(auth).sub;
     return this.usersService.changeProfilePicture(file, id);
   }
 
@@ -87,26 +96,27 @@ export class UsersController {
   )
   changeBackgroundPicture(
     @UploadedFile() file: Express.Multer.File,
-    @Body() dto: ChangeImageDto,
+    @Headers('Authorization') auth: string,
   ) {
-    const id = +dto.title;
+    const id = this.decodeJwt(auth).sub;
     return this.usersService.changeBackgroundPicture(file, id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('changeabout')
-  changeAbout(@Body() dto: ChangeAboutDto) {
-    const id = +dto.title;
+  changeAbout(
+    @Body() dto: ChangeAboutDto,
+    @Headers('Authorization') auth: string,
+  ) {
+    const id = this.decodeJwt(auth).sub;
     return this.usersService.changeAbout(id, dto.body.about);
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get('profilepicture')
   getProfilePicture(@Query('id') id: number, @Res() res: Response) {
     return this.usersService.serveProfilePicture(id, res);
   }
 
-  // @UseGuards(JwtAuthGuard)
   @Get('backgroundpicture')
   getBackgroundPicture(@Query('id') id: number, @Res() res: Response) {
     return this.usersService.serveBackgroundPicture(id, res);

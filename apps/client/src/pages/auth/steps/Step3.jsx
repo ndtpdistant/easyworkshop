@@ -70,7 +70,8 @@ const Step3 = ({ onPrev, onNext, isReg, username, password, handleChange }) => {
           </>
         )}
         <Button
-          onClick={isReg ? onNext : null}
+          onClick={isReg ? onNext : onNext}
+          // onClick={isReg ? onNext : null}
           disabled={isReg ? !username.inputValid : !password.inputValid}
           type={isReg ? null : 'submit'}
           inlineStyle={{

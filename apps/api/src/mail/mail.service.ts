@@ -10,7 +10,8 @@ export class MailService {
     this.transporter = nodemailer.createTransport({
       service: 'hotmail',
       auth: {
-        user: 'easyworkshop@outlook.com',
+        // user: 'easyworkshop@outlook.com',
+        user: 'easyworkshop.test@outlook.com',
         pass: 'jxOIgh8opa48)-fas',
       },
     });
@@ -21,12 +22,12 @@ export class MailService {
     verificationCode: string,
   ): Promise<void> {
     const mailOptions = {
-      from: 'easyworkshop@outlook.com',
+      from: 'easyworkshop.test@outlook.com',
+      // from: 'easyworkshop@outlook.com',
       to,
       subject: 'Email Verification',
       text: `Your verification code is: ${verificationCode}`,
     };
-
     await this.transporter.sendMail(mailOptions);
   }
 }

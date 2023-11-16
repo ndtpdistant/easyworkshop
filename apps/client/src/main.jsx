@@ -36,6 +36,12 @@ const router = createBrowserRouter([
         path: 'edit',
         element: <Edit />
     
+      },
+      {
+        path: 'home',
+        element: <Home />,
+        loader: homeLoader
+    
       }
     ],
   },

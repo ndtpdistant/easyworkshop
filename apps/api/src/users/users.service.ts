@@ -47,7 +47,6 @@ export class UsersService {
       salt: salt,
     };
     try {
-      console.log(updatedDto);
       const user = await this.userRepository.create(updatedDto);
       return user;
     } catch (error) {
@@ -68,8 +67,8 @@ export class UsersService {
           }
         }
       }
-
-      // Handle other types of errors here, or rethrow the original error
+      // Handle other types of errors here, or rethrow the original error;
+      console.log(error);
       throw error;
     }
   }

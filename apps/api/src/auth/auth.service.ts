@@ -52,7 +52,6 @@ export class AuthService {
         dto.body.email,
       );
       if (exsistingUser && !exsistingUser.is_verified) {
-        console.log(1);
         const verification_code = this.generateVerificationCode();
         this.mailService.sendVerificationEmail(
           dto.body.email,
@@ -67,7 +66,6 @@ export class AuthService {
             'Seems like you already tried to create an account. Verification email sent.',
         };
       }
-      console.log(1)
     } catch (error) {
       console.log(error);
     }
