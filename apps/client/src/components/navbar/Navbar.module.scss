@@ -43,7 +43,7 @@
   }
 }
 
-form {
+.search {
   input {
     padding-right: 34px;
   }
@@ -90,10 +90,12 @@ form {
     }
   }
 
-  input {
-    max-width: 150px;
-    max-height: 40px;
-    padding-right: 34px;
+  .search {
+    input {
+      max-width: 150px;
+      max-height: 40px;
+      padding-right: 34px;
+    }
   }
 
   .search_submit {
@@ -130,9 +132,11 @@ form {
     max-width: 480px;
   }
 
-  input {
-    max-width: calc(100vw - 40px);
-    max-height: 40px;
-    padding-right: 34px;
+  .search {
+    input {
+      max-width: calc(100vw - 40px);
+      max-height: 40px;
+      padding-right: 34px;
+    }
   }
 }
