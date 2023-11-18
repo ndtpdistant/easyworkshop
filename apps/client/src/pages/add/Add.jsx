@@ -105,14 +105,15 @@ const Add = () => {
             </Form>
             <Button
               onClick={() => {
-                if (!title.inputValid) {
-                  setError('You must to write the title');
-                }
                 if (filesLength === 0) {
                   setError('You must upload at least one image');
                 } else {
-                  setError(null);
-                  setStep((prevStep) => prevStep + 1);
+                  if (!title.inputValid) {
+                    setError('You must to write the title');
+                  } else {
+                    setError(null);
+                    setStep((prevStep) => prevStep + 1);
+                  }
                 }
               }}
               inlineStyle={{

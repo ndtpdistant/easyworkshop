@@ -15,6 +15,7 @@ export async function loader() {
 
 const Home = () => {
   const [cardList, setCardList] = useState([]);
+  const [offset, setOffset] = useState(0);
   const cards = useLoaderData();
   const navigation = useNavigation();
 

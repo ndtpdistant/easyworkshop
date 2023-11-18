@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 
 import Input from '../Input';
 import Button from '../Button';
@@ -38,8 +38,9 @@ const Navbar = ({ mobile }) => {
                   <Link to={'/item/add'}>Add model</Link>
                 </li>
               </ul>
-              <form className={style.search} method="" action="">
+              <Form id="search-form" role="search" method="" action="">
                 <Input
+                  id={'q'}
                   inlineStyle={{
                     width: '340px',
                     height: '46px',
@@ -48,20 +49,21 @@ const Navbar = ({ mobile }) => {
                     fontSize: '16px',
                   }}
                   placeholder={'Search for...'}
-                  type={'text'}
+                  type="search"
+                  name={'q'}
                 />
                 <button className={style.search_submit} type="submit">
                   <img className="" src={search_icon} alt="search-icon" />
                 </button>
-              </form>
+              </Form>
               <div className={style.account}>
                 <Link to="auth">
                   <Button
-                    // inlineStyle={{
-                    //   width: '138px',
-                    //   height: '54px',
-                    //   borderRadius: '30px',
-                    // }}
+                  // inlineStyle={{
+                  //   width: '138px',
+                  //   height: '54px',
+                  //   borderRadius: '30px',
+                  // }}
                   >
                     {auth ? 'Profile' : 'Get started'}
                   </Button>

@@ -4,6 +4,12 @@
   width: 100vw;
   height: 80px;
   background-color: #ffffff;
+  
+  form {
+    input {
+      padding-right: 34px;
+    }
+  }
 }
 
 .container {
@@ -43,11 +49,6 @@
   }
 }
 
-.search {
-  input {
-    padding-right: 34px;
-  }
-}
 
 .search_submit {
   cursor: pointer;
@@ -69,6 +70,14 @@
 @media screen and (max-width: 1264px) {
   .wrapper {
     width: 100vw;
+
+    form {
+      input {
+        max-width: 150px;
+        max-height: 40px;
+        padding-right: 34px;
+      }
+    }
   }
 
   .container {
@@ -90,13 +99,6 @@
     }
   }
 
-  .search {
-    input {
-      max-width: 150px;
-      max-height: 40px;
-      padding-right: 34px;
-    }
-  }
 
   .search_submit {
     left: -30px;
@@ -126,17 +128,18 @@
 @media screen and (max-width: 480px) {
   .wrapper {
     max-width: 480px;
+
+    form {
+      input {
+        max-width: calc(100vw - 40px);
+        max-height: 40px;
+        padding-right: 34px;
+      }
+    }
   }
 
   .container {
     max-width: 480px;
   }
 
-  .search {
-    input {
-      max-width: calc(100vw - 40px);
-      max-height: 40px;
-      padding-right: 34px;
-    }
-  }
 }
