@@ -1,4 +1,5 @@
 import { useState, useEffect, useDeferredValue } from 'react';
+import { jwtDecode } from "jwt-decode";
 import { Link, Form, useLocation } from 'react-router-dom';
 
 import Input from '../Input';
@@ -15,11 +16,14 @@ import style from './NavbarMobile.module.scss';
 //   return { contacts };
 // }
 
+
+
 const NavbarMobile = ({ setName }) => {
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
   const [auth, setAuth] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [profilePath, setProfilePath] = useState('');
 
   useEffect(() => {
     document.documentElement.className = isMenuOpen ? 'overflow-hidden' : '';
@@ -29,6 +33,13 @@ const NavbarMobile = ({ setName }) => {
   // useEffect(() => {
   //   setName(deferredQuery);
   // }, [deferredQuery]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(token) {
+      setAuth(token);
+      setProfilePath(`profile/${jwtDecode(token).sub}`)
+    }
+  }, [])
 
   return (
     <div
@@ -68,7 +79,7 @@ const NavbarMobile = ({ setName }) => {
             </Link>
           </div>
           <div className={style.account}>
-            <Link to={auth ? 'profile' : 'auth'}>
+            <Link to={auth ? `${profilePath}` : 'auth'}>
               <img className={style.profile} src={user} alt="user" />
             </Link>
           </div>

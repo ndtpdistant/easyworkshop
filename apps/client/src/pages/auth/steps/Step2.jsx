@@ -10,7 +10,7 @@ const Step2 = ({
   isReg,
   firstName,
   lastName,
-  email,
+  login,
   handleChange,
 }) => {
   return (
@@ -89,20 +89,20 @@ const Step2 = ({
               className={style.errorContainer}
               style={{ justifyContent: 'center' }}
             >
-              {email.isDirty && email.emailError && (
-                <div style={{ color: 'red' }}>Incorrect email</div>
+              {login.isDirty && login.loginError && (
+                <div style={{ color: 'red' }}>Incorrect username or email</div>
               )}
             </div>
             <Input
-              placeholder={'Enter your email'}
-              name={'email'}
+              placeholder={'Enter your username or email'}
+              name={'login'}
               onChange={(e) => {
-                email.onChange(e);
+                login.onChange(e);
                 handleChange(e);
               }}
-              onBlur={(e) => email.onBlur(e)}
-              value={email.value}
-              type={'email'}
+              onBlur={(e) => login.onBlur(e)}
+              value={login.value}
+              type={'login'}
               inlineStyle={{ width: '310px' }}
             />
           </>
@@ -110,7 +110,7 @@ const Step2 = ({
         <Button
           onClick={onNext}
           disabled={
-            isReg ? !firstName.inputValid || !lastName.inputValid : !email.inputValid
+            isReg ? !firstName.inputValid || !lastName.inputValid : !login.inputValid
           }
           inlineStyle={{
             width: '300px',

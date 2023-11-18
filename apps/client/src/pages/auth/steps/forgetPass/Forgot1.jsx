@@ -4,7 +4,7 @@ import Input from '../../../../components/Input';
 
 import style from '../Steps.module.scss';
 
-const Forgot1 = ({ onPrev, onNext, login, handleChange }) => {
+const Forgot1 = ({ onPrev, onNext, email, handleChange }) => {
     return (
         <div className={`${style.forgot1}`}>
           <div className={style.nav}>
@@ -17,29 +17,29 @@ const Forgot1 = ({ onPrev, onNext, login, handleChange }) => {
             <p className={style.suptitle}>Find Your Account</p>
           </div>
           <div className={style.wrapper}>
-            <div className={style.title}>Enter your email or username</div>
+            <div className={style.title}>Enter your email</div>
             <div
               className={style.errorContainer}
               style={{ justifyContent: 'center' }}
             >
-              {login.isDirty && login.loginError && (
-                <div style={{ color: 'red' }}>Incorrect login</div>
+              {email.isDirty && email.emailError && (
+                <div style={{ color: 'red' }}>Incorrect email</div>
               )}
             </div>
             <Input
-              placeholder={'Enter your login'}
-              name={'login'}
+              placeholder={'Enter your email'}
+              name={'email'}
               onChange={(e) => {
-                login.onChange(e);
+                email.onChange(e);
                 handleChange(e);
               }}
-              onBlur={(e) => login.onBlur(e)}
-              value={login.value}
-              type={'login'}
+              onBlur={(e) => email.onBlur(e)}
+              value={email.value}
+              type={'email'}
             />
             <Button
               onClick={onNext}
-              disabled={!login.inputValid}
+              disabled={!email.inputValid}
               inlineStyle={{
                 width: '300px',
                 height: '40px',

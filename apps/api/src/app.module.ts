@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { User } from './users/users.model';
+import { UsersModule } from 'src/users/users.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { User } from 'src/users/users.model';
+import { FilesModule } from 'src/files/files.module';
+import { ItemsModule } from 'src/items/items.module';
+import { Item } from 'src/items/items.model';
+import { MailModule } from './mail/mail.module';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/comments.model';
+import { CommentLikesModule } from './comment-likes/comment-likes.module';
+import { ItemLikesModule } from './item-likes/item-likes.module';
+import { CommentLike } from './comment-likes/comment-likes.model.ts';
+import { ItemLike } from './item-likes/item-likes.model';
 
 @Module({
   imports: [
@@ -18,10 +28,16 @@ import { User } from './users/users.model';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadModels: true,
-      models: [User],
+      models: [User, Item, Comment, CommentLike, ItemLike],
     }),
     UsersModule,
     AuthModule,
+    FilesModule,
+    ItemsModule,
+    MailModule,
+    CommentsModule,
+    CommentLikesModule,
+    ItemLikesModule,
   ],
   controllers: [],
   providers: [],

@@ -1,6 +1,11 @@
 import useInput from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
-import { Form, redirect } from 'react-router-dom';
+import {
+  Form,
+  redirect,
+  redirectDocument,
+  useNavigate,
+} from 'react-router-dom';
 import axios from 'axios';
 
 import Button from '../../components/Button';
@@ -17,10 +22,25 @@ import style from './Auth.module.scss';
 import Step4 from './steps/Step4';
 import Step5 from './steps/Step5';
 import Step6 from './steps/Step6';
+import {
+  forgotPassword,
+  sendLoginData,
+  sendRegistrationData,
+  sendVerificationCode,
+  verification,
+} from '../../services/apiAuth';
 
 //Проверить formData
 
 const Auth = () => {
+  const client = axios.create({
+    baseURL: 'http://localhost:5050/api/auth',
+  });
+
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
   //only for login
   const login = useInput('', { isEmpty: true, login: true });
   //only for registration
@@ -28,8 +48,10 @@ const Auth = () => {
   const username = useInput('', { isEmpty: true, username: true });
   const firstName = useInput('', { isEmpty: true, maxLengthError: 254 });
   const lastName = useInput('', { isEmpty: true, maxLengthError: 254 });
+  const verificationCode = useInput('', { isEmpty: true, maxLengthError: 6 });
   //for both
   const password = useInput('', { isEmpty: true, password: true });
+  const navigate = useNavigate();
 
   const [isReg, setReg] = useState(true);
   const [mobileStep, setMobileStep] = useState(0);
@@ -54,6 +76,7 @@ const Auth = () => {
     email.clearValue();
     password.clearValue();
     username.clearValue();
+    verificationCode.clearValue();
   };
 
   useEffect(() => {
@@ -63,24 +86,57 @@ const Auth = () => {
   }, []);
 
   useEffect(() => {
-    console.log(formData);
+    console.log(formData)
   }, [formData]);
 
-  const nextRegStep = () => {
-    setMobileStep((prevStep) => prevStep + 1);
+  const nextRegStep = async () => {
+    // console.log(formData)
+    if (mobileStep == 3 && !isReg) {
+      if (await sendLoginData(formData)) {
+        navigate('/home');
+      } else {
+        alert('Wrong login data!');
+
+        window.location.reload(false);
+      }
+    } else {
+      if (mobileStep == 5) {
+        sendRegistrationData(formData)
+      }
+      if (mobileStep == 6) {
+        if(verification(formData)) {
+          navigate('/home');
+        } else {
+          window.location.reload();
+        }
+      }
+      setMobileStep((prevStep) => prevStep + 1);
+    }
   };
 
   const prevRegStep = () => {
     setMobileStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
-  const nextForgotStep = () => {
+  const handleVerificationCode = async () => {
+    const response = await forgotPassword(formData);
+    return response;
+  };
+
+  const nextForgotStep = async () => {
+    if (forgotStep == 1) {
+      sendVerificationCode(formData);
+    }
+    if (forgotStep == 3) {
+      alert(await handleVerificationCode());
+    }
     setForgotStep((prevStep) => {
       if (forgotStep === 0) {
         clearData();
       }
       return prevStep + 1;
     });
+    
   };
 
   const prevForgotStep = () => {
@@ -102,7 +158,7 @@ const Auth = () => {
                 onNext={nextForgotStep}
                 onPrev={prevForgotStep}
                 handleChange={handleChange}
-                login={login}
+                email={email}
               />
             );
             break;
@@ -112,6 +168,7 @@ const Auth = () => {
                 onNext={nextForgotStep}
                 onPrev={prevForgotStep}
                 handleChange={handleChange}
+                verificationCode={verificationCode}
               />
             );
             break;
@@ -146,7 +203,7 @@ const Auth = () => {
             isReg={isReg}
             firstName={firstName}
             lastName={lastName}
-            email={email}
+            login={login}
             handleChange={handleChange}
           />
         );
@@ -195,6 +252,16 @@ const Auth = () => {
           />
         );
         break;
+      default:
+        return (
+          <Step6
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            email={formData.email}
+            handleChange={handleChange}
+            handleForm={handleForm}
+          />
+        );
     }
   };
 
@@ -202,36 +269,22 @@ const Auth = () => {
     e.preventDefault();
     if (isReg) {
       const data = JSON.stringify({
-        email: email.value,
-        username: username.value,
-        first_name: firstName.value,
-        last_name: lastName.value,
-        password: password.value,
+        body: {
+          email: formData.email,
+          password: formData.password,
+          verification_code: formData.code,
+        },
       });
-      console.log(data);
-    } else {
-      const data = JSON.stringify({
-        login: login.value,
-        password: password.value,
+      client.post('verification', data, { headers: headers }).then((res) => {
+        if (!res.data) {
+          setWrongCode(true);
+        } else {
+          setWrongCode(false);
+          localStorage.setItem('jwtToken', res.data.access_token);
+          navigate('/home');
+        }
       });
-
-      axios
-        .post('http://localhost:5050/api/auth/login', {
-          title: '',
-          body: data,
-        })
-        .then((res) => {
-          console.log(res);
-          redirect('/');
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-
-      console.log(data);
-      // navigate(-1);
     }
-    console.log('submit');
   };
 
   return (

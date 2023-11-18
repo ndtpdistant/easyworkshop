@@ -4,7 +4,7 @@ import Input from '../../../../components/Input';
 
 import style from '../Steps.module.scss';
 
-const Forgot3 = ({ onPrev, onNext, password, handleChange, handleForm }) => {
+const Forgot3 = ({ onPrev, onNext, password, handleChange }) => {
   return (
     <div className={`${style.forgot3}`}>
       <div className={style.nav}>
@@ -45,7 +45,6 @@ const Forgot3 = ({ onPrev, onNext, password, handleChange, handleForm }) => {
         <Button
           onClick={() => {
             onNext();
-            // handleForm();
           }}
           disabled={!password.inputValid}
           inlineStyle={{

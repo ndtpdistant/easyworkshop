@@ -6,7 +6,7 @@ import Input from '../../../../components/Input';
 
 import style from '../Steps.module.scss';
 
-const Forgot2 = ({ onPrev, onNext, email, handleChange, handleForm }) => {
+const Forgot2 = ({ onPrev, onNext, verificationCode, handleChange, handleForm }) => {
   const [disabled, setDisabled] = useState(true);
 
   const validateCode = (e) => {
@@ -32,7 +32,7 @@ const Forgot2 = ({ onPrev, onNext, email, handleChange, handleForm }) => {
       <div className={style.wrapper}>
         <div className={style.title}>
           Enter the code we sent to <br />{' '}
-          <div className={style.defaultText}>{email}</div>
+          <div className={style.defaultText}>{verificationCode.value}</div>
         </div>
         <div className={style.subtitle}>
           We sent 6 digit code to your email address
@@ -50,7 +50,7 @@ const Forgot2 = ({ onPrev, onNext, email, handleChange, handleForm }) => {
         <Button
           onClick={() => {
             onNext();
-            handleForm();
+            // handleForm();
           }}
           disabled={disabled}
           inlineStyle={{
