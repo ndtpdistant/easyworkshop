@@ -215,11 +215,8 @@ export class UsersService {
   }
 
   async serveProfilePicture(id: number, res: Response) {
-    const user = await this.getUserById(id);
-    if (!user) {
-      throw BadRequestException;
-    }
     try {
+      const user = await this.getUserById(id);
       this.filesService.serveFile(user.profile_picture, res);
     } catch (e) {
       throw new NotFoundException({ message: 'Profile picture not found' });

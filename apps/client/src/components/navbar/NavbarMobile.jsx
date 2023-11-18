@@ -8,14 +8,25 @@ import SearchIconMobile from '../../assets/icons/SearchIconMobile';
 import user from '../../assets/icons/User.svg';
 import style from './NavbarMobile.module.scss';
 
+import { jwtDecode } from "jwt-decode";
+
 const NavbarMobile = () => {
   const [auth, setAuth] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [profilePath, setProfilePath] = useState('');
 
   useEffect(() => {
     document.documentElement.className = isMenuOpen ? 'overflow-hidden' : '';
     document.body.className = isMenuOpen ? 'overflow-hidden' : '';
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(token) {
+      setAuth(token);
+      setProfilePath(`profile/${jwtDecode(token).sub}`)
+    }
+  }, [])
 
   return (
     <div
@@ -48,7 +59,7 @@ const NavbarMobile = () => {
             </Link>
           </div>
           <div className={style.account}>
-            <Link to={auth ? 'profile' : 'auth'}>
+            <Link to={auth ? `${profilePath}` : 'auth'}>
               <img className={style.profile} src={user} alt="user" />
             </Link>
           </div>

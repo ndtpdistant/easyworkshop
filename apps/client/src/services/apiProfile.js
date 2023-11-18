@@ -30,7 +30,7 @@ const getProfilePicture = async (id) => {
 
 const getBackgroundPicture = async (id) => {
   try {
-    const response = await client.get(`users/backgroundpicture?id=${id}}`, {
+    const response = await client.get(`users/backgroundpicture?id=${id}`, {
       responseType: 'arraybuffer',
     });
     const base64 = arrayBufferToBase64(response.data);
