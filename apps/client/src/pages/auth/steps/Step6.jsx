@@ -9,11 +9,12 @@ import style from './Steps.module.scss';
 const Step6 = ({
   onPrev,
   onNext,
-  email,
+  code,
   handleChange,
   handleForm,
-  wrongCode,
+  // wrongCode,
 }) => {
+
   const [disabled, setDisabled] = useState(true);
 
   const validateCode = (e) => {
@@ -39,12 +40,12 @@ const Step6 = ({
       <div className={style.wrapper}>
         <div className={style.title}>
           Enter the code we sent to <br />{' '}
-          <div className={style.defaultText}>{email}</div>
+          <div className={style.defaultText}>{code}</div>
         </div>
         <div className={style.subtitle}>
           We sent 6 digit code to your email address
         </div>
-        {wrongCode && <p style={{marginTop: '10px', color: 'red'}}>Wrong verification code</p>}
+        {/* {wrongCode && <p style={{marginTop: '10px', color: 'red'}}>Wrong verification code</p>} */}
         <Input
           placeholder={'Enter code'}
           name={'code'}
@@ -63,7 +64,7 @@ const Step6 = ({
         <Button
           disabled={disabled}
           onClick={() => {
-            // onNext();
+            onNext();
             // handleForm();
           }}
           //   disabled={!password.inputValid}

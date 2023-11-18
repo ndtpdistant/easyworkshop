@@ -11,6 +11,7 @@ import ErrorPage from './error-page';
 
 import './assets/styles/font-import.scss';
 import './assets/styles/global-reset.scss';
+import TEST from './pages/TEST';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
   {
     path: 'auth',
     element: <Auth />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: 'test',
+    element: <TEST />,
     errorElement: <ErrorPage />,
   },
 ]);

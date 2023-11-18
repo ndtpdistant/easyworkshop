@@ -37,6 +37,21 @@ export class UsersService {
     private filesService: FilesService,
   ) {}
 
+  async createNewPassword(email: string, new_password: string) {
+    try {
+      const user = await this.getUserByEmail(email);
+      const salt = await genUniqueSalt(this.userRepository);
+      const password = await bcrypt.hash(new_password, salt);
+
+      user.password = password;
+      user.salt = salt;
+      user.save();
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
+  }
+
   async createUser(dto: CreateUserDto) {
     const salt = await genUniqueSalt(this.userRepository);
     const password = await bcrypt.hash(dto.password, salt);

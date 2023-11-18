@@ -21,47 +21,104 @@ const sendRegistrationData = async (formData) => {
     });
 
     const response = await client.post('auth/registration', data, { headers });
-    return response.data.message;
+    return true;
   } catch (error) {
-    throw new Error();
+    return false;
+    throw new error();
+  }
+};
+
+const verification = async (formData) => {
+  const headers = {
+    'Content-type': 'application/json',
+  };
+
+  try {
+    const data = {
+      body: {
+        verification_code: formData.code,
+        email: formData.email,
+        password: formData.password,
+      },
+    };
+
+    const response = await client.post('auth/verification', data, { headers });
+    localStorage.setItem('token', `${response.data.access_token}`);
+    return true;
+  } catch (error) {
+    return false;
+    console.log(error);
   }
 };
 
 const sendLoginData = async (formData) => {
   const headers = {
     'Content-type': 'application/json',
-  }
+  };
 
   try {
     const data = {
       body: {
-        login: formData.login, 
+        login: formData.login,
         password: formData.password,
-      }
-    }
+      },
+    };
 
-    const response = await client.post('auth/login', data, {headers});
-    return response.data.access_token;
-  } catch(error) {
-    throw new Error();
+    const response = await client.post('auth/login', data, { headers });
+    localStorage.setItem('token', `${response.data.access_token}`);
+    return true;
+  } catch (error) {
+    return false;
   }
-}
+};
 
-const forgotPassword = (formData) => {
+const sendVerificationCode = async (formData) => {
   const headers = {
-    'Content-type':'application/json',
-  }
+    'Content-type': 'application/json',
+  };
 
   try {
     const data = JSON.stringify({
       body: {
-        email: formData.email, 
-        password: formData.password,
-      }
-    })
+        email: formData.email,
+      },
+    });
+
+    const response = await client.post('auth/sendverificationcode', data, {
+      headers,
+    });
+    return response.data.message;
   } catch (error) {
     throw new Error();
   }
-}
+};
 
-export { sendRegistrationData, sendLoginData };
+const forgotPassword = async (formData) => {
+  const headers = {
+    'Content-type': 'application/json',
+  };
+
+  try {
+    const data = JSON.stringify({
+      body: {
+        email: formData.email,
+        new_password: formData.password,
+        verification_code: formData.code,
+      },
+    });
+    const response = await client.post('auth/forgotpassword', data, {
+      headers,
+    });
+    return response.data.message;
+  } catch (error) {
+    throw new error();
+  }
+};
+
+export {
+  sendRegistrationData,
+  sendLoginData,
+  sendVerificationCode,
+  forgotPassword,
+  verification,
+};

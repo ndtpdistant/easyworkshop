@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -10,6 +11,8 @@ import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from 'src/auth/dto/sign-up-dto';
 import { MailService } from 'src/mail/mail.service';
 import { VerificationDto } from './dto/verification-dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { SendVerificationCodeDto } from './dto/send-verifiaction-code.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,24 +29,25 @@ export class AuthService {
   }
 
   async signIn(dto: SignInDto) {
-    const user = await this.usersService.getUser(
-      dto.body.login,
-      dto.body.password,
-    );
-    if (!user) {
-      throw UnauthorizedException;
-    }
-    const payload = {
-      sub: user.id,
-      email: user.email,
-      username: user.username,
-      firstName: user.first_name,
-      lastName: user.last_name,
-    };
+    try {
+      const user = await this.usersService.getUser(
+        dto.body.login,
+        dto.body.password,
+      );
+      const payload = {
+        sub: user.id,
+        email: user.email,
+        username: user.username,
+        firstName: user.first_name,
+        lastName: user.last_name,
+      };
 
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+      return {
+        access_token: await this.jwtService.signAsync(payload),
+      };
+    } catch (error) {
+      throw new BadRequestException({ message: 'Wrong data' });
+    }
   }
 
   async signUp(dto: SignUpDto) {
@@ -83,6 +87,8 @@ export class AuthService {
       dto.body.email,
       dto.body.password,
     );
+    console.log(user);
+    console.log(dto.body.verification_code)
     if (user) {
       if (user.verification_code == dto.body.verification_code) {
         this.usersService.addVerifiedStatus(user.id);
@@ -102,6 +108,42 @@ export class AuthService {
       }
     } else {
       return new NotFoundException('User Not Found');
+    }
+  }
+
+  async sendVerificationCode(dto: SendVerificationCodeDto) {
+    try {
+      const user = await this.usersService.getUserByEmail(dto.body.email);
+      const verification_code = this.generateVerificationCode();
+      this.mailService.sendVerificationEmail(user.email, verification_code);
+      user.verification_code = verification_code;
+      user.save();
+      return { message: 'Verification code has been sent.' };
+    } catch (error) {
+      throw new InternalServerErrorException('Something went wrong');
+    }
+  }
+
+  async forgotPassword(dto: ForgotPasswordDto) {
+    try {
+      const user = await this.usersService.getUserByEmail(dto.body.email);
+      console.log(user.verification_code);
+      if (user.verification_code == dto.body.verification_code) {
+        this.usersService.createNewPassword(
+          dto.body.email,
+          dto.body.new_password,
+        );
+        return {
+          message: 'Password has been changed. Try to sign in now.',
+          status: true,
+        };
+      }
+      return {
+        message: 'Wrong verification code. Try again with new code.',
+        status: false,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Something went wrong');
     }
   }
 }

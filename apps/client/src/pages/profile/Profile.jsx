@@ -7,6 +7,7 @@ import Card from '../../components/Card';
 import style from './Profile.module.scss';
 
 import { getBackgroundPicture, getProfile, getProfilePicture, changeProfilePicture } from '../../services/apiProfile';
+import { getItem } from '../../services/apiItem';
 
 export async function loader({ params }) {
   const easyworkshopService = new EasyworkshopService();
@@ -33,6 +34,9 @@ const Profile = () => {
       }
     };
     fetchData();
+    const fetchItem = async () => {
+      getItem(2)
+    };
     // console.log(await getProfilePicture(2))
     // setProfile(receivedProfile);
   }, []);

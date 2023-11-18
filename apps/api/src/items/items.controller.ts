@@ -2,39 +2,50 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   Post,
   Query,
-  UploadedFile,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateItemDto } from 'src/items/dto/create-item-dto';
 import { FilesService } from 'src/files/files.service';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ItemsService } from 'src/items/items.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('items')
 export class ItemsController {
-  constructor(private itemsService: ItemsService) {}
+  constructor(
+    private itemsService: ItemsService,
+    private jwtService: JwtService,
+  ) {}
+
+  private decode(jwt) {
+    return this.jwtService.decode(jwt.replace('Bearer ', ''));
+  }
+
+  // @Post('create') 
+  // async createItem()
   // stl, obj, gltf, glb
-
-  @Post('create')
-  @UseInterceptors(FileInterceptor('file'))
-  async createItem(
-    @Body() dto: CreateItemDto,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    return this.itemsService.uploadFile(dto, file);
-  }
-
-  @Post('createMultiple')
-  @UseInterceptors(FilesInterceptor('files'))
-  async createMultipleItems(
-    @Body() dto: CreateItemDto,
-    @UploadedFiles() files: Array<Express.Multer.File>,
-  ) {
-    return this.itemsService.uploadFiles(dto, files);
-  }
+  // not multiple items, but multiple files for one item
+  // @UseGuards(JwtAuthGuard)
+  // @Post('create')
+  // @UseInterceptors(FilesInterceptor('files'))
+  // async createItem(
+  //   @Body() dto: CreateItemDto,
+  //   @UploadedFiles() files: Array<Express.Multer.File>,
+  //   @Headers('Authorization') auth: string,
+  // ) {
+  //   console.log(123213);
+  //   const id = +this.decode(auth).sub;
+  //   // console.log(dto, req.files);
+  //   console.log(files);
+  //   return true;
+  //   // return this.itemsService.createItem(id, dto, files);
+  // }
 
   @Get()
   async getItems(@Query('limit') limit = 30, @Query('offset') offset = 0) {

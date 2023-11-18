@@ -1,6 +1,11 @@
 import useInput from '../../hooks/useInput';
 import { useEffect, useState } from 'react';
-import { Form, redirect, redirectDocument, useNavigate } from 'react-router-dom';
+import {
+  Form,
+  redirect,
+  redirectDocument,
+  useNavigate,
+} from 'react-router-dom';
 import axios from 'axios';
 
 import Button from '../../components/Button';
@@ -17,13 +22,19 @@ import style from './Auth.module.scss';
 import Step4 from './steps/Step4';
 import Step5 from './steps/Step5';
 import Step6 from './steps/Step6';
-import { sendLoginData, sendRegistrationData } from '../../services/apiAuth';
+import {
+  forgotPassword,
+  sendLoginData,
+  sendRegistrationData,
+  sendVerificationCode,
+  verification,
+} from '../../services/apiAuth';
 
 //Проверить formData
 
 const Auth = () => {
   const client = axios.create({
-    baseURL: 'http://172.20.10.2:5050/api/auth',
+    baseURL: 'http://localhost:5050/api/auth',
   });
 
   const headers = {
@@ -37,6 +48,7 @@ const Auth = () => {
   const username = useInput('', { isEmpty: true, username: true });
   const firstName = useInput('', { isEmpty: true, maxLengthError: 254 });
   const lastName = useInput('', { isEmpty: true, maxLengthError: 254 });
+  const verificationCode = useInput('', { isEmpty: true, maxLengthError: 6 });
   //for both
   const password = useInput('', { isEmpty: true, password: true });
   const navigate = useNavigate();
@@ -45,7 +57,6 @@ const Auth = () => {
   const [mobileStep, setMobileStep] = useState(0);
   const [forgotStep, setForgotStep] = useState(0);
   const [formData, setFormData] = useState({});
-  const [wrongCode, setWrongCode] = useState(false);
 
   const handleChange = (e) => {
     e.persist();
@@ -65,6 +76,7 @@ const Auth = () => {
     email.clearValue();
     password.clearValue();
     username.clearValue();
+    verificationCode.clearValue();
   };
 
   useEffect(() => {
@@ -74,14 +86,29 @@ const Auth = () => {
   }, []);
 
   useEffect(() => {
+    console.log(formData)
   }, [formData]);
 
-  const nextRegStep = () => {
-    if(mobileStep == 3 && !isReg) {
-      sendLoginData(formData);
+  const nextRegStep = async () => {
+    // console.log(formData)
+    if (mobileStep == 3 && !isReg) {
+      if (await sendLoginData(formData)) {
+        navigate('/home');
+      } else {
+        alert('Wrong login data!');
+
+        window.location.reload(false);
+      }
     } else {
       if (mobileStep == 5) {
-        sendRegistrationData(formData);
+        sendRegistrationData(formData)
+      }
+      if (mobileStep == 6) {
+        if(verification(formData)) {
+          navigate('/home');
+        } else {
+          window.location.reload();
+        }
       }
       setMobileStep((prevStep) => prevStep + 1);
     }
@@ -91,13 +118,25 @@ const Auth = () => {
     setMobileStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
-  const nextForgotStep = () => {
+  const handleVerificationCode = async () => {
+    const response = await forgotPassword(formData);
+    return response;
+  };
+
+  const nextForgotStep = async () => {
+    if (forgotStep == 1) {
+      sendVerificationCode(formData);
+    }
+    if (forgotStep == 3) {
+      alert(await handleVerificationCode());
+    }
     setForgotStep((prevStep) => {
       if (forgotStep === 0) {
         clearData();
       }
       return prevStep + 1;
     });
+    
   };
 
   const prevForgotStep = () => {
@@ -129,6 +168,7 @@ const Auth = () => {
                 onNext={nextForgotStep}
                 onPrev={prevForgotStep}
                 handleChange={handleChange}
+                verificationCode={verificationCode}
               />
             );
             break;
@@ -209,10 +249,19 @@ const Auth = () => {
             email={formData.email}
             handleChange={handleChange}
             handleForm={handleForm}
-            wrongCode={wrongCode}
           />
         );
         break;
+      default:
+        return (
+          <Step6
+            onNext={nextRegStep}
+            onPrev={prevRegStep}
+            email={formData.email}
+            handleChange={handleChange}
+            handleForm={handleForm}
+          />
+        );
     }
   };
 
@@ -227,7 +276,7 @@ const Auth = () => {
         },
       });
       client.post('verification', data, { headers: headers }).then((res) => {
-        if(!res.data) {
+        if (!res.data) {
           setWrongCode(true);
         } else {
           setWrongCode(false);
