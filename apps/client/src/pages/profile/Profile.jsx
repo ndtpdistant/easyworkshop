@@ -1,10 +1,11 @@
-import { useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Card from '../../components/Card';
 
 import style from './Profile.module.scss';
+import Pencil from '../../assets/icons/Pencil';
 
 export async function loader({ params }) {
   const easyworkshopService = new EasyworkshopService();
@@ -15,6 +16,7 @@ export async function loader({ params }) {
 const Profile = () => {
   const [mobile, setMobile] = useState(false);
   const [profile, setProfile] = useState({});
+  const [isYours, setYours] = useState(false);
   const receivedProfile = useLoaderData();
 
   useEffect(() => {
@@ -27,23 +29,33 @@ const Profile = () => {
   return (
     <div className={style.wrapper}>
       {!mobile ? null : (
-          <div className={style.userContainer}>
-            <img
-              src={profile.background}
-              alt="profile backgroung"
-              className={style.profileBackground}
-            />
-            <img
-              src={profile.img}
-              alt="profile img"
-              className={style.profileImg}
-            />
+        <div className={style.userContainer}>
+          <img
+            src={profile.background}
+            alt="profile backgroung"
+            className={style.profileBackground}
+          />
+          <img
+            src={profile.img}
+            alt="profile img"
+            className={style.profileImg}
+          />
+          <div className={style.nameWrapper}>
+            <div></div>
             <div className={style.profileName}>
               {profile.firstName} {profile.lastName}
             </div>
-            <div className={style.profileAbout}>{profile.about} </div>
+            {isYours ? (
+              <button onClick={() => redirect('/edit')}>
+                <Pencil />
+              </button>
+            ) : (
+              <button></button>
+            )}
           </div>
-        )}
+          <div className={style.profileAbout}>{profile.about} </div>
+        </div>
+      )}
       <div className={style.container}>
         {mobile ? null : (
           <div className={style.userContainer}>
@@ -57,8 +69,18 @@ const Profile = () => {
               alt="profile img"
               className={style.profileImg}
             />
-            <div className={style.profileName}>
-              {profile.firstName} {profile.lastName}
+            <div className={style.nameWrapper}>
+              <div></div>
+              <div className={style.profileName}>
+                {profile.firstName} {profile.lastName}
+              </div>
+              {isYours ? (
+                <button onClick={() => redirect('/edit')}>
+                  <Pencil />
+                </button>
+              ) : (
+                <button></button>
+              )}
             </div>
             <div className={style.profileAbout}>{profile.about} </div>
           </div>

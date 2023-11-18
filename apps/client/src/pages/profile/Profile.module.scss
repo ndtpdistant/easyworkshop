@@ -38,11 +38,29 @@
   outline: 5px #ffffff solid;
 }
 
-.profileName {
+.nameWrapper {
   position: relative;
   bottom: 20px;
+  width: calc(100% - 50px);
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
   text-align: center;
   font-size: 16px;
+  padding-left: 22px;
+  margin: 0 auto;
+
+  button {
+    width: 22px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: none;
+  }
+
+  svg {
+    cursor: pointer;
+  }
 }
 
 .profileAbout {
@@ -106,7 +124,7 @@
     outline: 7px #ffffff solid;
   }
 
-  .profileName {
+  .nameWrapper {
     bottom: 70px;
     font-size: 24px;
     font-weight: 700;
