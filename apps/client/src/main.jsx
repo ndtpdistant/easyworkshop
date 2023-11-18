@@ -13,11 +13,8 @@ import Add from './pages/add/Add';
 
 import './assets/styles/font-import.scss';
 import './assets/styles/global-reset.scss';
-<<<<<<< HEAD
 import Slicer from './pages/slicer/Slicer';
-=======
-import TEST from './pages/TEST';
->>>>>>> b240bdb7efcb7545034ece20417553959bfc766d
+// import TEST from './pages/TEST';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -39,15 +36,9 @@ const router = createBrowserRouter([
         loader: profileLoader,
       },
       {
-<<<<<<< HEAD
         path: 'favorite',
         element: <Favorite />,
         loader: favoriteLoader,
-      },
-=======
-        path: 'edit',
-        element: <Edit />
-    
       },
       {
         path: 'home',
@@ -55,7 +46,6 @@ const router = createBrowserRouter([
         loader: homeLoader
     
       }
->>>>>>> b240bdb7efcb7545034ece20417553959bfc766d
     ],
   },
   {
@@ -78,11 +68,11 @@ const router = createBrowserRouter([
     element: <Auth />,
     errorElement: <ErrorPage />,
   },
-  {
-    path: 'test',
-    element: <TEST />,
-    errorElement: <ErrorPage />,
-  },
+  // {
+  //   path: 'test',
+  //   element: <TEST />,
+  //   errorElement: <ErrorPage />,
+  // },
 ]);
 
 root.render(
