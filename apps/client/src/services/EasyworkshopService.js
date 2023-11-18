@@ -1,3 +1,5 @@
+import { matchSorter } from 'match-sorter';
+
 class EasyworkshopService {
   // _apiBase = 'http://localhost:3000/';
   _apiBase = 'http://192.168.51.55:3000/';
@@ -26,6 +28,14 @@ class EasyworkshopService {
     const res = await this.getResource(`${this._apiBase}profiles`);
     const profile = res.filter((profile) => profile.id == id);
     return await this._transformProfile(profile[0]);
+  };
+
+  getProfileByName = async (name) => {
+    const res = await this.getResource(`${this._apiBase}cards`);
+    return res.filter((card) => {
+      console.log(matchSorter(card.title, name));
+      return matchSorter(card.title, name);
+    });
   };
 
   _transformProfile = async ({

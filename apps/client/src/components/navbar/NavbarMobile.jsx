@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, Form } from 'react-router-dom';
+import { useState, useEffect, useDeferredValue } from 'react';
+import { Link, Form, useLocation } from 'react-router-dom';
 
 import Input from '../Input';
 
@@ -8,7 +8,16 @@ import SearchIconMobile from '../../assets/icons/SearchIconMobile';
 import user from '../../assets/icons/User.svg';
 import style from './NavbarMobile.module.scss';
 
-const NavbarMobile = () => {
+// export async function loader({ request }) {
+//   const url = new URL(request.url);
+//   const q = url.searchParams.get('q');
+//   const contacts = await getContacts(q);
+//   return { contacts };
+// }
+
+const NavbarMobile = ({ setName }) => {
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
   const [auth, setAuth] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -16,6 +25,10 @@ const NavbarMobile = () => {
     document.documentElement.className = isMenuOpen ? 'overflow-hidden' : '';
     document.body.className = isMenuOpen ? 'overflow-hidden' : '';
   }, [isMenuOpen]);
+
+  // useEffect(() => {
+  //   setName(deferredQuery);
+  // }, [deferredQuery]);
 
   return (
     <div
@@ -43,7 +56,14 @@ const NavbarMobile = () => {
             <span></span>
           </div>
           <div className={style.logo}>
-            <Link to={'/'} onClick={() => prevState === true ? setMenuOpen((prevState) => !prevState) : null}>
+            <Link
+              to={'/'}
+              onClick={() =>
+                prevState === true
+                  ? setMenuOpen((prevState) => !prevState)
+                  : null
+              }
+            >
               <img className={style.logo} src={logo} alt="easy workshop" />
             </Link>
           </div>
@@ -54,8 +74,17 @@ const NavbarMobile = () => {
           </div>
         </nav>
         {isMenuOpen ? null : (
-          <Form className={style.search} method="" action="">
-            <Input placeholder={'Search for...'} type={'text'} />
+          <Form className={style.search} method="get" action="" role="search">
+            <Input
+              placeholder={'Search for...'}
+              type={'search'}
+              id={'q'}
+              name={'q'}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setName(deferredQuery);
+              }}
+            />
             <button className={style.search_submit} type="submit">
               <SearchIconMobile />
             </button>

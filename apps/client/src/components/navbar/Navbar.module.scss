@@ -4,8 +4,12 @@
   width: 100vw;
   height: 80px;
   background-color: #ffffff;
-  
+
   form {
+    [type='search']::-webkit-search-decoration,
+    [type='search']::-webkit-search-cancel-button {
+      appearance: none;
+    }
     input {
       padding-right: 34px;
     }
@@ -48,7 +52,6 @@
     margin-right: 33px;
   }
 }
-
 
 .search_submit {
   cursor: pointer;
@@ -99,7 +102,6 @@
     }
   }
 
-
   .search_submit {
     left: -30px;
   }
@@ -141,5 +143,4 @@
   .container {
     max-width: 480px;
   }
-
 }

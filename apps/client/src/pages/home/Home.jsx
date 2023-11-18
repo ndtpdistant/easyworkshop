@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import {
+  useLoaderData,
+  useNavigation,
+  useOutletContext,
+} from 'react-router-dom';
 import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Card from '../../components/Card';
@@ -14,6 +18,8 @@ export async function loader() {
 }
 
 const Home = () => {
+  const [name, setName] = useOutletContext().name;
+  const [loading, setLoading] = useOutletContext().loading;
   const [cardList, setCardList] = useState([]);
   const [offset, setOffset] = useState(0);
   const cards = useLoaderData();
@@ -22,6 +28,11 @@ const Home = () => {
   useEffect(() => {
     setCardList(cards);
   }, []);
+
+  useEffect(() => {
+    console.log(loading);
+    console.log(name);
+  }, [name, loading]);
 
   return (
     <div className={style.wrapper}>

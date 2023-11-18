@@ -9,12 +9,12 @@ import logo from '../../assets/icons/easy-workshop-logo-black.svg';
 import search_icon from '../../assets/icons/search-icon.svg';
 import style from './Navbar.module.scss';
 
-const Navbar = ({ mobile }) => {
+const Navbar = ({ mobile, setName }) => {
   const [auth, setAuth] = useState(false);
   return (
     <>
       {mobile ? (
-        <NavbarMobile />
+        <NavbarMobile setName={setName} />
       ) : (
         <div className={style.wrapper}>
           <div className={style.container}>
@@ -38,7 +38,7 @@ const Navbar = ({ mobile }) => {
                   <Link to={'/item/add'}>Add model</Link>
                 </li>
               </ul>
-              <Form id="search-form" role="search" method="" action="">
+              <Form id="search-form" role="search" method="get" action="">
                 <Input
                   id={'q'}
                   inlineStyle={{
@@ -50,6 +50,7 @@ const Navbar = ({ mobile }) => {
                   }}
                   placeholder={'Search for...'}
                   type="search"
+                  // onChange={(e) => e.preventDefault()}
                   name={'q'}
                 />
                 <button className={style.search_submit} type="submit">
