@@ -53,8 +53,8 @@ const Profile = () => {
 
   useEffect(() => {
     setProfile(receivedProfile.profile);
-    setProfilePicture(receivedProfile.profilePicture.base64)
-    setProfileImageType(receivedProfile.profilePicture.type)
+    setProfilePicture(receivedProfile.profilePicture?.base64)
+    setProfileImageType(receivedProfile.profilePicture?.type)
     setBackgroundPicture(receivedProfile.backgroundPicture?.base64)
     setBackgroundImageType(receivedProfile.backgroundPicture?.type)
   }, [receivedProfile])
