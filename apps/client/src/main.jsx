@@ -13,6 +13,7 @@ import Add from './pages/add/Add';
 
 import './assets/styles/font-import.scss';
 import './assets/styles/global-reset.scss';
+import Slicer from './pages/slicer/Slicer';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
     path: '/profile/edit',
     element: <EditProfile />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: '/slicer',
+    errorElement: <ErrorPage />,
+    element: <Slicer />,
   },
   {
     path: '/item/add',

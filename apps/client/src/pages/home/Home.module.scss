@@ -25,6 +25,11 @@
   }
 }
 
+@media screen and (max-width: 820px) {
+  .container {
+    padding: 0px 0px;
+  }
+}
 @media screen and (max-width: 480px) {
   .container {
     width: calc(100vw - 40px);
