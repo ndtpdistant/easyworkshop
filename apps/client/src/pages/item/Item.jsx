@@ -5,9 +5,11 @@ import { StlViewer } from 'react-stl-viewer';
 import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Button from '../../components/Button';
+import Comment from '../../components/Comment';
 import ItemMobile from './ItemMobile';
 
 import ArrowLeft from '../../assets/icons/ArrowLeft';
+import Share from '../../assets/icons/Share';
 import Like from '../../assets/icons/Like';
 import style from './Item.module.scss';
 import 'swiper/css';
@@ -198,6 +200,29 @@ const Item = () => {
             <div className={style.description}>
               <div className={style.title}>Details</div>
               <div className={style.text}>{item.description}</div>
+            </div>
+            <div className={style.commentsSection}>
+              <div className={style.commentsHeader}>
+                <div className={style.counter}>
+                  {item.comments ? item.comments.length : 0} comments
+                </div>
+                <Share />
+              </div>
+              {item.comments ? (
+                <div className={style.comments}>
+                  {item.comments.map((comment) =>
+                    comment.parent_comment_id === null ? (
+                      <Comment
+                        key={comment.id}
+                        profileId={comment.user_id}
+                        content={comment.content}
+                        createdAt={comment.CreatedAt}
+                        likes={1000}
+                      />
+                    ) : null,
+                  )}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

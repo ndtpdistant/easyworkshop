@@ -151,6 +151,18 @@
   line-height: 22px;
 }
 
+.commentsSection {
+  padding: 10px 15px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.commentsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media screen and (max-width: 1264px) {
   .container {
     width: calc(100vw - 40px);
