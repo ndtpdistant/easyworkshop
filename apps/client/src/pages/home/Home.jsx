@@ -32,6 +32,7 @@ const Home = () => {
           return searchCards;
         });
       } catch (error) {
+        
         setLoading(false);
         console.error('Error fetching cards:', error);
       }

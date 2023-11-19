@@ -76,6 +76,7 @@ const Profile = () => {
   // )}
 
   return (
+    <>
     <div className={style.wrapper}>
       {!mobile ? null : (
         <div className={style.userContainer}>
@@ -152,6 +153,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
