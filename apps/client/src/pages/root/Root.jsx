@@ -19,7 +19,7 @@ const Root = () => {
     if (window.screen.width < 480) {
       setMobile(true);
     }
-    navigate('/home'); // Move navigation here
+    // navigate(''); // Move navigation here
   }, [navigate]);
 
   useEffect(() => {
