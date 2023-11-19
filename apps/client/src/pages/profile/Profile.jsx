@@ -10,12 +10,15 @@ import Pencil from '../../assets/icons/Pencil';
 import { getBackgroundPicture, getProfile, getProfilePicture, changeProfilePicture } from '../../services/apiProfile';
 import { getItem } from '../../services/apiItem';
 
+import { jwtDecode } from 'jwt-decode';
+
 export async function loader({ params }) {
   const profile = await getProfile(params.profileId);
   // const profilePicture = await getProfilePicture(params.profileId+1);
-  const profilePicture = await getProfilePicture(2);
+  const profilePicture = await getProfilePicture(params.profileId);
   const backgroundPicture = await getBackgroundPicture(params.profileId);
-  return { profile, profilePicture, backgroundPicture };
+  const id = params.profileId;
+  return { profile, profilePicture, backgroundPicture, id };
 }
 
 const Profile = () => {
@@ -53,10 +56,14 @@ const Profile = () => {
 
   useEffect(() => {
     setProfile(receivedProfile.profile);
-    setProfilePicture(receivedProfile.profilePicture.base64)
-    setProfileImageType(receivedProfile.profilePicture.type)
+    setProfilePicture(receivedProfile.profilePicture?.base64)
+    setProfileImageType(receivedProfile.profilePicture?.type)
     setBackgroundPicture(receivedProfile.backgroundPicture?.base64)
     setBackgroundImageType(receivedProfile.backgroundPicture?.type)
+    if(receivedProfile.id == jwtDecode(localStorage.getItem('token')).sub) {
+      setYours(true);
+    } 
+    console.log(jwtDecode(localStorage.getItem('token')).sub)
   }, [receivedProfile])
 
   // img sample
@@ -85,7 +92,7 @@ const Profile = () => {
           <div className={style.nameWrapper}>
             <div></div>
             <div className={style.profileName}>
-              {profile.firstName} {profile.lastName}
+              {profile.first_name} {profile.last_name}
             </div>
             {isYours ? (
               <button onClick={() => redirect('/edit')}>
@@ -114,7 +121,7 @@ const Profile = () => {
             <div className={style.nameWrapper}>
               <div></div>
               <div className={style.profileName}>
-                {profile.firstName} {profile.lastName}
+                {profile.first_name} {profile.last_name}
               </div>
               {isYours ? (
                 <button onClick={() => redirect('/edit')}>
