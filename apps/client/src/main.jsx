@@ -7,7 +7,9 @@ import Favorite, { loader as favoriteLoader } from './pages/favorite/Favorite';
 import Profile, { loader as profileLoader } from './pages/profile/Profile';
 import Auth from './pages/auth/Auth';
 import Root from './pages/root/Root';
-import EditProfile from './pages/profile/editProfile';
+import EditProfile, {
+  loader as editProfileLoader,
+} from './pages/profile/editProfile';
 import ErrorPage from './error-page';
 import Add from './pages/add/Add';
 
@@ -42,8 +44,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/profile/edit',
+    path: '/profile/:profileId/edit',
     element: <EditProfile />,
+    loader: editProfileLoader,
     errorElement: <ErrorPage />,
   },
   {
