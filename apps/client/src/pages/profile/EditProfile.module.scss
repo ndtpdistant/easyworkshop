@@ -171,3 +171,12 @@ p {
   margin: 20px auto;
   width: min(calc(100vw - 40px), 1265px);
 }
+
+@media screen and (max-width: 700px) {
+  .container {
+    flex-direction: column;
+  }
+  .userContainer {
+    margin: 0;
+  }
+}
