@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -23,7 +23,15 @@ export class FilesService {
   }
 
   serveFile(path: string, res: Response) {
-    res.sendFile(path, { root: './' });
+    try {
+      const file = fs.readFileSync(path);
+      return file;
+      // return res.sendFile(path, { root: './' });
+      // console.log(res.sendFile(path, { root: './' }));
+    } catch (error) {
+      console.error('Error serving file:', error);
+      throw new InternalServerErrorException({ message: 'Error serving file' });
+    }
   }
 
   deleteFile(path: string) {
