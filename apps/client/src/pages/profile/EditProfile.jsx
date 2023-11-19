@@ -1,4 +1,4 @@
-import { Form, Link, useLoaderData } from 'react-router-dom';
+import { Form, Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useInput from '../../hooks/useInput';
 import EasyworkshopService from '../../services/EasyworkshopService';
@@ -16,6 +16,7 @@ export async function loader({ params }) {
 }
 
 const EditProfile = () => {
+  const navigation = useNavigate();
   const [profileImg, setProfileImg] = useState('');
   const [profileBackground, setProfileBackground] = useState('');
   const [mobile, setMobile] = useState(false);
@@ -42,7 +43,7 @@ const EditProfile = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.nav}>
-        <button type="button" className={style.cancel}>
+        <button onClick={() => navigation(-1)} type="button" className={style.cancel}>
           <span></span> <span></span>
         </button>
         <div className={style.title}>Edit profile</div>
