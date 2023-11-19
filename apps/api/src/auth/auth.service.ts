@@ -68,6 +68,12 @@ export class AuthService {
         return {
           message:
             'Seems like you already tried to create an account. Verification email sent.',
+          status: true,
+        };
+      } else if (exsistingUser && exsistingUser.is_verified) {
+        return {
+          message: 'You already have an account. Try to sign in.',
+          status: false,
         };
       }
     } catch (error) {
@@ -79,7 +85,10 @@ export class AuthService {
     const verification_code = this.generateVerificationCode();
     this.mailService.sendVerificationEmail(dto.body.email, verification_code);
     this.usersService.addVerivicationCode(user.id, verification_code);
-    return { message: 'Signup successful. Verification email sent.' };
+    return {
+      message: 'Signup successful. Verification email sent.',
+      status: true,
+    };
   }
 
   async verification(dto: VerificationDto) {
@@ -88,7 +97,7 @@ export class AuthService {
       dto.body.password,
     );
     console.log(user);
-    console.log(dto.body.verification_code)
+    console.log(dto.body.verification_code);
     if (user) {
       if (user.verification_code == dto.body.verification_code) {
         this.usersService.addVerifiedStatus(user.id);

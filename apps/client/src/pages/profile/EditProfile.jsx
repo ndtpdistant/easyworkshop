@@ -8,10 +8,10 @@ import EditProfileDropzone from './EditProfileDropzone';
 import Input from '../../components/Input';
 
 import style from './EditProfile.module.scss';
+import { getProfile } from '../../services/apiProfile';
 
 export async function loader({ params }) {
-  const easyworkshopService = new EasyworkshopService();
-  const profile = await easyworkshopService.getProfile(params.profileId);
+  const profile = await getProfile(params.profileId);
   return profile;
 }
 

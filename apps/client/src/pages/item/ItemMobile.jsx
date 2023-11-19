@@ -26,8 +26,9 @@ const stlViewerStyle = {
   color: '#007aff',
 };
 
-const ItemMobile = ({ item }) => {
+const ItemMobile = ({ item, itemUser, data }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  console.log(data);
 
   return (
     <div className={style.wrapper}>
@@ -47,46 +48,30 @@ const ItemMobile = ({ item }) => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper2"
             >
-              <SwiperSlide>
-                <img
-                  style={{ borderRadius: '10px 10px 0 0' }}
-                  src="https://swiperjs.com/demos/images/nature-1.jpg"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <StlViewer
-                  style={stlViewerStyle}
-                  orbitControls={true}
-                  rotationX={true}
-                  rotationY={true}
-                  shadows
-                  url={url}
-                />
-              </SwiperSlide>
+              {data.map((item, index) => (
+                <SwiperSlide>
+                  {item.type == 'application/vnd.ms-pki.stl' ? (
+                    <StlViewer
+                      style={stlViewerStyle}
+                      orbitControls={true}
+                      rotationX={true}
+                      rotationY={true}
+                      shadows
+                      url={`data:${item.type};base64,${item.base64}`}
+                    />
+                  ) : (
+                    <img
+                      key={index}
+                      style={{ borderRadius: '10px 10px 0 0' }}
+                      src={
+                        item.base64
+                          ? `data:${item.type};base64,${item.base64}`
+                          : null
+                      }
+                    />
+                  )}
+                </SwiperSlide>
+              ))}
             </Swiper>
             <Swiper
               onSwiper={setThumbsSwiper}
@@ -97,42 +82,36 @@ const ItemMobile = ({ item }) => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
             >
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-              </SwiperSlide>
-              <SwiperSlide>
-                <StlViewer style={stlViewerStyle} url={url} />
-              </SwiperSlide>
+              {data.map((item, index) => (
+                <SwiperSlide>
+                  {item.type == 'application/vnd.ms-pki.stl' ? (
+                    <StlViewer
+                      style={stlViewerStyle}
+                      orbitControls={true}
+                      rotationX={true}
+                      rotationY={true}
+                      shadows
+                      url={`data:${item.type};base64,${item.base64}`}
+                    />
+                  ) : (
+                    <img
+                      key={index}
+                      // style={{ borderRadius: '10px 10px 0 0' }}
+                      src={
+                        item.base64
+                          ? `data:${item.type};base64,${item.base64}`
+                          : null
+                      }
+                    />
+                  )}
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
           <div className={style.itemFooter}>
             <div className={style.rowWrapper}>
               <div className={style.title}>
-                {item.title ? item.title : '<name error>'}
+                {item.item_name ? item.item_name : '<name error>'}
               </div>
               <div className={style.rowNav}>
                 <div className={style.like}>
@@ -153,9 +132,11 @@ const ItemMobile = ({ item }) => {
               </div>
             </div>
             <Link to={`/profile/${item.profileId}`} className={style.createdby}>
-              {item.profileName ? item.profileName : '<profileName error>'}
+              {itemUser.first_name && itemUser.last_name
+                ? `${itemUser.first_name} ${itemUser.last_name}`
+                : '<profileName error>'}
             </Link>
-            <div className={style.description}>{item.description}</div>
+            <div className={style.description}>{item.about}</div>
           </div>
           <div className={style.commentsSection}>
             <div className={style.commentsHeader}>

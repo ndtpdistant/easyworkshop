@@ -19,11 +19,15 @@ import 'swiper/css/thumbs';
 import './swiperStyle.scss';
 
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { getItem, serveFile } from '../../services/apiItem';
 
 export async function loader({ params }) {
-  const easyworkshopService = new EasyworkshopService();
-  const item = await easyworkshopService.getCard(params.itemId);
-  return item;
+  const item = (await getItem(`item/?id=${params.itemId}`)).data;
+  const itemUser = (await getItem(`itemuser/?id=${params.itemId}`)).data;
+  const data = await Promise.all(item.filepath.map(async (filepath) => {
+    return await serveFile(filepath);
+  }));
+  return { item, itemUser, data };
 }
 
 const url = '../src/pages/item/Pumpkin_Spinner_v0.stl';
@@ -37,21 +41,32 @@ const stlViewerStyle = {
 const Item = () => {
   const navigation = useNavigate();
   const [item, setItem] = useState({});
+  const [itemUser, setItemUser] = useState({});
+  const [data, setData] = useState({});
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [mobile, setMobile] = useState(false);
-  const card = useLoaderData();
+  const recievedItem = useLoaderData();
 
   useEffect(() => {
-    setItem(card);
     if (window.screen.width < 480) {
       setMobile(true);
     }
   }, []);
 
+  useEffect(() => {
+    setItem(recievedItem.item);
+    setItemUser(recievedItem.itemUser);
+    setData(recievedItem.data);
+  }, [recievedItem])
+
+  useEffect(() => {
+    console.log(data);
+  }, [data])
+  
   return (
     <>
       {mobile ? (
-        <ItemMobile item={item} />
+        <ItemMobile item={item} itemUser={itemUser} data={data}/>
       ) : (
         <div className={style.wrapper}>
           <div className={style.container}>
@@ -75,10 +90,10 @@ const Item = () => {
                       </Link>
                     </div>
                     <div className={style.namesWrapper}>
-                      <div className={style.itemName}>{item.title}</div>
+                      <div className={style.itemName}>{item.item_name}</div>
                       <Link to={`/profile/${item.profileId}`}>
                         <div className={style.profileName}>
-                          {item.profileName}
+                          {item.profile_name}
                         </div>
                       </Link>
                     </div>

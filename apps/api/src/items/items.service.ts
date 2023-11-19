@@ -4,6 +4,7 @@ import { CreateItemDto } from 'src/items/dto/create-item-dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Item } from 'src/items/items.model';
 import { NotFoundError } from 'rxjs';
+import { User } from 'src/users/users.model';
 
 @Injectable()
 export class ItemsService {
@@ -45,10 +46,11 @@ export class ItemsService {
   // get only 30 most relevant
   async getItems(limit: number, offset: number) {
     const items = await this.itemRepository.findAll({
+      attributes: ['id'],
       limit: limit,
       offset: offset,
     });
-    return items;
+    return items.map((item) => item.id);
   }
 
   async getItem(id) {
@@ -59,20 +61,30 @@ export class ItemsService {
     return item;
   }
 
-  async serveItem(id, res) {
+  async serveItem(id) {
     try {
-      const item = await this.itemRepository.findOne({ where: { id: id } });
-      const filepathes = item.filepath;
-      const data = await Promise.all(
-        filepathes.map(async (filepath) => {
-          return await this.filesService.serveFile(filepath, res);
-        }),
-      );
-      const dataObject = {
-        data: data,
-        item: item,
-      };
-      return dataObject;
+      const item = await this.itemRepository.findOne({
+        where: { id: id },
+      });
+      return item;
+    } catch (error) {
+      throw new NotFoundException({ message: 'Item not found!' });
+    }
+  }
+
+  async serveItemUser(id) {
+    try {
+      const item = await this.itemRepository.findOne({
+        where: { id: id },
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'username', 'email', 'first_name', 'last_name'],
+          },
+        ],
+      });
+      const user = item.user.dataValues;
+      return user;
     } catch (error) {
       throw new NotFoundException({ message: 'Item not found!' });
     }

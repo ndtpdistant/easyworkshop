@@ -42,13 +42,18 @@ export class ItemsController {
     return this.itemsService.createItem(id, dto, files);
   }
 
-  @Get('')
-  async getItems(@Query('limit') limit = 30, @Query('offset') offset = 0) {
+  @Get('getitemslist')
+  async getItemsList(@Query('limit') limit = 30, @Query('offset') offset = 0) {
     return await this.itemsService.getItems(limit, offset);
   }
 
   @Get('item')
-  async getItem(@Query('id') id, @Res() res: Response) {
-    return await this.itemsService.serveItem(id, res);
+  async getItem(@Query('id') id) {
+    return await this.itemsService.serveItem(id);
+  }
+
+  @Get('itemuser')
+  async getItemUser(@Query('id') id) {
+    return await this.itemsService.serveItemUser(id);
   }
 }

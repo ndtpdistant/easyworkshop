@@ -21,7 +21,7 @@ const sendRegistrationData = async (formData) => {
     });
 
     const response = await client.post('auth/registration', data, { headers });
-    return true;
+    return response;
   } catch (error) {
     return false;
     throw new error();

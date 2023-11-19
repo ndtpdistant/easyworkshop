@@ -1,20 +1,23 @@
-import { redirect, useLoaderData } from 'react-router-dom';
+import { redirect, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Card from '../../components/Card';
 
 import style from './Profile.module.scss';
 import Pencil from '../../assets/icons/Pencil';
 
-import { getBackgroundPicture, getProfile, getProfilePicture, changeProfilePicture } from '../../services/apiProfile';
+import {
+  getBackgroundPicture,
+  getProfile,
+  getProfilePicture,
+  changeProfilePicture,
+} from '../../services/apiProfile';
 import { getItem } from '../../services/apiItem';
 
 import { jwtDecode } from 'jwt-decode';
 
 export async function loader({ params }) {
   const profile = await getProfile(params.profileId);
-  // const profilePicture = await getProfilePicture(params.profileId+1);
   const profilePicture = await getProfilePicture(params.profileId);
   const backgroundPicture = await getBackgroundPicture(params.profileId);
   const id = params.profileId;
@@ -30,11 +33,10 @@ const Profile = () => {
   const [backgroundPicture, setBackgroundPicture] = useState(null);
   const [profileImageType, setProfileImageType] = useState(null);
   const [backgroundImageType, setBackgroundImageType] = useState(null);
-
-  const backgroundStockLink = 'https://t3.ftcdn.net/jpg/02/77/30/98/360_F_277309825_h8RvZkoyBGPDocMtippdfe3497xTrOXO.jpg';
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setProfile(receivedProfile);
+    // setProfile(receivedProfile);
     if (window.screen.width < 480) {
       setMobile(true);
     }
@@ -42,7 +44,7 @@ const Profile = () => {
     //   try {
     //   const { base64, type } = await getProfilePicture(2);
     //   setProfilePicture(base64);
-    //   setImageType(type); 
+    //   setImageType(type);
     //   } catch (error) {
     //     setProfilePicture(null);
     //     setImageType(null);
@@ -56,15 +58,24 @@ const Profile = () => {
 
   useEffect(() => {
     setProfile(receivedProfile.profile);
-    setProfilePicture(receivedProfile.profilePicture?.base64)
-    setProfileImageType(receivedProfile.profilePicture?.type)
-    setBackgroundPicture(receivedProfile.backgroundPicture?.base64)
-    setBackgroundImageType(receivedProfile.backgroundPicture?.type)
-    if(receivedProfile.id == jwtDecode(localStorage.getItem('token')).sub) {
-      setYours(true);
-    } 
-    console.log(jwtDecode(localStorage.getItem('token')).sub)
-  }, [receivedProfile])
+    setProfilePicture(receivedProfile.profilePicture?.base64);
+    setProfileImageType(receivedProfile.profilePicture?.type);
+    setBackgroundPicture(receivedProfile.backgroundPicture?.base64);
+    setBackgroundImageType(receivedProfile.backgroundPicture?.type);
+    if (localStorage.getItem('token')) {
+      if (
+        +receivedProfile.id == +jwtDecode(localStorage.getItem('token')).sub
+      ) {
+        setYours(true);
+      }
+    }
+
+    // console.log(isYours)
+  }, [receivedProfile]);
+
+  useEffect(() => {
+    console.log(isYours);
+  }, [isYours]);
 
   // img sample
   // {profilePicture && imageType && (
@@ -81,12 +92,20 @@ const Profile = () => {
       {!mobile ? null : (
         <div className={style.userContainer}>
           <img
-            src={backgroundPicture && backgroundImageType ? `data:${backgroundImageType};base64,${backgroundPicture}` : backgroundStockLink}
+            src={
+              backgroundPicture && backgroundImageType
+                ? `data:${backgroundImageType};base64,${backgroundPicture}`
+                : null
+            }
             alt="profile backgroung"
             className={style.profileBackground}
           />
           <img
-            src={profilePicture && profileImageType ? `data:${profileImageType};base64,${profilePicture}` : backgroundStockLink}
+            src={
+              profilePicture && profileImageType
+                ? `data:${profileImageType};base64,${profilePicture}`
+                : null
+            }
             alt="profile backgroung"
             className={style.profileImg}
           />
@@ -96,7 +115,7 @@ const Profile = () => {
               {profile.first_name} {profile.last_name}
             </div>
             {isYours ? (
-              <button onClick={() => redirect('/edit')}>
+              <button onClick={() => navigate('edit')}>
                 <Pencil />
               </button>
             ) : (
@@ -125,7 +144,7 @@ const Profile = () => {
                 {profile.first_name} {profile.last_name}
               </div>
               {isYours ? (
-                <button onClick={() => redirect('/edit')}>
+                <button onClick={() => navigate('/edit')}>
                   <Pencil />
                 </button>
               ) : (
