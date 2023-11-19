@@ -58,4 +58,23 @@ export class ItemsService {
     }
     return item;
   }
+
+  async serveItem(id, res) {
+    try {
+      const item = await this.itemRepository.findOne({ where: { id: id } });
+      const filepathes = item.filepath;
+      const data = await Promise.all(
+        filepathes.map(async (filepath) => {
+          return await this.filesService.serveFile(filepath, res);
+        }),
+      );
+      const dataObject = {
+        data: data,
+        item: item,
+      };
+      return dataObject;
+    } catch (error) {
+      throw new NotFoundException({ message: 'Item not found!' });
+    }
+  }
 }

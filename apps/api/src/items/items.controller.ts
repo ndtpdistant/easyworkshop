@@ -5,6 +5,7 @@ import {
   Headers,
   Post,
   Query,
+  Res,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -27,33 +28,27 @@ export class ItemsController {
     return this.jwtService.decode(jwt.replace('Bearer ', ''));
   }
 
-  // @Post('create') 
-  // async createItem()
   // stl, obj, gltf, glb
   // not multiple items, but multiple files for one item
-  // @UseGuards(JwtAuthGuard)
-  // @Post('create')
-  // @UseInterceptors(FilesInterceptor('files'))
-  // async createItem(
-  //   @Body() dto: CreateItemDto,
-  //   @UploadedFiles() files: Array<Express.Multer.File>,
-  //   @Headers('Authorization') auth: string,
-  // ) {
-  //   console.log(123213);
-  //   const id = +this.decode(auth).sub;
-  //   // console.log(dto, req.files);
-  //   console.log(files);
-  //   return true;
-  //   // return this.itemsService.createItem(id, dto, files);
-  // }
+  @UseGuards(JwtAuthGuard)
+  @Post('create')
+  @UseInterceptors(FilesInterceptor('files'))
+  async createItem(
+    @Body() dto: CreateItemDto,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @Headers('Authorization') auth: string,
+  ) {
+    const id = +this.decode(auth).sub;
+    return this.itemsService.createItem(id, dto, files);
+  }
 
-  @Get()
+  @Get('')
   async getItems(@Query('limit') limit = 30, @Query('offset') offset = 0) {
     return await this.itemsService.getItems(limit, offset);
   }
 
-  @Get()
-  async getItem(@Query('id') id) {
-    return await this.itemsService.getItem(id);
+  @Get('item')
+  async getItem(@Query('id') id, @Res() res: Response) {
+    return await this.itemsService.serveItem(id, res);
   }
 }
