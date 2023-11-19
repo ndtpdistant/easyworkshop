@@ -101,7 +101,11 @@ const Auth = () => {
       }
     } else {
       if (mobileStep == 5) {
-        sendRegistrationData(formData)
+        const response = await sendRegistrationData(formData)
+        if(!response.data.status) {
+          alert(response.data.message);
+          window.location.reload();
+        }
       }
       if (mobileStep == 6) {
         if(verification(formData)) {

@@ -5,28 +5,31 @@ import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 
 import style from './Root.module.scss';
-import EasyworkshopService from '../../services/EasyworkshopService';
+import { useNavigate } from 'react-router-dom';
 
 const Root = () => {
-  const easyworkshopService = new EasyworkshopService();
+  console.log(1)
   const [mobile, setMobile] = useState(false);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(1);
     if (window.screen.width < 480) {
       setMobile(true);
     }
-  }, []);
+    navigate('/home'); // Move navigation here
+  }, [navigate]);
 
   useEffect(() => {
-    setLoading(true)
-  }, [name])
+    setLoading(true);
+  }, [name]);
 
   return (
     <div className={style.root}>
       <Navbar mobile={mobile} setName={setName} />
-      <Outlet  context={{name: [name, setName], loading: [loading, setLoading]}}/>
+      <Outlet context={{ name: [name, setName], loading: [loading, setLoading] }} />
       <Footer />
     </div>
   );

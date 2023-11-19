@@ -42,12 +42,6 @@ const router = createBrowserRouter([
         element: <Favorite />,
         loader: favoriteLoader,
       },
-      {
-        path: 'home',
-        element: <Home />,
-        loader: homeLoader
-    
-      }
     ],
   },
   {
@@ -71,12 +65,8 @@ const router = createBrowserRouter([
     element: <Auth />,
     errorElement: <ErrorPage />,
   },
-  // {
-  //   path: 'test',
-  //   element: <TEST />,
-  //   errorElement: <ErrorPage />,
-  // },
 ]);
+
 
 root.render(
   <>

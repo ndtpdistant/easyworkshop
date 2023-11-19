@@ -10,46 +10,36 @@ import Card from '../../components/Card';
 import Spinner from '../../components/Spinner';
 
 import style from './Home.module.scss';
+import { getHome } from '../../services/apiItem';
 
 export async function loader() {
-  const easyworkshopService = new EasyworkshopService();
-  const cards = await easyworkshopService.getAllCards();
-  return cards;
+  const response = await getHome();
+  return response;
 }
 
 const Home = () => {
   const [name, setName] = useOutletContext().name;
   const [loading, setLoading] = useOutletContext().loading;
-  const [cardList, setCardList] = useState([]);
+  const [itemList, setItemList] = useState([]);
   const [offset, setOffset] = useState(0);
-  const cards = useLoaderData();
+  const [limit, setLimit] = useState(0);
+  const recievedData = useLoaderData();
   const navigation = useNavigation();
 
   useEffect(() => {
-    setCardList(cards);
-  }, []);
-
-  useEffect(() => {
-    console.log(loading);
-    console.log(name);
-  }, [name, loading]);
+    setItemList(recievedData);
+  }, [recievedData]);
 
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
         {navigation.state === 'loading' ? (
           <Spinner />
-        ) : cardList ? (
-          cardList.map((card) => (
+        ) : itemList ? (
+          itemList.map((item) => (
             <Card
-              key={card.id}
-              title={card.title}
-              img={card.img}
-              id={card.id}
-              profileId={card.profileId}
-              profileName={card.profileName}
-              profileImg={card.profileImg}
-              description={card.description}
+              key={item}
+              id={item}
             />
           ))
         ) : null}

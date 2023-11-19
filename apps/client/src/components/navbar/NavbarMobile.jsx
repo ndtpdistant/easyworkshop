@@ -1,6 +1,6 @@
 import { useState, useEffect, useDeferredValue } from 'react';
 import { jwtDecode } from "jwt-decode";
-import { Link, Form, useLocation } from 'react-router-dom';
+import { Link, Form, useLocation, useNavigate } from 'react-router-dom';
 
 import Input from '../Input';
 
@@ -24,6 +24,7 @@ const NavbarMobile = ({ setName }) => {
   const [auth, setAuth] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [profilePath, setProfilePath] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.className = isMenuOpen ? 'overflow-hidden' : '';
@@ -136,6 +137,15 @@ const NavbarMobile = ({ setName }) => {
               Liked by you
             </Link>
           </div>
+          {localStorage.getItem('token') && <div className={style.burgerItem} >
+            <Link
+              to={'/'}
+              style={{color: 'red'}}
+              onClick={() => {localStorage.removeItem('token'); window.location.reload();} }
+            >
+              Sign out
+            </Link>
+          </div>}
         </ul>
       ) : null}
     </div>

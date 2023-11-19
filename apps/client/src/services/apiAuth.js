@@ -4,6 +4,10 @@ const client = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
+const defaultPfp = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkARo4ysVZ2I7A7E9bZAL9nTO5B5eX_VLX9x_x-ve4m6XrtryNNBHDgBWLAQ&s';
+const defaultBg = 'https://t3.ftcdn.net/jpg/02/77/30/98/360_F_277309825_h8RvZkoyBGPDocMtippdfe3497xTrOXO.jpg';
+
+
 const sendRegistrationData = async (formData) => {
   const headers = {
     'Content-type': 'application/json',
@@ -21,7 +25,7 @@ const sendRegistrationData = async (formData) => {
     });
 
     const response = await client.post('auth/registration', data, { headers });
-    return true;
+    return response;
   } catch (error) {
     return false;
     throw new error();
