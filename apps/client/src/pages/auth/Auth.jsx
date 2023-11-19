@@ -93,7 +93,7 @@ const Auth = () => {
     // console.log(formData)
     if (mobileStep == 3 && !isReg) {
       if (await sendLoginData(formData)) {
-        navigate('/home');
+        navigate('');
       } else {
         alert('Wrong login data!');
 
@@ -109,7 +109,7 @@ const Auth = () => {
       }
       if (mobileStep == 6) {
         if(verification(formData)) {
-          navigate('/home');
+          navigate('');
         } else {
           window.location.reload();
         }
@@ -285,7 +285,7 @@ const Auth = () => {
         } else {
           setWrongCode(false);
           localStorage.setItem('jwtToken', res.data.access_token);
-          navigate('/home');
+          navigate('');
         }
       });
     }

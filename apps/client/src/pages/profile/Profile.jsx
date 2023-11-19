@@ -1,6 +1,5 @@
 import { redirect, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Card from '../../components/Card';
 
@@ -37,7 +36,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setProfile(receivedProfile);
+    // setProfile(receivedProfile);
     if (window.screen.width < 480) {
       setMobile(true);
     }

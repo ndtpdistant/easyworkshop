@@ -35,25 +35,29 @@ const serveFile = async (path) => {
   }
 }
 
-const createItem = async (formData, files, authToken) => {
+const createItem = async (item_name, about, files, authToken) => {
   try {
-    files.forEach((file, index) => {
-      formData.append(`file${index + 1}`, file);
-    });
+    const formData = new FormData();
+    formData.append('item_name', item_name);
+    formData.append('about', about);
+    
+    for (const file of files) {
+      formData.append('files', file);
+    }
 
     const response = await client.post('items/create', formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${authToken}`,
+        'Content-Type': 'multipart/form-data',
       },
     });
     
     console.log(response);
-    console.log(2)
   } catch (error) {
     throw error;
   }
 };
+
 
 const getHome = async (limit = 30, offset = 0) => {
   try {

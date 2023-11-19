@@ -4,7 +4,6 @@ import {
   useNavigation,
   useOutletContext,
 } from 'react-router-dom';
-import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Card from '../../components/Card';
 import Spinner from '../../components/Spinner';
