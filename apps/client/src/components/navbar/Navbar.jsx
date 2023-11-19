@@ -10,7 +10,14 @@ import search_icon from '../../assets/icons/search-icon.svg';
 import style from './Navbar.module.scss';
 
 const Navbar = ({ mobile, setName }) => {
+  const [query, setQuery] = useState('');
+  const [value, setValue] = useState('');
   const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    setName(query);
+  }, [query]);
+
   return (
     <>
       {mobile ? (
@@ -38,9 +45,21 @@ const Navbar = ({ mobile, setName }) => {
                   <Link to={'/item/add'}>Add model</Link>
                 </li>
               </ul>
-              <Form id="search-form" role="search" method="get" action="">
+              <Form
+                className={style.search}
+                method="get"
+                onSubmit={() => setQuery(value)}
+                role="search"
+              >
                 <Input
+                  placeholder={'Search for...'}
+                  type={'search'}
                   id={'q'}
+                  name={'q'}
+                  value={value}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
                   inlineStyle={{
                     width: '340px',
                     height: '46px',
@@ -48,10 +67,6 @@ const Navbar = ({ mobile, setName }) => {
                     paddingLeft: '25px',
                     fontSize: '16px',
                   }}
-                  placeholder={'Search for...'}
-                  type="search"
-                  // onChange={(e) => e.preventDefault()}
-                  name={'q'}
                 />
                 <button className={style.search_submit} type="submit">
                   <img className="" src={search_icon} alt="search-icon" />

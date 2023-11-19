@@ -1,4 +1,4 @@
-import { useState, useEffect, useDeferredValue } from 'react';
+import { useState, useEffect} from 'react';
 import { jwtDecode } from "jwt-decode";
 import { Link, Form, useLocation } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ import style from './NavbarMobile.module.scss';
 
 const NavbarMobile = ({ setName }) => {
   const [query, setQuery] = useState('');
-  const deferredQuery = useDeferredValue(query);
+  const [value, setValue] = useState('');
   const [auth, setAuth] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [profilePath, setProfilePath] = useState('');
@@ -30,9 +30,10 @@ const NavbarMobile = ({ setName }) => {
     document.body.className = isMenuOpen ? 'overflow-hidden' : '';
   }, [isMenuOpen]);
 
-  // useEffect(() => {
-  //   setName(deferredQuery);
-  // }, [deferredQuery]);
+  useEffect(() => {
+    setName(query);
+  }, [query]);
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if(token) {
@@ -85,15 +86,15 @@ const NavbarMobile = ({ setName }) => {
           </div>
         </nav>
         {isMenuOpen ? null : (
-          <Form className={style.search} method="get" action="" role="search">
+          <Form className={style.search} method="get" onSubmit={() => setQuery(value)} role="search">
             <Input
               placeholder={'Search for...'}
               type={'search'}
               id={'q'}
               name={'q'}
+              value={value}
               onChange={(e) => {
-                setQuery(e.target.value);
-                setName(deferredQuery);
+                setValue(e.target.value);
               }}
             />
             <button className={style.search_submit} type="submit">

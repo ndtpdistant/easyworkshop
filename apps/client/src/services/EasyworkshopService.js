@@ -30,12 +30,10 @@ class EasyworkshopService {
     return await this._transformProfile(profile[0]);
   };
 
-  getProfileByName = async (name) => {
+  getCardsByName = async (name) => {
     const res = await this.getResource(`${this._apiBase}cards`);
-    return res.filter((card) => {
-      console.log(matchSorter(card.title, name));
-      return matchSorter(card.title, name);
-    });
+    console.log(matchSorter(res, name, { keys: ['title'] }));
+    return matchSorter(res, name, { keys: ['title'] });
   };
 
   _transformProfile = async ({
