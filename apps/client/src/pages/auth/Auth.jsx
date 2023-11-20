@@ -93,7 +93,7 @@ const Auth = () => {
     // console.log(formData)
     if (mobileStep == 3 && !isReg) {
       if (await sendLoginData(formData)) {
-        navigate('');
+        navigate('/ ');
       } else {
         alert('Wrong login data!');
 

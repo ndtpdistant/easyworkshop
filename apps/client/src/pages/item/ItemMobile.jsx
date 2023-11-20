@@ -28,7 +28,33 @@ const stlViewerStyle = {
 
 const ItemMobile = ({ item, itemUser, data }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  console.log(data);
+
+  const handleDownload = () => {
+    console.log(1)
+    const stlData = data.find((item) => item.type === 'application/vnd.ms-pki.stl');
+
+    if (stlData) {
+      const { base64, type } = stlData;
+      const byteCharacters = atob(base64);
+      const byteNumbers = new Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'yourFileName.stl'; // Set the desired file name
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  };
 
   return (
     <div className={style.wrapper}>
@@ -126,6 +152,7 @@ const ItemMobile = ({ item, itemUser, data }) => {
                     fontWeight: 'bold',
                     fontSize: '10px',
                   }}
+                  onClick={handleDownload}
                 >
                   Download
                 </Button>

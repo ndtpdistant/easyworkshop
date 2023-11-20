@@ -5,13 +5,11 @@ import Spinner from '../Spinner';
 
 import Like from '../../assets/icons/Like';
 import style from './Comment.module.scss';
-import EasyworkshopService from '../../services/EasyworkshopService';
 import { useEffect, useState } from 'react';
 
 const Comment = ({ profileId, content, likes, createdAt }) => {
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
-  const easyworkshopService = new EasyworkshopService();
 
   const onProfileLoaded = (resProfile) => {
     setProfile({ ...resProfile });

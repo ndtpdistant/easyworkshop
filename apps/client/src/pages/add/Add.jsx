@@ -35,6 +35,7 @@ const Add = () => {
     }
     setUploadedFiles(e.target.files);
     setFilesLength([e.target.value].length);
+    navigation('/ ')
   };
 
   const handleImagesUpload = (e) => {

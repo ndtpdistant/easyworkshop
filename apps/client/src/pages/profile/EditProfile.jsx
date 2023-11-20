@@ -1,7 +1,6 @@
 import { Form, Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useInput from '../../hooks/useInput';
-import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Button from '../../components/Button';
 import EditProfileDropzone from './EditProfileDropzone';

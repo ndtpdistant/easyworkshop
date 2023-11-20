@@ -2,7 +2,6 @@ import { Link, useNavigate, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { StlViewer } from 'react-stl-viewer';
-import EasyworkshopService from '../../services/EasyworkshopService';
 
 import Button from '../../components/Button';
 import Comment from '../../components/Comment';

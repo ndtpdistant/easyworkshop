@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import EasyworkshopService from '../../services/EasyworkshopService';
 import { useLoaderData, Link } from 'react-router-dom';
 
 import Card from '../../components/Card';
@@ -10,7 +9,6 @@ export async function loader({ params }) {
   if (!params.profileId) {
     return 0;
   }
-  const easyworkshop = new EasyworkshopService();
   const favorites = await easyworkshop.getProfile(1);
   return favorites;
 }
