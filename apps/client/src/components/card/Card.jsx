@@ -6,6 +6,12 @@ import Button from '../Button';
 import style from './Card.module.scss';
 import Like from '../../assets/icons/Like';
 import { getItem, serveFile } from '../../services/apiItem';
+import {
+  getBackgroundPicture,
+  getProfile,
+  getProfilePicture,
+  changeProfilePicture,
+} from '../../services/apiProfile';
 
 const Card = ({ id }) => {
   const navigation = useNavigate();
@@ -35,6 +41,11 @@ const Card = ({ id }) => {
       setMobile(true);
     }
     loadData(id);
+    // setProfile(receivedProfile.profile);
+    // setProfilePicture(receivedProfile.profilePicture?.base64);
+    // setProfileImageType(receivedProfile.profilePicture?.type);
+    // setBackgroundPicture(receivedProfile.backgroundPicture?.base64);
+    // setBackgroundImageType(receivedProfile.backgroundPicture?.type);
   }, []);
 
   useEffect(() => {
@@ -52,7 +63,12 @@ const Card = ({ id }) => {
       <div className={style.container}>
         <div className={style.imgContainer}>
           <Link to={`/item/${id}`}>
-            <img src={`data:${data.type};base64,${data.base64}`} width="100%" height="100%" className={style.img} />
+            <img
+              src={`data:${data.type};base64,${data.base64}`}
+              width="100%"
+              height="100%"
+              className={style.img}
+            />
           </Link>
         </div>
         <div className={style.cardFooter}>
@@ -70,7 +86,9 @@ const Card = ({ id }) => {
                 to={`/profile/${itemUser.id}`}
                 className={style.cardCreatedby}
               >
-                {itemUser.first_name ? itemUser.first_name : '<profileName error>'}
+                {itemUser.first_name
+                  ? itemUser.first_name
+                  : '<profileName error>'}
               </Link>
               <div className={style.description}>{item.about}</div>
             </>
@@ -94,7 +112,9 @@ const Card = ({ id }) => {
                     to={`/profile/${itemUser.id}`}
                     className={style.cardCreatedby}
                   >
-                    {itemUser.first_name ? itemUser.first_nameeName : '<profileName error>'}
+                    {itemUser.first_name
+                      ? itemUser.first_nameeName
+                      : '<profileName error>'}
                   </Link>
                 </div>
               </div>

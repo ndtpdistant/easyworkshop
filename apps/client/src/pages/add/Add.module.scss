@@ -20,11 +20,85 @@
     border-radius: 3px;
     // width: 40px;
     // height: 30px;
-    background-color: $primary-color; 
+    background-color: $primary-color;
   }
   // input:hover {
   //   background-color: $primary-color-hover;
   // }
+}
+
+.fileName {
+  display: flex;
+  min-width: 100px;
+  max-width: 250px;
+  overflow-wrap: anywhere;
+  text-align: center;
+  padding: 10px;
+  min-height: 45px;
+  border-radius: 5px;
+  border: 1px solid #007aff;
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzone {
+  max-width: 900px;
+  min-width: 345px;
+  border-radius: 5px;
+  border: 1px dashed #959595;
+  background: #fff;
+  height: 230px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: 0.2s all;
+
+  img {
+    height: 70px;
+  }
+}
+
+.fileWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #007aff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+  align-items: center;
+  margin: 0 10px 10px 0;
+  position: relative;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.filesSection {
+  width: 100vw;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+.filesHeader {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #007aff;
+  height: 30px;
+  width: 100%;
 }
 
 .secondForm {
@@ -47,7 +121,7 @@
     border-radius: 3px;
     // width: 40px;
     // height: 30px;
-    background-color: $primary-color; 
+    background-color: $primary-color;
   }
   // input:hover {
   //   background-color: $primary-color-hover;

@@ -128,12 +128,20 @@ const Profile = () => {
         {mobile ? null : (
           <div className={style.userContainer}>
             <img
-              src={profile.background}
+              src={
+                backgroundPicture && backgroundImageType
+                  ? `data:${backgroundImageType};base64,${backgroundPicture}`
+                  : null
+              }
               alt="profile backgroung"
               className={style.profileBackground}
             />
             <img
-              src={profile.img}
+              src={
+                profilePicture && profileImageType
+                  ? `data:${profileImageType};base64,${profilePicture}`
+                  : null
+              }
               alt="profile img"
               className={style.profileImg}
             />

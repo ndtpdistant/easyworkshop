@@ -23,6 +23,8 @@ const Add = () => {
   const [uploadedFiles, setUploadedFiles] = useState(null);
   const [uploadedImages, setUploadedImages] = useState(null);
 
+  const [login, setLogin] = useState(false);
+
   const handleCreatingItem = () => {
     const files = [...uploadedImages, ...uploadedFiles];
     const authToken = localStorage.getItem('token');
@@ -35,7 +37,7 @@ const Add = () => {
     }
     setUploadedFiles(e.target.files);
     setFilesLength([e.target.value].length);
-    navigation('/ ')
+    navigation('/ ');
   };
 
   const handleImagesUpload = (e) => {
@@ -46,7 +48,17 @@ const Add = () => {
     setFilesLength([e.target.value].length);
   };
 
-  useEffect(() => {}, [uploadedFiles]);
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      if (
+        +receivedProfile.id == +jwtDecode(localStorage.getItem('token')).sub
+      ) {
+        setYours(true);
+      }
+    } else {
+      // navigation('/auth ');
+    }
+  }, [uploadedFiles]);
 
   return (
     <div className={style.wrapper}>
@@ -60,15 +72,22 @@ const Add = () => {
       <div className={style.container}>
         {step === 1 ? (
           <>
-            <form action="" className={style.firstForm}>
+            <form action="" className={`${style.firstForm} ${style.dropzone}`}>
               {error && (
                 <h1 style={{ color: 'red' }}>You must upload files first</h1>
               )}
-              <h2>Upload your stl files here</h2>
+              <h2>Upload your files here</h2>
               <input
                 type="file"
                 multiple={true}
-                accept=".stl"
+                accept=".stl, .obj,
+                .fbx,
+                .blend,
+                .dae,
+                .amf,
+                .3ds,
+                .x3d,
+                .3mf"
                 onChange={(e) => handleFilesUpload(e)}
               />
             </form>
