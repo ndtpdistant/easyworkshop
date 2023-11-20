@@ -1,5 +1,8 @@
 {
-  "dependencies": {
-    "react-dropzone": "^14.2.3"
-  }
+  "devDependencies": {
+    "turbo": "^1.10.16"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
 }

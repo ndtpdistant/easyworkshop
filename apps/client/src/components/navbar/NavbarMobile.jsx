@@ -115,10 +115,10 @@ const NavbarMobile = ({ setName }) => {
           </div>
           <div className={style.burgerItem}>
             <Link
-              to={'/'}
+              to={'/slicer'}
               onClick={() => setMenuOpen((prevState) => !prevState)}
             >
-              About
+              Slicer
             </Link>
           </div>
           <div className={style.burgerItem}>

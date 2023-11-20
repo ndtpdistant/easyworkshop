@@ -29,6 +29,7 @@ const Add = () => {
     const files = [...uploadedImages, ...uploadedFiles];
     const authToken = localStorage.getItem('token');
     createItem(title.value, about, files, authToken);
+    navigation('/ ')
   };
 
   const handleFilesUpload = (e) => {
@@ -37,7 +38,6 @@ const Add = () => {
     }
     setUploadedFiles(e.target.files);
     setFilesLength([e.target.value].length);
-    navigation('/ ');
   };
 
   const handleImagesUpload = (e) => {
